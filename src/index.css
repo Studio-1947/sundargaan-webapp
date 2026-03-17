@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* ============================================================
+   SUNDARGAAN DESIGN SYSTEM
+   ============================================================ */
+
+/* ——— Tailwind v4 Theme Extension ——— */
+@theme {
+  /* Brand Color Scale */
+  --color-brand-1: #CA450C;
+  --color-brand-2: #E15012;
+  --color-brand-3: #E86228;
+  --color-brand-4: #E77746;
+  --color-brand-5: #E78B64;
+  --color-brand-6: #E89F80;
+  --color-brand-7: #EAB39B;
+  --color-brand-8: #EDC6B5;
+  --color-brand-9: #F1D8CD;
+  --color-brand-10: #F7EAE5;
+  --color-brand-11: #FEFCFB;
+  --color-brand-primary: #CB460C;
+
+  /* Neutrals */
+  --color-ink: #1a1005;
+  --color-ink-muted: #6b5b4f;
+  --color-ink-subtle: #a89080;
+  --color-surface: #FEFCFB;
+  --color-surface-warm: #F7EAE5;
+  --color-border: #e5d5cd;
+
+  /* Font Families */
+  --font-family-display: 'Playfair Display', Georgia, serif;
+  --font-family-body: 'Inter', system-ui, sans-serif;
+
+  /* Spacing extras */
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+}
+
+/* ——— Base Layer ——— */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family-body);
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* ——— Typography ——— */
+.font-display {
+  font-family: var(--font-family-display);
+}
+
+.font-body {
+  font-family: var(--font-family-body);
+}
+
+/* ——— Smooth Scrollbar ——— */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-brand-11);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-8);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-5);
+}
+
+/* ——— Selection ——— */
+::selection {
+  background: var(--color-brand-9);
+  color: var(--color-brand-1);
+}
+
+/* ——— Animations ——— */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease both;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }

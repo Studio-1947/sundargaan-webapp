@@ -1,0 +1,24 @@
+import React from 'react'
+import logoCol from '../../assets/sundargaan_logo_col.svg'
+import logoWhite from '../../assets/sundargaan_logo_white.svg'
+
+interface LogoProps {
+  variant?: 'color' | 'white'
+  className?: string
+  height?: number
+}
+
+const Logo: React.FC<LogoProps> = ({ variant = 'color', className = '', height = 48 }) => {
+  const src = variant === 'white' ? logoWhite : logoCol
+  return (
+    <img
+      src={src}
+      alt="Sundargaan"
+      height={height}
+      style={{ height: `${height}px`, width: 'auto' }}
+      className={className}
+    />
+  )
+}
+
+export default Logo
