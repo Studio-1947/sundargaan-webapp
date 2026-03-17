@@ -29,20 +29,20 @@ const Navbar: React.FC = () => {
       }}
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
     >
-      <div className="max-w-screen-xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+      <div className="max-w-screen-xl mx-auto px-6 md:px-10 h-24 flex items-center justify-between">
 
         {/* Logo */}
         <a href="/" className="flex-shrink-0 flex items-center" aria-label="Sundargaan Home">
-          <Logo variant="color" height={36} />
+          <Logo variant="color" height={52} />
         </a>
 
         {/* Nav Links */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-12">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="font-body text-sm font-medium tracking-wide transition-colors duration-200"
+              className="font-body text-base font-medium tracking-wide transition-colors duration-200"
               style={{ color: '#4a3b33' }}
               onMouseEnter={(e) => (e.currentTarget.style.color = '#CB460C')}
               onMouseLeave={(e) => (e.currentTarget.style.color = '#4a3b33')}
@@ -53,20 +53,20 @@ const Navbar: React.FC = () => {
         </nav>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-6">
-          <Button variant="primary" size="sm" className="px-8">
+        <div className="flex items-center gap-10">
+          <Button variant="primary" size="lg" className="px-10">
             Join
           </Button>
 
           {/* Language Toggle */}
           <div
-            className="flex items-center gap-3 group cursor-pointer"
+            className="flex items-center gap-4 group cursor-pointer"
           >
             <div
-              className="w-8 h-8 rounded-full transition-colors duration-200"
+              className="w-10 h-10 rounded-full transition-colors duration-200"
               style={{ backgroundColor: '#D9D9D9' }}
             />
-            <span className="font-body text-sm font-medium" style={{ color: '#4a3b33' }}>
+            <span className="font-body text-base font-medium" style={{ color: '#4a3b33' }}>
               BE
             </span>
           </div>
