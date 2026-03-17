@@ -62,7 +62,7 @@ const Footer: React.FC = () => {
           {/* Link Columns */}
           {footerLinks.map((section) => (
             <div key={section.title} className="space-y-6">
-              <h4 className="font-body font-semibold text-[#1a1005] uppercase tracking-widest text-xs">
+              <h4 className="font-body font-normal text-[#1a1005] uppercase tracking-[0.2em] text-[10px]">
                 {section.title}
               </h4>
               <ul className="space-y-4">

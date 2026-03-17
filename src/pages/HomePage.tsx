@@ -23,10 +23,10 @@ const HomePage: React.FC = () => {
               className="font-body animate-fade-in-up delay-100"
               style={{
                 fontSize: 'clamp(3rem, 6vw, 5rem)',
-                fontWeight: 500,
+                fontWeight: 400,
                 lineHeight: 1,
                 color: '#1a1005',
-                letterSpacing: '-0.04em',
+                letterSpacing: '-0.02em',
                 marginBottom: '1rem',
               }}
             >
@@ -86,6 +86,119 @@ const HomePage: React.FC = () => {
             style={{ backgroundColor: '#F7EAE5' }}
           >
             <MediaGrid />
+          </div>
+        </div>
+      </section>
+
+      {/* ——— Section 2: The Living Archive ——— */}
+      <section id="archive" className="px-6 md:px-10 py-20">
+        <div className="max-w-screen-xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16">
+            <div className="space-y-6 max-w-2xl">
+              <h2 className="font-display font-normal text-5xl md:text-6xl text-[#1a1005] tracking-tight">
+                The Living Archive
+              </h2>
+              <p className="font-body text-[#6b5b4f] text-lg leading-relaxed">
+                Explore a vast collection of traditional songs, folk tales, and oral histories recorded directly 
+                from the hearts of the Sundarbans. Each piece is a testament to the resilient spirit 
+                of our land.
+              </p>
+            </div>
+            <Button variant="outline" className="h-14 px-10">
+              Explore All
+            </Button>
+          </div>
+
+          {/* Featured Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { title: 'Bhatiali Jowar', category: 'Boatman Songs' },
+              { title: 'Bonbibi Katha', category: 'Mythological Oral History' },
+              { title: 'Ektara Jhumur', category: 'Celebratory Folk' },
+            ].map((item, i) => (
+              <div 
+                key={i} 
+                className="group relative bg-[#F7EAE5] rounded-[32px] overflow-hidden aspect-[4/5] cursor-pointer"
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1a1005]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 flex flex-col justify-end p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                  <span className="text-white/80 font-body text-xs uppercase tracking-widest mb-2 opacity-0 group-hover:opacity-100 transition-opacity delay-100">
+                    {item.category}
+                  </span>
+                  <h3 className="text-white font-display font-normal text-3xl opacity-0 group-hover:opacity-100 transition-opacity delay-200">
+                    {item.title}
+                  </h3>
+                </div>
+                {/* Placeholder visual */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#CB460C]/20 font-display text-8xl">
+                  {i + 1}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ——— Section 3: Meet the Artists (Asymmetric Card) ——— */}
+      <section id="artists" className="px-6 md:px-10 py-20">
+        <div 
+          className="max-w-screen-2xl mx-auto bg-[#1a1005] rounded-[48px] overflow-hidden flex flex-col lg:flex-row shadow-2xl"
+          style={{ minHeight: '600px' }}
+        >
+          {/* Artist Image/Visual */}
+          <div className="lg:w-1/2 relative bg-[#CB460C]/10 flex items-center justify-center p-20">
+             <div className="absolute inset-0 opacity-20" style={{ background: 'radial-gradient(circle, #CB460C 0%, transparent 70%)' }} />
+             <div className="relative font-display text-[12vw] text-[#FEFCFB]/5 leading-none select-none">
+                ARTISTS
+             </div>
+             <div className="absolute inset-20 border border-[#FEFCFB]/10 rounded-full animate-pulse" />
+          </div>
+
+          {/* Artist Content */}
+          <div className="lg:w-1/2 p-12 md:p-20 flex flex-col justify-center space-y-8">
+            <h2 className="font-display font-normal text-5xl md:text-6xl text-[#FEFCFB] tracking-tight">
+              Voices of the Mud
+            </h2>
+            <p className="font-body text-[#a89080] text-lg leading-relaxed max-w-xl">
+              From the humble fishers to the wandering bauls, these are the artists who breathe life 
+              into our culture. Join us in celebrating their craft and ensuring their songs are heard 
+              by generations to come.
+            </p>
+            <div className="pt-6">
+              <Button variant="primary" size="lg" className="px-12 bg-[#CB460C] !border-[#CB460C]">
+                Meet the Team
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ——— Section 4: Our Impact (Editorial Layout) ——— */}
+      <section id="impact" className="px-6 md:px-10 py-32">
+        <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center gap-20">
+          <div className="md:w-1/3 text-center md:text-left">
+            <h2 className="font-display font-normal text-4xl text-[#1a1005] mb-8 tracking-tight">
+              Documenting Change, Preserving Legacy.
+            </h2>
+            <div className="h-px w-20 bg-[#CB460C] mx-auto md:mx-0" />
+          </div>
+          
+          <div className="flex-1 grid grid-cols-2 gap-10">
+            {[
+              { val: '750+', label: 'Songs Preserved' },
+              { val: '120+', label: 'Artists Supported' },
+              { val: '24', label: 'Villages Documented' },
+              { val: '1.2M', label: 'Cultural Digital Grains' },
+            ].map((stat, i) => (
+              <div key={i} className="space-y-4">
+                <span className="block font-display font-normal text-6xl text-[#CB460C]">
+                  {stat.val}
+                </span>
+                <span className="block font-body text-sm uppercase tracking-widest text-[#a89080]">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
