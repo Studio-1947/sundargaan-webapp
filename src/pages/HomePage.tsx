@@ -1,8 +1,12 @@
 import React from 'react'
 import Button from '../components/ui/Button'
 import MediaGrid from '../components/ui/MediaGrid'
+import PremiumSundargaanText from '../components/ui/PremiumSundargaanText'
+import { useLanguage } from '../context/LanguageContext'
 
 const HomePage: React.FC = () => {
+  const { t, language } = useLanguage()
+
   return (
     <main className="min-h-screen relative" style={{ backgroundColor: '#FEFCFB', paddingTop: '96px' }}>
       {/* ——— Hero Section (Centered Card) ——— */}
@@ -19,8 +23,9 @@ const HomePage: React.FC = () => {
             className="flex flex-col justify-center px-10 md:px-16 lg:px-24 py-24 w-full md:w-1/2"
           >
             {/* Headline */}
-            <h1
-              className="font-body animate-fade-in-up delay-100"
+            <PremiumSundargaanText 
+              text={t('hero.title')}
+              className="font-body"
               style={{
                 fontSize: 'clamp(3rem, 6vw, 5rem)',
                 fontWeight: 400,
@@ -29,9 +34,7 @@ const HomePage: React.FC = () => {
                 letterSpacing: '-0.02em',
                 marginBottom: '1rem',
               }}
-            >
-              Sundargaan
-            </h1>
+            />
 
             {/* Body copy */}
             <div className="space-y-1 mb-12">
@@ -44,7 +47,7 @@ const HomePage: React.FC = () => {
                   letterSpacing: '-0.01em',
                 }}
               >
-                Where the land sings of mangroves and mud.
+                {t('hero.tagline1')}
               </p>
               <p
                 className="font-body animate-fade-in-up delay-300"
@@ -55,17 +58,17 @@ const HomePage: React.FC = () => {
                   letterSpacing: '-0.01em',
                 }}
               >
-                Stories of soil, rhythm of the Ektara.
+                {t('hero.tagline2')}
               </p>
             </div>
 
             {/* CTAs */}
             <div className="flex items-center gap-4 animate-fade-in-up delay-400">
               <Button variant="primary" size="lg" className="px-10">
-                Join
+                {t('hero.btn.join')}
               </Button>
               <Button variant="outline" size="lg" className="px-10">
-                Know more
+                {t('hero.btn.more')}
               </Button>
             </div>
           </div>
@@ -82,8 +85,11 @@ const HomePage: React.FC = () => {
 
           {/* ── Right Panel: Media Grid ── */}
           <div
-            className="flex flex-1 animate-fade-in delay-200 overflow-hidden"
-            style={{ backgroundColor: '#F7EAE5' }}
+            className="flex w-full md:flex-1 animate-fade-in delay-200 overflow-hidden"
+            style={{ 
+              backgroundColor: '#F7EAE5',
+              minHeight: '400px'
+            }}
           >
             <MediaGrid />
           </div>
@@ -96,25 +102,23 @@ const HomePage: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16">
             <div className="space-y-6 max-w-2xl">
               <h2 className="font-display font-normal text-5xl md:text-6xl text-[#1a1005] tracking-tight">
-                The Living Archive
+                {t('archive.title')}
               </h2>
               <p className="font-body text-[#6b5b4f] text-lg leading-relaxed">
-                Explore a vast collection of traditional songs, folk tales, and oral histories recorded directly 
-                from the hearts of the Sundarbans. Each piece is a testament to the resilient spirit 
-                of our land.
+                {t('archive.desc')}
               </p>
             </div>
             <Button variant="outline" className="h-14 px-10">
-              Explore All
+              {t('archive.btn.explore')}
             </Button>
           </div>
 
           {/* Featured Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: 'Bhatiali Jowar', category: 'Boatman Songs' },
-              { title: 'Bonbibi Katha', category: 'Mythological Oral History' },
-              { title: 'Ektara Jhumur', category: 'Celebratory Folk' },
+              { title: t('archive.item1'), category: t('archive.cat1') },
+              { title: t('archive.item2'), category: t('archive.cat2') },
+              { title: t('archive.item3'), category: t('archive.cat3') },
             ].map((item, i) => (
               <div 
                 key={i} 
@@ -131,7 +135,7 @@ const HomePage: React.FC = () => {
                 </div>
                 {/* Placeholder visual */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#CB460C]/20 font-display text-8xl">
-                  {i + 1}
+                  {language === 'EN' ? i + 1 : (i + 1).toLocaleString('bn-BD')}
                 </div>
               </div>
             ))}
@@ -149,7 +153,7 @@ const HomePage: React.FC = () => {
           <div className="lg:w-1/2 relative bg-[#CB460C]/10 flex items-center justify-center p-20">
              <div className="absolute inset-0 opacity-20" style={{ background: 'radial-gradient(circle, #CB460C 0%, transparent 70%)' }} />
              <div className="relative font-display text-[12vw] text-[#FEFCFB]/5 leading-none select-none">
-                ARTISTS
+                {t('artists.bg')}
              </div>
              <div className="absolute inset-20 border border-[#FEFCFB]/10 rounded-full animate-pulse" />
           </div>
@@ -157,16 +161,14 @@ const HomePage: React.FC = () => {
           {/* Artist Content */}
           <div className="lg:w-1/2 p-12 md:p-20 flex flex-col justify-center space-y-8">
             <h2 className="font-display font-normal text-5xl md:text-6xl text-[#FEFCFB] tracking-tight">
-              Voices of the Mud
+              {t('artists.title')}
             </h2>
             <p className="font-body text-[#a89080] text-lg leading-relaxed max-w-xl">
-              From the humble fishers to the wandering bauls, these are the artists who breathe life 
-              into our culture. Join us in celebrating their craft and ensuring their songs are heard 
-              by generations to come.
+              {t('artists.desc')}
             </p>
             <div className="pt-6">
               <Button variant="primary" size="lg" className="px-12 bg-[#CB460C] !border-[#CB460C]">
-                Meet the Team
+                {t('artists.btn')}
               </Button>
             </div>
           </div>
@@ -178,17 +180,17 @@ const HomePage: React.FC = () => {
         <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center gap-20">
           <div className="md:w-1/3 text-center md:text-left">
             <h2 className="font-display font-normal text-4xl text-[#1a1005] mb-8 tracking-tight">
-              Documenting Change, Preserving Legacy.
+              {t('impact.title')}
             </h2>
             <div className="h-px w-20 bg-[#CB460C] mx-auto md:mx-0" />
           </div>
           
           <div className="flex-1 grid grid-cols-2 gap-10">
             {[
-              { val: '750+', label: 'Songs Preserved' },
-              { val: '120+', label: 'Artists Supported' },
-              { val: '24', label: 'Villages Documented' },
-              { val: '1.2M', label: 'Cultural Digital Grains' },
+              { val: t('impact.stat1.val'), label: t('impact.stat1.label') },
+              { val: t('impact.stat2.val'), label: t('impact.stat2.label') },
+              { val: t('impact.stat3.val'), label: t('impact.stat3.label') },
+              { val: t('impact.stat4.val'), label: t('impact.stat4.label') },
             ].map((stat, i) => (
               <div key={i} className="space-y-4">
                 <span className="block font-display font-normal text-6xl text-[#CB460C]">
@@ -209,7 +211,7 @@ const HomePage: React.FC = () => {
         aria-hidden="true"
       >
         <span className="font-body text-xs tracking-widest uppercase" style={{ color: '#a89080' }}>
-          Explore
+          {t('hero.scroll')}
         </span>
         <div
           className="w-px h-10"

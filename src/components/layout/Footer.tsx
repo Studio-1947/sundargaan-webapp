@@ -1,34 +1,36 @@
 import React from 'react'
 import Logo from '../ui/Logo'
+import { useLanguage } from '../../context/LanguageContext'
 
 const Footer: React.FC = () => {
+  const { t } = useLanguage()
   const currentYear = new Date().getFullYear()
 
   const footerLinks = [
     {
-      title: 'Navigation',
+      title: t('footer.nav'),
       links: [
-        { label: 'About', href: '#about' },
-        { label: 'Archive', href: '#archive' },
-        { label: 'Meet the artists', href: '#artists' },
-        { label: 'Impact', href: '#impact' },
+        { label: t('nav.about'), href: '#about' },
+        { label: t('nav.archive'), href: '#archive' },
+        { label: t('nav.artists'), href: '#artists' },
+        { label: t('nav.impact'), href: '#impact' },
       ],
     },
     {
-      title: 'Community',
+      title: t('footer.community'),
       links: [
-        { label: 'Join Us', href: '#join' },
-        { label: 'Support', href: '#support' },
-        { label: 'Newsletter', href: '#newsletter' },
-        { label: 'Events', href: '#events' },
+        { label: t('footer.join'), href: '#join' },
+        { label: t('footer.support'), href: '#support' },
+        { label: t('footer.newsletter'), href: '#newsletter' },
+        { label: t('footer.events'), href: '#events' },
       ],
     },
     {
-      title: 'Legal',
+      title: t('footer.legal'),
       links: [
-        { label: 'Privacy Policy', href: '#privacy' },
-        { label: 'Terms of Service', href: '#terms' },
-        { label: 'Cookie Policy', href: '#cookies' },
+        { label: t('footer.privacy'), href: '#privacy' },
+        { label: t('footer.terms'), href: '#terms' },
+        { label: t('footer.cookies'), href: '#cookies' },
       ],
     },
   ]
@@ -42,8 +44,7 @@ const Footer: React.FC = () => {
           <div className="lg:col-span-2 space-y-6">
             <Logo variant="color" height={56} />
             <p className="font-body text-[#6b5b4f] max-w-sm leading-relaxed">
-              Preserving and celebrating the living musical heritage of the Sundarbans. 
-              Sundargaan is a digital sanctuary for the stories of soil and the rhythm of the Ektara.
+              {t('footer.brand')}
             </p>
             <div className="flex gap-4">
               {['Instagram', 'Facebook', 'YouTube'].map((social) => (
@@ -84,14 +85,14 @@ const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="border-t border-[#e5d5cd] pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="font-body text-xs text-[#a89080]">
-            © {currentYear} Sundargaan. All rights reserved. Built with love in Bengal.
+            © {currentYear} Sundargaan. {t('footer.rights')}
           </p>
           <div className="flex gap-8">
             <button 
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="font-body text-xs font-semibold uppercase tracking-widest text-[#CB460C] hover:opacity-70 transition-opacity"
             >
-              Back to top ↑
+              {t('footer.top')} ↑
             </button>
           </div>
         </div>
