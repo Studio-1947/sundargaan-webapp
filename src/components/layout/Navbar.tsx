@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
 
         {/* Logo */}
         <a href="/" className="flex-shrink-0 flex items-center" aria-label="Sundargaan Home">
-          <Logo variant="color" height={52} />
+          <Logo variant="color" height={64} />
         </a>
 
         {/* Nav Links */}
