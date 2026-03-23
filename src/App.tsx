@@ -3,6 +3,7 @@ import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import HomePage from './pages/HomePage'
 import ArchivePage from './pages/ArchivePage'
+import ImpactPage from './pages/ImpactPage'
 import { LanguageProvider } from './context/LanguageContext'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/archive" element={<ArchivePage />} />
+            <Route path="/impact" element={<ImpactPage />} />
           </Routes>
         </main>
         <Footer />

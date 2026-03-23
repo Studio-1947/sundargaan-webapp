@@ -79,6 +79,54 @@ const translations: Translations = {
   'footer.cookies': { EN: 'Cookie Policy', BN: 'কুকি নীতি' },
   'footer.rights': { EN: 'All rights reserved. Built with love in Bengal.', BN: 'সর্বস্বত্ব সংরক্ষিত। বাংলায় ভালোবাসায় নির্মিত।' },
   'footer.top': { EN: 'Back to top', BN: 'উপরে ফিরে যান' },
+
+  // Impact Page Detailed
+  'impact.page.hero.title': { EN: 'The Ripple of Your Contribution', BN: 'আপনার অবদানের তরঙ্গ' },
+  'impact.page.hero.desc': { EN: 'How every rupee and every listen transforms the lives of artists in the Sunderbans.', BN: 'কীভাবে প্রতিটি টাকা এবং প্রতিটি শোনা সুন্দরবনের শিল্পীদের জীবন বদলে দেয়।' },
+  'impact.page.flow.title': { EN: 'Cycle of Sustainability', BN: 'স্থায়িত্বের চক্র' },
+  'impact.page.flow.desc': { EN: 'We believe in radical transparency. Here is how we distribute the funds generated through Sundargaan.', BN: 'আমরা আমূল স্বচ্ছতায় বিশ্বাস করি। সুন্দরগানের মাধ্যমে উৎপন্ন অর্থ আমরা কীভাবে বণ্টন করি তা এখানে দেওয়া হলো।' },
+  'impact.page.artist.share': { EN: '60% Artist Support', BN: '৬০% শিল্পীর সহায়তা' },
+  'impact.page.artist.desc': { EN: 'Direct financial support, project fees, and fair wages for recordings and performances.', BN: 'রেকর্ডিং এবং পারফরম্যান্সের জন্য সরাসরি আর্থিক সহায়তা, প্রকল্পের ফি এবং ন্যায্য মজুরি।' },
+  'impact.page.community.share': { EN: '20% Community & Culture', BN: '২০% সম্প্রদায় ও সংস্কৃতি' },
+  'impact.page.community.desc': { EN: 'Funding for Chorcha Kendra (Practice Centers) and our annual Music Festival.', BN: 'চর্চা কেন্দ্র এবং আমাদের বার্ষিক সংগীত উৎসবের জন্য অর্থায়ন।' },
+  'impact.page.ops.share': { EN: '15% Operational Roots', BN: '১৫% অপারেশনাল মূল' },
+  'impact.page.ops.desc': { EN: 'Supporting ELF and Studio 1947, the infrastructure that records and preserves our heritage.', BN: 'ইএলএফ (ELF) এবং স্টুডিও ১৯৪৭-কে সমর্থন করা, যা আমাদের ঐতিহ্য রেকর্ড এবং সংরক্ষণ করার পরিকাঠামো।' },
+  'impact.page.security.share': { EN: '5% Artist Security', BN: '৫% শিল্পী নিরাপত্তা' },
+  'impact.page.security.desc': { EN: 'Insurance, health support, and emergency funds for our artist community.', BN: 'আমাদের শিল্পী সম্প্রদায়ের জন্য বীমা, স্বাস্থ্য সহায়তা এবং জরুরি তহবিল।' },
+  'impact.page.story.title': { EN: 'Transforming Lives', BN: 'জীবন পরিবর্তন' },
+  'impact.page.story.desc': { EN: 'Sustainable income means more than just money—it means dignity, pride, and the ability to keep the Ektara singing.', BN: 'স্থায়ী আয় মানে শুধু টাকা নয়—এর মানে সম্মান, গর্ব এবং একতারা বাজিয়ে রাখার সক্ষমতা।' },
+
+  // Unified Flow Nodes
+  'impact.flow.source.contribution': { EN: 'Your Contribution', BN: 'আপনার অবদান' },
+  'impact.flow.source.youtube': { EN: 'YouTube Revenue', BN: 'ইউটিউব রাজস্ব' },
+  'impact.flow.source.spotify': { EN: 'Streaming (Spotify+)', BN: 'স্ট্রিমিং (স্পটিফাই+)' },
+  'impact.flow.source.festival': { EN: 'Music Festival', BN: 'সংগীত উৎসব' },
+  
+  'impact.flow.hub.overall': { EN: 'Overall Money', BN: 'মোট অর্থ' },
+  
+  'impact.flow.output.artist': { EN: 'Artist (60%)', BN: 'শিল্পী (৬০%)' },
+  'impact.flow.output.community': { EN: 'Community (20%)', BN: 'সম্প্রদায় (২০%)' },
+  'impact.flow.output.ops': { EN: 'Operations (15%)', BN: 'অপারেশনস (১৫%)' },
+  'impact.flow.output.security': { EN: 'Security/Health (5%)', BN: 'নিরাপত্তা/স্বাস্থ্য (৫%)' },
+  
+  'impact.flow.detail.booking': { EN: 'Artist Booking', BN: 'শিল্পী বুকিং' },
+  'impact.flow.detail.account': { EN: 'Artist Account', BN: 'শিল্পীর অ্যাকাউন্ট' },
+  
+  // Existing Detailed Storytelling Funnels (Retained and repurposed as tooltips/modals)
+  'impact.page.artist.detail.title': { EN: 'How Music Artists Benefit', BN: 'সংগীত শিল্পীরা যেভাবে উপকৃত হন' },
+  'impact.page.artist.detail.desc': { EN: 'Direct financial support and professional growth for our artist community.', BN: 'আমাদের শিল্পী সম্প্রদায়ের জন্য সরাসরি আর্থিক সহায়তা এবং পেশাদার বিকাশ।' },
+  'impact.page.gurukul.detail.title': { EN: 'Gurukul Academy', BN: 'গুরুকুল একাডেমি' },
+  'impact.page.gurukul.detail.desc': { EN: 'Nurturing the next generation through traditional mentorship at Chorcha Kendra.', BN: 'চর্চা কেন্দ্রে ঐতিহ্যবাহী মেন্টরশিপের মাধ্যমে পরবর্তী প্রজন্মকে লালন করা।' },
+  'impact.page.legacy.detail.title': { EN: 'Preserving for the Future', BN: 'ভবিষ্যতের জন্য সংরক্ষণ' },
+  'impact.page.legacy.detail.desc': { EN: 'Documenting endangered melodies through Studio 1947 and ELF.', BN: 'স্টুডিও ১৯৪৭ এবং ইএলএফ (ELF)-এর মাধ্যমে বিলুপ্তপ্রায় সুরগুলোকে নথিবদ্ধ করা।' },
+  
+  'impact.page.detail.explore': { EN: 'Explore the Funnel', BN: 'ফানেলটি অন্বেষণ করুন' },
+  'impact.page.detail.artist.point1': { EN: 'Fair royalties from digital streams', BN: 'ডিজিটাল স্ট্রিম থেকে ন্যায্য রয়্যালটি' },
+  'impact.page.detail.artist.point2': { EN: 'Direct performance fees', BN: 'সরাসরি পারফরম্যান্স ফি' },
+  'impact.page.detail.gurukul.point1': { EN: 'Collective practice spaces', BN: 'সম্মিলিত অনুশীলনের জায়গা' },
+  'impact.page.detail.gurukul.point2': { EN: 'Oral heritage transmission', BN: 'মৌখিক ঐতিহ্যের সঞ্চালন' },
+  'impact.page.detail.legacy.point1': { EN: 'Saving lost preservation work', BN: 'হারিয়ে যাওয়া সংরক্ষণ কাজ বাঁচানো' },
+  'impact.page.detail.legacy.point2': { EN: 'Digital archive for future ears', BN: 'আগামী দিনের জন্য ডিজিটাল আর্কাইভ' },
 };
 
 interface LanguageContextType {

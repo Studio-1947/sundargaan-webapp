@@ -35,6 +35,10 @@
   /* Spacing extras */
   --spacing-18: 4.5rem;
   --spacing-22: 5.5rem;
+
+  /* Custom Gradients */
+  --bg-radial-hero: radial-gradient(circle at 50% 0%, var(--color-brand-primary) 0%, transparent 70%);
+  --bg-radial-impact: radial-gradient(circle, var(--color-brand-primary) 0%, transparent 70%);
 }
 
 /* ——— Base Layer ——— */

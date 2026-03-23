@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
         { label: t('nav.about'), href: '#about' },
         { label: t('nav.archive'), href: '#archive' },
         { label: t('nav.artists'), href: '#artists' },
-        { label: t('nav.impact'), href: '#impact' },
+        { label: t('nav.impact'), href: '/impact' },
       ],
     },
     {
