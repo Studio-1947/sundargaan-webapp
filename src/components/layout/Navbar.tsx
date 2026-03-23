@@ -5,16 +5,19 @@ import Button from '../ui/Button'
 import LanguageToggle from '../ui/LanguageToggle'
 import { useLanguage } from '../../context/LanguageContext'
 
+import { Link, useLocation } from 'react-router-dom'
+
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { t, language } = useLanguage()
+  const location = useLocation()
 
   const navLinks = [
-    { label: t('nav.about'), href: '#about' },
-    { label: t('nav.archive'), href: '#archive' },
-    { label: t('nav.artists'), href: '#artists' },
-    { label: t('nav.impact'), href: '#impact' },
+    { label: t('nav.about'), href: '/#about' },
+    { label: t('nav.archive'), href: '/archive' },
+    { label: t('nav.artists'), href: '/#artists' },
+    { label: t('nav.impact'), href: '/#impact' },
   ]
 
   useEffect(() => {
@@ -46,23 +49,25 @@ const Navbar: React.FC = () => {
       <div className="max-w-screen-xl mx-auto px-6 md:px-10 h-24 flex items-center justify-between relative z-50">
 
         {/* Logo */}
-        <a href="/" className="flex-shrink-0 flex items-center" aria-label="Sundargaan Home">
+        <Link to="/" className="flex-shrink-0 flex items-center" aria-label="Sundargaan Home">
           <Logo variant="color" height={64} />
-        </a>
+        </Link>
 
         {/* Nav Links - Desktop */}
         <nav className="hidden md:flex items-center gap-8 lg:gap-12">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.label}
-              href={link.href}
-              className="font-body text-base font-medium tracking-wide transition-colors duration-200"
-              style={{ color: '#4a3b33' }}
+              to={link.href}
+              className={`font-body text-base font-medium tracking-wide transition-colors duration-200 ${
+                location.pathname === link.href ? 'text-brand-primary' : ''
+              }`}
+              style={{ color: location.pathname === link.href ? '#CB460C' : '#4a3b33' }}
               onMouseEnter={(e) => (e.currentTarget.style.color = '#CB460C')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = '#4a3b33')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = location.pathname === link.href ? '#CB460C' : '#4a3b33')}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -112,17 +117,20 @@ const Navbar: React.FC = () => {
           >
             <nav className="flex flex-col gap-8 mb-12">
               {navLinks.map((link, i) => (
-                <motion.a
+                <motion.div
                   key={link.label}
-                  href={link.href}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 + i * 0.05 }}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="font-display text-4xl font-normal text-[#1a1005]"
                 >
-                  {link.label}
-                </motion.a>
+                  <Link
+                    to={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="font-display text-4xl font-normal text-[#1a1005]"
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
               ))}
             </nav>
             
