@@ -8,7 +8,6 @@ interface PremiumSundargaanTextProps {
 }
 
 const PremiumSundargaanText: React.FC<PremiumSundargaanTextProps> = ({ text, className, style }) => {
-  const letters = Array.from(text)
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -42,29 +41,32 @@ const PremiumSundargaanText: React.FC<PremiumSundargaanTextProps> = ({ text, cla
   return (
     <motion.h1
       key={text}
-      className={`relative flex flex-nowrap ${className}`}
+      className={`relative flex flex-wrap ${className}`}
       style={style}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
-      {letters.map((letter, index) => (
-        <motion.span
-          key={index}
-          variants={childVariants}
-          whileHover={{
-            y: -8,
-            color: '#CB460C',
-            transition: { duration: 0.2, ease: 'easeOut' },
-          }}
-          style={{ 
-            display: 'inline-block',
-            cursor: 'default',
-            marginRight: letter === ' ' ? '0.25em' : '0'
-          }}
-        >
-          {letter === ' ' ? '\u00A0' : letter}
-        </motion.span>
+      {text.split(' ').map((word, wordIndex) => (
+        <span key={wordIndex} className="inline-block whitespace-nowrap mr-[0.25em]">
+          {Array.from(word).map((letter, letterIndex) => (
+            <motion.span
+              key={letterIndex}
+              variants={childVariants}
+              whileHover={{
+                y: -8,
+                color: '#CB460C',
+                transition: { duration: 0.2, ease: 'easeOut' },
+              }}
+              style={{ 
+                display: 'inline-block',
+                cursor: 'default',
+              }}
+            >
+              {letter}
+            </motion.span>
+          ))}
+        </span>
       ))}
     </motion.h1>
   )

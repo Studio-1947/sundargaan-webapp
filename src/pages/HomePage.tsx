@@ -12,22 +12,21 @@ const HomePage: React.FC = () => {
       {/* ——— Hero Section (Centered Card) ——— */}
       <section className="px-6 md:px-10 py-6 md:py-10">
         <div
-          className="relative flex flex-col md:flex-row overflow-hidden border border-[#e5d5cd] shadow-[0_24px_80px_rgba(203,70,12,0.08)] bg-white mx-auto max-w-screen-2xl"
+          className="relative flex flex-col md:flex-row overflow-hidden border border-[#e5d5cd] shadow-[0_24px_80px_rgba(203,70,12,0.08)] bg-white mx-auto max-w-screen-2xl rounded-[32px] md:rounded-[48px]"
           style={{
-            minHeight: 'calc(100vh - 176px)',
-            borderRadius: '48px'
+            minHeight: 'calc(100vh - 140px)',
           }}
         >
           {/* ── Left Panel: Content ── */}
           <div
-            className="flex flex-col justify-center px-10 md:px-16 lg:px-24 py-24 w-full md:w-1/2"
+            className="flex flex-col justify-center px-6 sm:px-10 md:px-16 lg:px-24 py-16 md:py-24 w-full md:w-1/2"
           >
             {/* Headline */}
             <PremiumSundargaanText 
               text={t('hero.title')}
               className="font-body"
               style={{
-                fontSize: 'clamp(3rem, 6vw, 5rem)',
+                fontSize: 'clamp(2.5rem, 10vw, 4.5rem)',
                 fontWeight: 400,
                 lineHeight: 1,
                 color: '#1a1005',
@@ -63,11 +62,11 @@ const HomePage: React.FC = () => {
             </div>
 
             {/* CTAs */}
-            <div className="flex items-center gap-4 animate-fade-in-up delay-400">
-              <Button variant="primary" size="lg" className="px-10">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 animate-fade-in-up delay-400">
+              <Button variant="primary" size="lg" className="px-10 h-14 sm:h-auto">
                 {t('hero.btn.join')}
               </Button>
-              <Button variant="outline" size="lg" className="px-10">
+              <Button variant="outline" size="lg" className="px-10 h-14 sm:h-auto">
                 {t('hero.btn.more')}
               </Button>
             </div>
@@ -146,7 +145,7 @@ const HomePage: React.FC = () => {
       {/* ——— Section 3: Meet the Artists (Asymmetric Card) ——— */}
       <section id="artists" className="px-6 md:px-10 py-20">
         <div 
-          className="max-w-screen-2xl mx-auto bg-[#1a1005] rounded-[48px] overflow-hidden flex flex-col lg:flex-row shadow-2xl"
+          className="max-w-screen-2xl mx-auto bg-[#1a1005] rounded-[32px] md:rounded-[48px] overflow-hidden flex flex-col lg:flex-row shadow-2xl"
           style={{ minHeight: '600px' }}
         >
           {/* Artist Image/Visual */}

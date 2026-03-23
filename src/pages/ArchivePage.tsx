@@ -75,7 +75,7 @@ const ArchivePage: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-7xl mx-auto bg-white rounded-[2.5rem] sm:rounded-[4rem] shadow-2xl overflow-hidden flex flex-col min-h-[600px] sm:min-h-[800px] border border-white/20"
+            className="max-w-7xl mx-auto bg-white rounded-[2rem] sm:rounded-[4rem] shadow-2xl overflow-hidden flex flex-col min-h-[500px] sm:min-h-[800px] border border-white/20"
           >
             {/* Integrated Header */}
             <header className="px-6 sm:px-12 py-6 sm:py-10 flex flex-col gap-6 sm:flex-row items-center justify-between bg-white relative z-30 border-b border-border/10 sm:border-none">
@@ -117,13 +117,13 @@ const ArchivePage: React.FC = () => {
             {/* Content Body - Mobile Header Nav + Grid */}
             <div className="flex flex-1 flex-col md:flex-row border-t border-border/40 min-h-0">
                {/* Fixed Sidebar for Desktop / Horizontal Strip for Mobile */}
-               <aside className="w-full md:w-72 border-r border-border/30 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.01)] z-10 overflow-hidden shrink-0">
-                 <div className="p-4 sm:p-12 md:h-full">
-                    <ul className="flex md:flex-col overflow-x-auto md:overflow-y-auto no-scrollbar gap-4 sm:gap-6 md:space-y-6 px-4 md:px-0">
+               <aside className="w-full md:w-72 border-b md:border-b-0 md:border-r border-border/30 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.01)] z-10 overflow-hidden shrink-0">
+                 <div className="p-4 sm:p-6 md:p-12 md:h-full">
+                    <ul className="flex md:flex-col overflow-x-auto md:overflow-y-auto no-scrollbar gap-2 sm:gap-4 md:space-y-6 px-2 md:px-0">
                       <li 
                         onClick={() => setActiveSubcategory(null)}
-                        className={`cursor-pointer text-sm sm:text-[15px] transition-all duration-300 flex items-center gap-4 shrink-0 px-4 py-2 md:p-0 rounded-full md:rounded-none ${
-                          activeSubcategory === null ? 'text-black font-bold bg-surface-warm md:bg-transparent' : 'text-[#BBBBBB] hover:text-ink'
+                        className={`cursor-pointer text-xs sm:text-[15px] transition-all duration-300 flex items-center gap-3 shrink-0 px-4 py-2 rounded-full border md:border-none ${
+                          activeSubcategory === null ? 'text-black font-bold bg-surface-warm border-border/40 md:bg-transparent' : 'text-[#BBBBBB] border-transparent hover:text-ink'
                         }`}
                       >
                          <span>All Areas</span>
@@ -132,8 +132,8 @@ const ArchivePage: React.FC = () => {
                         <li
                           key={sub}
                           onClick={() => setActiveSubcategory(sub)}
-                          className={`cursor-pointer text-sm sm:text-[15px] transition-all duration-300 flex items-center gap-4 shrink-0 px-4 py-2 md:p-0 rounded-full md:rounded-none ${
-                            activeSubcategory === sub ? 'text-black font-bold bg-surface-warm md:bg-transparent' : 'text-[#BBBBBB] hover:text-ink'
+                          className={`cursor-pointer text-xs sm:text-[15px] transition-all duration-300 flex items-center gap-3 shrink-0 px-4 py-2 rounded-full border md:border-none ${
+                            activeSubcategory === sub ? 'text-black font-bold bg-surface-warm border-border/40 md:bg-transparent' : 'text-[#BBBBBB] border-transparent hover:text-ink'
                           }`}
                         >
                            <span>Block {sub}</span>
@@ -198,7 +198,7 @@ const ArchivePage: React.FC = () => {
             
             <motion.div
               layoutId={`detail-${selectedItem.id}`}
-              className="relative w-full h-full sm:h-fit max-w-7xl bg-white rounded-none sm:rounded-[3rem] md:rounded-[4rem] shadow-2xl overflow-hidden flex flex-col max-h-[100vh] sm:max-h-[90vh]"
+              className="relative w-full h-full sm:h-fit max-w-7xl bg-white rounded-none sm:rounded-[2rem] md:rounded-[4rem] shadow-2xl overflow-hidden flex flex-col max-h-[100vh] sm:max-h-[90vh]"
             >
                {/* Close Button - Sticky/Fixed for Mobile */}
                <button 

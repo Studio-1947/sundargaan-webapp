@@ -77,7 +77,7 @@ const Navbar: React.FC = () => {
             <LanguageToggle />
           </div>
           
-          <Button variant="primary" size="lg" className="hidden md:inline-flex px-10">
+          <Button variant="primary" size="lg" className="!hidden md:!inline-flex px-10">
             {t('nav.join')}
           </Button>
 
@@ -110,12 +110,16 @@ const Navbar: React.FC = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: '100vh' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="fixed inset-0 bg-[#FEFCFB] z-40 md:hidden flex flex-col pt-32 px-10"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 bg-[#FEFCFB]/95 backdrop-blur-xl z-40 md:hidden flex flex-col pt-32 px-10"
           >
-            <nav className="flex flex-col gap-8 mb-12">
+            {/* Background decorative elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+            
+            <nav className="flex flex-col gap-6 mb-12 relative z-10">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.label}
@@ -126,7 +130,7 @@ const Navbar: React.FC = () => {
                   <Link
                     to={link.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="font-display text-4xl font-normal text-[#1a1005]"
+                    className="font-display text-4xl font-normal text-[#1a1005] hover:text-brand-primary transition-colors py-2 block"
                   >
                     {link.label}
                   </Link>
@@ -134,13 +138,13 @@ const Navbar: React.FC = () => {
               ))}
             </nav>
             
-            <div className="mt-auto pb-20 space-y-12">
+            <div className="mt-auto pb-16 space-y-10 relative z-10">
               <div className="flex flex-col gap-4">
-                <span className="text-[#a89080] font-body text-sm uppercase tracking-widest">{language === 'BN' ? 'ভাষা' : 'Language'}</span>
+                <span className="text-[#a89080] font-body text-xs uppercase tracking-[0.3em] font-bold">{language === 'BN' ? 'ভাষা' : 'Language'}</span>
                 <LanguageToggle />
               </div>
               
-              <Button variant="primary" size="lg" className="w-full text-xl h-16" onClick={() => setIsMenuOpen(false)}>
+              <Button variant="primary" size="lg" className="w-full text-xl h-16 rounded-2xl shadow-lg shadow-brand-primary/10" onClick={() => setIsMenuOpen(false)}>
                 {t('nav.join')}
               </Button>
             </div>

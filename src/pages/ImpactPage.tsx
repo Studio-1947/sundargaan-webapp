@@ -91,11 +91,11 @@ const ImpactPage: React.FC = () => {
               text={t('impact.page.hero.title')}
               className="justify-center mb-6"
               style={{
-                fontSize: 'clamp(3.5rem, 8vw, 6rem)',
+                fontSize: 'clamp(1.75rem, 8vw, 4.5rem)',
                 fontWeight: 400,
                 color: '#1a1005',
                 letterSpacing: '-0.03em',
-                lineHeight: 1,
+                lineHeight: 1.2,
               }}
             />
           </motion.div>
@@ -115,11 +115,11 @@ const ImpactPage: React.FC = () => {
       <section className="py-24 px-6 relative min-h-[140vh] bg-[#F7EAE5]/20 overflow-hidden">
         <div className="max-w-screen-xl mx-auto relative h-full">
           
-          <div className="text-center mb-48">
+          <div className="text-center mb-24 md:mb-48">
             <h2 className="font-display text-4xl md:text-6xl text-[#1a1005] mb-6">
               {t('impact.page.flow.title')}
             </h2>
-            <p className="font-body text-xl text-[#6b5b4f] max-w-2xl mx-auto leading-relaxed">
+            <p className="font-body text-lg md:text-xl text-[#6b5b4f] max-w-2xl mx-auto leading-relaxed">
               {t('impact.page.flow.desc')}
             </p>
           </div>
@@ -127,8 +127,8 @@ const ImpactPage: React.FC = () => {
           <div ref={containerRef} className="relative grid grid-cols-1 lg:grid-cols-3 gap-24 items-start pb-64">
             
             {/* Column 1: Sources */}
-            <div className="space-y-16 lg:pt-12 relative z-20">
-              <h3 className="font-display text-2xl text-[#1a1005]/40 uppercase tracking-widest text-center lg:text-left mb-8">Revenue Sources</h3>
+            <div className="space-y-10 lg:space-y-16 lg:pt-12 relative z-20">
+              <h3 className="font-display text-xl md:text-2xl text-[#1a1005]/40 uppercase tracking-widest text-center lg:text-left mb-8">Revenue Sources</h3>
               {[
                 { id: 'contribution', label: t('impact.flow.source.contribution'), color: 'bg-[#CB460C]' },
                 { id: 'youtube', label: t('impact.flow.source.youtube'), color: 'bg-[#FF0000]' },
@@ -142,9 +142,9 @@ const ImpactPage: React.FC = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-6 group"
+                  className="flex items-center gap-4 md:gap-6 group"
                 >
-                  <div className={`flex-shrink-0 w-20 h-20 rounded-full ${src.color} flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-500`}>
+                  <div className={`flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-full ${src.color} flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-500`}>
                     <div className="w-12 h-12 rounded-full border-2 border-white/20 animate-pulse" />
                   </div>
                   <span className="font-display text-xl text-[#1a1005] drop-shadow-sm">{src.label}</span>
@@ -160,7 +160,7 @@ const ImpactPage: React.FC = () => {
                 whileInView={{ scale: 1, rotate: 0 }}
                 viewport={{ once: true }}
                 transition={{ type: 'spring', damping: 12, delay: 0.5 }}
-                className="relative w-64 h-64 rounded-full bg-[#1a1005] flex items-center justify-center text-center p-8 shadow-[0_0_100px_rgba(203,70,12,0.15)] outline outline-1 outline-white/5"
+                className="relative w-48 h-48 md:w-64 md:h-64 rounded-full bg-[#1a1005] flex items-center justify-center text-center p-6 md:p-8 shadow-[0_0_100px_rgba(203,70,12,0.15)] outline outline-1 outline-white/5"
               >
                 <div className="relative z-10 transition-transform hover:scale-110 duration-500">
                   <span className="font-display text-white text-3xl leading-tight select-none">
@@ -173,8 +173,8 @@ const ImpactPage: React.FC = () => {
             </div>
 
             {/* Column 3: Outputs & Deep-dive */}
-            <div className="space-y-16 lg:pt-12 relative z-20">
-              <h3 className="font-display text-2xl text-[#1a1005]/40 uppercase tracking-widest text-center lg:text-right mb-8">Impact Funnels</h3>
+            <div className="space-y-12 lg:space-y-16 lg:pt-12 relative z-20 px-6 md:px-0">
+              <h3 className="font-display text-xl md:text-2xl text-[#1a1005]/40 uppercase tracking-widest text-center lg:text-right mb-8">Impact Funnels</h3>
               {[
                 { id: 'security', label: t('impact.flow.output.security'), color: 'bg-ink' },
                 { id: 'community', label: t('impact.flow.output.community'), color: 'bg-brand-3' },
@@ -189,11 +189,11 @@ const ImpactPage: React.FC = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.8 + (i * 0.1) }}
-                    className="flex items-center gap-6 justify-end group cursor-pointer"
+                    className="flex items-center gap-4 md:gap-6 justify-end group cursor-pointer"
                   >
-                    <span className="font-display text-xl text-[#1a1005] text-right drop-shadow-sm">{out.label}</span>
-                    <div className={`w-24 h-24 rounded-3xl ${out.color} flex items-center justify-center text-white shadow-xl group-hover:rotate-6 transition-all duration-500`}>
-                       <span className="font-display text-2xl">
+                    <span className="font-display text-lg md:text-xl text-[#1a1005] text-right drop-shadow-sm">{out.label}</span>
+                    <div className={`w-16 h-16 md:w-24 md:h-24 rounded-2xl md:rounded-3xl ${out.color} flex items-center justify-center text-white shadow-xl group-hover:rotate-6 transition-all duration-500`}>
+                       <span className="font-display text-xl md:text-2xl">
                           {out.id === 'security' ? '5%' : out.id === 'community' ? '20%' : out.id === 'ops' ? '15%' : '60%'}
                        </span>
                     </div>
