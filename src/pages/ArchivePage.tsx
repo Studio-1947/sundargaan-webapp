@@ -1,18 +1,19 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ARCHIVE_CATEGORIES, MOCK_ARCHIVE_ITEMS, ArchiveItem } from '../data/archiveData';
+import Logo from '../components/ui/Logo';
 
 const ArchivePage: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState(ARCHIVE_CATEGORIES[0].id);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeSubcategory, setActiveSubcategory] = useState<string | null>(null);
   const [filterTab, setFilterTab] = useState('Artist');
   const [selectedItem, setSelectedItem] = useState<ArchiveItem | null>(null);
 
   const filteredItems = useMemo(() => {
-    return MOCK_ARCHIVE_ITEMS.filter(item => {
+    if (!activeCategory) return [];
+    return MOCK_ARCHIVE_ITEMS.filter((item: ArchiveItem) => {
       const matchesCategory = item.category === activeCategory;
       const matchesSubcategory = activeSubcategory ? item.subcategory === activeSubcategory : true;
-      // In a real app, filterTab would filter by tags or other metadata
       return matchesCategory && matchesSubcategory;
     });
   }, [activeCategory, activeSubcategory]);
@@ -20,202 +21,294 @@ const ArchivePage: React.FC = () => {
   const currentCategory = ARCHIVE_CATEGORIES.find(c => c.id === activeCategory);
 
   return (
-    <div className="min-h-screen bg-surface flex flex-col md:flex-row">
-      {/* Sidebar - Left */}
-      <aside className="w-full md:w-80 lg:w-96 bg-surface-warm/30 border-r border-border p-8 flex flex-col gap-12 sticky top-24 h-[calc(100vh-6rem)] overflow-y-auto hidden md:flex">
-        <div className="space-y-6">
-          <h2 className="text-[#a89080] font-body text-xs uppercase tracking-[0.2em] font-bold">Categories</h2>
-          <nav className="flex flex-col gap-4">
-            {ARCHIVE_CATEGORIES.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => {
-                  setActiveCategory(cat.id);
-                  setActiveSubcategory(null);
-                }}
-                className={`text-left font-display text-xl transition-all duration-300 hover:translate-x-1 ${
-                  activeCategory === cat.id ? 'text-brand-primary font-medium' : 'text-ink-muted'
-                }`}
-              >
-                {cat.label}
-              </button>
-            ))}
-          </nav>
-        </div>
-
-        {currentCategory && (
-          <div className="space-y-6 animate-fade-in">
-            <h2 className="text-[#a89080] font-body text-xs uppercase tracking-[0.2em] font-bold">Sub-categories</h2>
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => setActiveSubcategory(null)}
-                className={`px-4 py-2 rounded-full text-sm font-body transition-colors ${
-                  activeSubcategory === null ? 'bg-brand-primary text-white' : 'bg-white border border-border text-ink-muted hover:border-brand-primary/50'
-                }`}
-              >
-                All
-              </button>
-              {currentCategory.subcategories.map((sub) => (
-                <button
-                  key={sub}
-                  onClick={() => setActiveSubcategory(sub)}
-                  className={`px-4 py-2 rounded-full text-sm font-body transition-colors ${
-                    activeSubcategory === sub ? 'bg-brand-primary text-white' : 'bg-white border border-border text-ink-muted hover:border-brand-primary/50'
-                  }`}
+    <div className="min-h-screen bg-[#DEDDDD] pt-12 pb-24 px-4 sm:px-6 md:px-12 lg:px-24 font-body overflow-x-hidden">
+      
+      <AnimatePresence mode="wait">
+        {!activeCategory ? (
+          /* SECTION 1: Category Selection View */
+          <motion.section
+            key="selection"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-6xl mx-auto space-y-12 sm:space-y-16"
+          >
+            <div className="text-center space-y-4 pt-10">
+              <h2 className="text-[#4A4A4A] text-2xl md:text-3xl font-display font-normal opacity-80 leading-snug">
+                Overall Content about this archive
+              </h2>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-10 px-0 sm:px-4">
+              {ARCHIVE_CATEGORIES.map((cat, idx) => (
+                <motion.div
+                  key={cat.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                  whileHover={{ y: -12 }}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className="cursor-pointer group overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-white shadow-lg hover:shadow-2xl transition-all duration-500"
                 >
-                  {sub}
-                </button>
+                  <div className="h-40 sm:h-48 relative group">
+                    <img 
+                      src={cat.image} 
+                      alt={cat.label} 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
+                    />
+                  </div>
+                  <div className="p-8 sm:p-10 h-32 sm:h-36 flex flex-col justify-center">
+                    <h3 className="text-ink font-display text-lg sm:text-xl leading-tight font-medium group-hover:text-brand-primary transition-colors">
+                      {cat.label}
+                    </h3>
+                  </div>
+                </motion.div>
               ))}
             </div>
-          </div>
-        )}
-      </aside>
-
-      {/* Main Content Area */}
-      <main className="flex-1 flex flex-col">
-        {/* Header Section */}
-        <section className="p-8 md:p-12 bg-white/50 border-b border-border">
-          <div className="max-w-4xl mx-auto space-y-4">
-            <h1 className="text-4xl md:text-5xl font-display font-medium text-ink leading-tight">
-              {currentCategory?.label}
-            </h1>
-            <p className="text-ink-muted text-lg max-w-2xl leading-relaxed">
-              Explore the rich cultural tapestry and heritage of the Sundarbans. 
-              {activeSubcategory && ` Showing results for ${activeSubcategory}.`}
-            </p>
-          </div>
-        </section>
-
-        {/* Filter Tabs & Grid Header */}
-        <div className="sticky top-24 z-30 bg-white/80 backdrop-blur-md border-b border-border px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            {['Artist', 'Artefacts', 'Genre'].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setFilterTab(tab)}
-                className={`font-body text-sm font-bold tracking-widest uppercase transition-colors relative py-2 ${
-                  filterTab === tab ? 'text-brand-primary' : 'text-ink-subtle hover:text-ink'
-                }`}
-              >
-                {tab}
-                {filterTab === tab && (
-                  <motion.div
-                    layoutId="tabUnderline"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-primary"
-                  />
-                )}
-              </button>
-            ))}
-          </div>
-          <p className="text-ink-subtle text-xs font-body font-bold">{filteredItems.length} ITEMS FOUND</p>
-        </div>
-
-        {/* The Grid */}
-        <div className="p-6 md:p-10 flex-1 bg-[#fdfaf8]">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredItems.map((item: ArchiveItem, idx: number) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.05 }}
-                className="group cursor-pointer"
-                onClick={() => setSelectedItem(item)}
-              >
-                <div className="aspect-[4/5] rounded-2xl overflow-hidden bg-white border border-border shadow-sm group-hover:shadow-xl transition-all duration-500 relative">
-                  <img
-                    src={item.mediaUrl}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
-                    <p className="text-white font-body font-bold text-[10px] tracking-[0.2em] uppercase mb-1">{item.subcategory}</p>
-                    <h3 className="text-white font-display text-lg font-medium">{item.title}</h3>
-                  </div>
+          </motion.section>
+        ) : (
+          /* SECTION 2: Singular Dashboard View */
+          <motion.div
+            key="dashboard"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-7xl mx-auto bg-white rounded-[2.5rem] sm:rounded-[4rem] shadow-2xl overflow-hidden flex flex-col min-h-[600px] sm:min-h-[800px] border border-white/20"
+          >
+            {/* Integrated Header */}
+            <header className="px-6 sm:px-12 py-6 sm:py-10 flex flex-col gap-6 sm:flex-row items-center justify-between bg-white relative z-30 border-b border-border/10 sm:border-none">
+              <div className="flex items-center justify-between w-full sm:w-auto gap-6">
+                <button 
+                  onClick={() => setActiveCategory(null)}
+                  aria-label="Back to selection"
+                  className="p-3 hover:bg-surface-warm rounded-full transition-colors group shrink-0"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                </button>
+                <div className="flex items-center gap-2 sm:gap-3 mr-auto">
+                   <Logo variant="color" height={36} />
+                   <div className="ml-1 sm:ml-2">
+                      <span className="text-[9px] sm:text-[10px] text-brand-primary uppercase tracking-[0.2em] sm:tracking-[0.3em] font-bold block opacity-40">Sundargaan</span>
+                      <span className="text-xs sm:text-sm font-display font-bold text-ink tracking-tight opacity-80 italic leading-none">Archives</span>
+                   </div>
                 </div>
-                <div className="mt-4 px-2">
-                  <h3 className="text-ink font-display text-base font-semibold group-hover:text-brand-primary transition-colors">{item.title}</h3>
-                  <p className="text-ink-subtle text-xs font-body mt-1">{item.subcategory}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-          {filteredItems.length === 0 && (
-            <div className="h-64 flex flex-col items-center justify-center text-ink-subtle space-y-4">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-              <p className="font-body text-sm font-medium">No items found in this section yet.</p>
+              </div>
+
+              {/* Centered Filter Tabs - Horizontal Scroll on Mobile */}
+              <nav className="flex items-center gap-3 sm:gap-14 overflow-x-auto no-scrollbar w-full sm:w-auto justify-center px-4 sm:px-0">
+                {['Artist', 'Artefacts', 'Genre'].map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setFilterTab(tab)}
+                    className={`text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border shrink-0 ${
+                      filterTab === tab ? 'text-[#FF4B4B] border-[#FF4B4B] bg-[#FF4B4B]/5 font-black' : 'text-ink-subtle/30 border-transparent hover:text-ink'
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </nav>
+
+              <div className="w-12 h-12 hidden lg:block" />
+            </header>
+
+            {/* Content Body - Mobile Header Nav + Grid */}
+            <div className="flex flex-1 flex-col md:flex-row border-t border-border/40 min-h-0">
+               {/* Fixed Sidebar for Desktop / Horizontal Strip for Mobile */}
+               <aside className="w-full md:w-72 border-r border-border/30 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.01)] z-10 overflow-hidden shrink-0">
+                 <div className="p-4 sm:p-12 md:h-full">
+                    <ul className="flex md:flex-col overflow-x-auto md:overflow-y-auto no-scrollbar gap-4 sm:gap-6 md:space-y-6 px-4 md:px-0">
+                      <li 
+                        onClick={() => setActiveSubcategory(null)}
+                        className={`cursor-pointer text-sm sm:text-[15px] transition-all duration-300 flex items-center gap-4 shrink-0 px-4 py-2 md:p-0 rounded-full md:rounded-none ${
+                          activeSubcategory === null ? 'text-black font-bold bg-surface-warm md:bg-transparent' : 'text-[#BBBBBB] hover:text-ink'
+                        }`}
+                      >
+                         <span>All Areas</span>
+                      </li>
+                      {currentCategory?.subcategories.map((sub: string) => (
+                        <li
+                          key={sub}
+                          onClick={() => setActiveSubcategory(sub)}
+                          className={`cursor-pointer text-sm sm:text-[15px] transition-all duration-300 flex items-center gap-4 shrink-0 px-4 py-2 md:p-0 rounded-full md:rounded-none ${
+                            activeSubcategory === sub ? 'text-black font-bold bg-surface-warm md:bg-transparent' : 'text-[#BBBBBB] hover:text-ink'
+                          }`}
+                        >
+                           <span>Block {sub}</span>
+                        </li>
+                      ))}
+                    </ul>
+                 </div>
+               </aside>
+
+               {/* Grid Content Area */}
+               <main className="flex-1 p-6 sm:p-10 md:p-14 bg-[#FAFAFA]/60 overflow-y-auto h-full max-h-screen">
+                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8">
+                   <AnimatePresence mode="popLayout">
+                     {filteredItems.map((item: ArchiveItem, idx: number) => (
+                       <motion.div
+                         key={item.id}
+                         layout
+                         initial={{ opacity: 0, y: 10 }}
+                         animate={{ opacity: 1, y: 0 }}
+                         exit={{ opacity: 0, scale: 0.9 }}
+                         transition={{ duration: 0.4, delay: idx * 0.04 }}
+                         onClick={() => setSelectedItem(item)}
+                         className="group cursor-pointer"
+                       >
+                         <div className="aspect-square bg-white rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden transition-all duration-700 shadow-sm border border-border/40 group-hover:shadow-2xl group-hover:-translate-y-1 sm:group-hover:-translate-y-2 relative">
+                           <img 
+                            src={item.mediaUrl} 
+                            alt={item.title} 
+                            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                           />
+                           <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors" />
+                         </div>
+                       </motion.div>
+                     ))}
+                   </AnimatePresence>
+                 </div>
+                 
+                 {filteredItems.length === 0 && (
+                   <div className="h-64 sm:h-96 flex flex-col items-center justify-center p-12 text-ink-subtle/40 italic font-display text-center">
+                     Exploring the collection...
+                   </div>
+                 )}
+               </main>
             </div>
-          )}
-        </div>
-      </main>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Item Detail Overlay */}
+      {/* Item Detail Overlay - MOBILE OPTIMIZED */}
       <AnimatePresence>
         {selectedItem && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-12 overflow-hidden"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-0 sm:p-6 md:p-12 lg:p-24 overflow-hidden"
           >
             <motion.div
-              className="absolute inset-0 bg-ink/40 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/90 backdrop-blur-md"
               onClick={() => setSelectedItem(null)}
             />
+            
             <motion.div
-              layoutId={`item-${selectedItem.id}`}
-              className="relative w-full max-w-6xl bg-white rounded-[2rem] shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-full"
+              layoutId={`detail-${selectedItem.id}`}
+              className="relative w-full h-full sm:h-fit max-w-7xl bg-white rounded-none sm:rounded-[3rem] md:rounded-[4rem] shadow-2xl overflow-hidden flex flex-col max-h-[100vh] sm:max-h-[90vh]"
             >
-              <button
-                onClick={() => setSelectedItem(null)}
-                aria-label="Close details"
-                className="absolute top-6 right-6 z-10 w-10 h-10 bg-white shadow-md rounded-full flex items-center justify-center hover:bg-brand-primary hover:text-white transition-colors"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-              </button>
+               {/* Close Button - Sticky/Fixed for Mobile */}
+               <button 
+                  onClick={() => setSelectedItem(null)}
+                  aria-label="Close detail view"
+                  className="absolute top-6 right-6 z-[110] w-12 h-12 flex items-center justify-center rounded-full bg-surface-warm/80 backdrop-blur text-ink hover:bg-brand-primary hover:text-white transition-all shadow-lg sm:shadow-none"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+               </button>
 
-              <div className="w-full md:w-1/2 h-80 md:h-auto bg-ink-muted/10 relative">
-                <img
-                  src={selectedItem.mediaUrl}
-                  alt={selectedItem.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
-              </div>
-
-              <div className="flex-1 p-8 md:p-16 flex flex-col justify-center overflow-y-auto">
-                <div className="space-y-8">
-                  <div className="space-y-2">
-                    <span className="text-brand-primary font-body text-sm font-bold tracking-[0.2em] uppercase">
-                      {selectedItem.subcategory}
-                    </span>
-                    <h2 className="text-3xl md:text-5xl font-display font-medium text-ink leading-tight">
-                      {selectedItem.title}
-                    </h2>
-                  </div>
-                  
-                  <p className="text-ink-muted text-lg md:text-xl leading-relaxed">
-                    {selectedItem.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 pt-4">
-                    {selectedItem.tags.map((tag: string) => (
-                      <span key={tag} className="px-4 py-2 bg-surface-warm rounded-full text-xs font-body font-bold text-ink-muted border border-border">
-                        #{tag}
-                      </span>
+               {/* Detail Header - Horizontal Scroll Pills */}
+               <header className="flex items-center justify-center mt-12 sm:mt-16 mb-8 sm:mb-12 px-6 overflow-x-auto no-scrollbar shrink-0">
+                  <nav className="flex items-center gap-4 sm:gap-6">
+                    {['Artist', 'Artefacts', 'Genre'].map((tab) => (
+                      <div
+                        key={tab}
+                        className={`text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase px-6 sm:px-8 py-2.5 sm:py-3 rounded-full border transition-all duration-500 shrink-0 ${
+                          tab === 'Artist' ? 'text-[#FF4B4B] border-[#FF4B4B] bg-[#FF4B4B]/5' : 'text-[#BBBBBB] border-transparent'
+                        }`}
+                      >
+                        {tab}
+                      </div>
                     ))}
-                  </div>
+                  </nav>
+               </header>
 
-                  <div className="pt-8 flex flex-col sm:flex-row gap-4">
-                    <button className="px-10 py-5 bg-brand-primary text-white rounded-full font-body font-bold text-sm tracking-widest uppercase hover:bg-brand-1 transition-all shadow-lg hover:shadow-brand-primary/30">
-                      Learn More
-                    </button>
-                    <button className="px-10 py-5 border border-border text-ink rounded-full font-body font-bold text-sm tracking-widest uppercase hover:bg-surface-warm transition-all">
-                      Share Artefact
-                    </button>
+               <div className="flex flex-1 min-h-0 overflow-y-auto">
+                  {/* Sidebar within Detail - Hidden on Mobile */}
+                  <aside className="w-64 px-8 border-r border-border/10 hidden md:block shrink-0">
+                     <ul className="space-y-4">
+                        {currentCategory?.subcategories.map(sub => (
+                          <li 
+                            key={sub} 
+                            className={`text-sm tracking-wide font-medium transition-colors ${
+                              selectedItem.subcategory === sub ? 'text-black font-bold' : 'text-[#BBBBBB]'
+                            }`}
+                          >
+                            Block {sub}
+                          </li>
+                        ))}
+                     </ul>
+                  </aside>
+
+                  {/* Main Gallery Area */}
+                  <div className="flex-1 flex flex-col px-6 sm:px-12 space-y-8 sm:space-y-12 pb-12 sm:pb-20">
+                    {/* Top Row: Hero Image + Description (Vertical on Mobile) */}
+                    <div className="flex flex-col xl:flex-row gap-8 sm:gap-16 items-start">
+                       <div className="w-full xl:w-[480px] aspect-square sm:aspect-[4/5] bg-[#EEEEEE] rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden shadow-lg shrink-0">
+                          <img 
+                            src={selectedItem.mediaUrl} 
+                            alt={selectedItem.title} 
+                            className="w-full h-full object-cover" 
+                          />
+                       </div>
+                       
+                       <div className="flex-1 space-y-4 sm:space-y-6">
+                          <h2 className="text-2xl sm:text-3xl font-display font-bold text-black border-b border-border/10 pb-4">
+                            {selectedItem.title}
+                          </h2>
+                          
+                          <div className="grid grid-cols-2 gap-y-6 sm:gap-y-8 gap-x-6 sm:gap-x-12 py-6 sm:py-8 border-b border-border/10">
+                             <div className="space-y-1">
+                                <span className="text-[9px] sm:text-[10px] text-[#BBBBBB] uppercase tracking-widest font-bold">Archive ID</span>
+                                <p className="text-xs sm:text-sm font-medium text-black">#SG-{selectedItem.id.toUpperCase()}</p>
+                             </div>
+                             <div className="space-y-1">
+                                <span className="text-[9px] sm:text-[10px] text-[#BBBBBB] uppercase tracking-widest font-bold">Category</span>
+                                <p className="text-xs sm:text-sm font-medium text-black">{selectedItem.subcategory}</p>
+                             </div>
+                             <div className="space-y-1">
+                                <span className="text-[9px] sm:text-[10px] text-[#BBBBBB] uppercase tracking-widest font-bold">Medium</span>
+                                <p className="text-xs sm:text-sm font-medium text-black">{selectedItem.mediaType === 'image' ? 'Photography' : 'Video'}</p>
+                             </div>
+                             <div className="space-y-1">
+                                <span className="text-[9px] sm:text-[10px] text-[#BBBBBB] uppercase tracking-widest font-bold">Collection</span>
+                                <p className="text-xs sm:text-sm font-medium text-black">Sundargram</p>
+                             </div>
+                          </div>
+
+                          <div className="flex flex-wrap gap-2 pt-2">
+                             {selectedItem.tags.map(tag => (
+                               <span key={tag} className="px-3 sm:px-4 py-1 sm:py-1.5 bg-[#F5F5F5] text-[9px] sm:text-[10px] font-bold text-[#888888] rounded-full uppercase tracking-widest border border-border/10">
+                                 {tag}
+                               </span>
+                             ))}
+                          </div>
+
+                          <p className="text-[#666666] leading-relaxed text-base sm:text-lg font-body pt-4 sm:pt-6 italic">
+                            "{selectedItem.description}"
+                          </p>
+                       </div>
+                    </div>
+
+                    {/* Bottom Row: Related Content */}
+                    <div className="space-y-4">
+                        <span className="text-[9px] sm:text-[10px] text-[#BBBBBB] uppercase tracking-widest font-bold block opacity-40">Related Observations</span>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-2">
+                            {[...Array(4)].map((_, i) => (
+                              <div key={i} className="aspect-[4/3] bg-[#E5E5E5] rounded-[1rem] sm:rounded-[1.5rem] overflow-hidden group">
+                                 <img 
+                                  src={`https://picsum.photos/seed/${selectedItem.id}-${i}/400`} 
+                                  alt="related" 
+                                  className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" 
+                                 />
+                              </div>
+                            ))}
+                        </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+               </div>
             </motion.div>
           </motion.div>
         )}

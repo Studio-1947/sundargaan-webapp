@@ -1,3 +1,14 @@
+// Import statement for category heroes
+import artefactsHero from '../assets/archive/artefacts_hero.png';
+import artistsHero from '../assets/archive/artists_hero.png';
+import artFormsHero from '../assets/archive/art_forms_hero.png';
+
+// Import statement for thumbnails
+import artefactThumb from '../assets/archive/artefact_thumb.png';
+import performingThumb from '../assets/archive/performing_art_thumb.png';
+import potteryThumb from '../assets/archive/pottery_thumb.png';
+import landscapeThumb from '../assets/archive/landscape_thumb.png';
+
 export interface ArchiveItem {
   id: string;
   title: string;
@@ -13,69 +24,111 @@ export const ARCHIVE_CATEGORIES = [
   {
     id: 'artefacts',
     label: 'Artefacts like basi, dotara, etc',
-    subcategories: ['Basi', 'Dotara', 'Traditional Tools', 'Handicrafts']
+    subcategories: ['Basi', 'Dotara', 'Traditional Tools', 'Handicrafts'],
+    image: artefactsHero
   },
   {
     id: 'artists',
     label: "Artist's 19 Blocks and prospects with maps",
-    subcategories: ['Hingalganj', 'Gosaba', 'Basanti', 'Canning', 'Sagar']
+    subcategories: ['Hingalganj', 'Gosaba', 'Basanti', 'Canning', 'Sagar'],
+    image: artistsHero
   },
   {
     id: 'art-forms',
     label: 'Art forms of Sundarbans',
-    subcategories: ['Bonbibi Palagaon', 'Baul', 'Bhatiali', 'Jhumur']
+    subcategories: ['Bonbibi Palagaon', 'Baul', 'Bhatiali', 'Jhumur'],
+    image: artFormsHero
   }
 ];
 
-export const MOCK_ARCHIVE_ITEMS: ArchiveItem[] = [
+const thumbs = [artefactThumb, performingThumb, potteryThumb, landscapeThumb];
+
+// Define core items first to avoid circular reference
+const CORE_ITEMS: ArchiveItem[] = [
+  // Artefacts - Basi
   {
-    id: '1',
+    id: 'basi-1',
     title: 'Traditional Bamboo Basi',
     description: 'A hand-crafted flute used in Bhatiali songs, made from local bamboo of the Sundarbans region.',
-    mediaUrl: 'https://images.unsplash.com/photo-1543039625-14bcd2ec556e?auto=format&fit=crop&q=80&w=800',
+    mediaUrl: thumbs[0],
     mediaType: 'image',
     category: 'artefacts',
     subcategory: 'Basi',
     tags: ['Instrument', 'Music', 'Bamboo']
   },
   {
-    id: '2',
+    id: 'basi-2',
+    title: 'Ceremonial Master Basi',
+    description: 'A long, heavy-tone flute used only for ceremonial arrivals and spiritual performances.',
+    mediaUrl: thumbs[1],
+    mediaType: 'image',
+    category: 'artefacts',
+    subcategory: 'Basi',
+    tags: ['Ceremonial', 'Wood', 'Spiritual']
+  },
+
+  // Artefacts - Dotara
+  {
+    id: 'dotara-1',
     title: 'Wooden Dotara',
     description: 'A four-stringed instrument essential for Baul and folk music, carved with intricate details.',
-    mediaUrl: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&q=80&w=800',
+    mediaUrl: thumbs[2],
     mediaType: 'image',
     category: 'artefacts',
     subcategory: 'Dotara',
     tags: ['Instrument', 'Folk', 'String']
   },
   {
-    id: '3',
+    id: 'dotara-2',
+    title: 'Master Carver Dotara',
+    description: 'A professional-grade Dotara featuring rosewood construction and ivory-style inlay.',
+    mediaUrl: thumbs[3],
+    mediaType: 'image',
+    category: 'artefacts',
+    subcategory: 'Dotara',
+    tags: ['Professional', 'Rosewood', 'Folk']
+  },
+
+  // Artists - Hingalganj
+  {
+    id: 'hingalganj-1',
     title: 'Hingalganj Clay Pottery',
     description: 'Unique pottery styles from the Hingalganj block, known for their durable and earthy finish.',
-    mediaUrl: 'https://images.unsplash.com/photo-1565193298357-19fd78198f58?auto=format&fit=crop&q=80&w=800',
+    mediaUrl: thumbs[2],
     mediaType: 'image',
     category: 'artists',
     subcategory: 'Hingalganj',
     tags: ['Craft', 'Pottery', 'Local']
   },
+
+  // Art Forms - Bhatiali
   {
-    id: '4',
-    title: 'Bonbibi Palagaon Mask',
-    description: 'Decorative masks used in the local theater performance of Bonbibi Palagaon, protecting honey collectors.',
-    mediaUrl: 'https://images.unsplash.com/photo-1534073828943-f801091bb18c?auto=format&fit=crop&q=80&w=800',
-    mediaType: 'image',
-    category: 'art-forms',
-    subcategory: 'Bonbibi Palagaon',
-    tags: ['Drama', 'Culture', 'Mask']
-  },
-  {
-    id: '5',
+    id: 'bhatiali-1',
     title: 'Bhatiali Boat Songs',
     description: 'The soul of the river—songs sung by boatmen while navigating the complex waters of the delta.',
-    mediaUrl: 'https://images.unsplash.com/photo-1533154181967-cc7a67232231?auto=format&fit=crop&q=80&w=800',
+    mediaUrl: thumbs[0],
     mediaType: 'image',
     category: 'art-forms',
     subcategory: 'Bhatiali',
     tags: ['Song', 'River', 'Oral Tradition']
   }
+];
+
+// Combine with generated items
+export const MOCK_ARCHIVE_ITEMS: ArchiveItem[] = [
+  ...CORE_ITEMS,
+  ...ARCHIVE_CATEGORIES.flatMap(cat => 
+    cat.subcategories.flatMap((sub, subIdx) => 
+      [1, 2, 3, 4, 5].map(i => ({
+        id: `${cat.id}-${sub}-${i}`,
+        title: `${sub} - Piece ${i}`,
+        description: `Detailed archival documentation for an authentic ${sub} artefact or performance from the Sundarbans region.`,
+        mediaUrl: thumbs[(subIdx + i) % thumbs.length],
+        mediaType: 'image' as const,
+        category: cat.id,
+        subcategory: sub,
+        tags: [cat.id, sub, 'Archival']
+      }))
+    )
+  ).filter(item => !CORE_ITEMS.some(core => core.id === item.id))
 ];

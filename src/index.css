@@ -68,17 +68,27 @@ body {
 
 /* ——— Smooth Scrollbar ——— */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px; /* Thinner */
+  height: 4px; /* Thinner horizontal */
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-brand-11);
+  background: transparent; /* Cleaner */
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-brand-8);
+  background: var(--color-brand-9); /* More subtle peach */
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-brand-5);
+  background: var(--color-brand-7);
+}
+
+/* ——— No Scrollbar Utility ——— */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* ——— Selection ——— */
