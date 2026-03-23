@@ -12,13 +12,11 @@ const ImpactPage: React.FC = () => {
   const sourceRefs = useRef<(HTMLDivElement | null)[]>([])
   const hubRef = useRef<HTMLDivElement>(null)
   const outputRefs = useRef<(HTMLDivElement | null)[]>([])
-  const detailRefs = useRef<(HTMLDivElement | null)[]>([])
 
   const [paths, setPaths] = useState<{
     sources: string[];
     outputs: string[];
-    details: string[];
-  }>({ sources: [], outputs: [], details: [] })
+  }>({ sources: [], outputs: [] })
 
   const calculatePaths = () => {
     if (!containerRef.current || !hubRef.current) return
@@ -52,22 +50,7 @@ const ImpactPage: React.FC = () => {
       return `M ${hubCenter.x} ${hubCenter.y} C ${cp1x} ${hubCenter.y} ${cp1x} ${center.y} ${center.x} ${center.y}`
     })
 
-    // Calculate artist output to detail path
-    const detailPaths: string[] = []
-    const artistOutput = outputRefs.current[3]
-    if (artistOutput && detailRefs.current[0]) {
-      const artCenter = getPoint(artistOutput)
-      const d1Center = getPoint(detailRefs.current[0])
-      
-      detailPaths.push(`M ${artCenter.x} ${artCenter.y} L ${d1Center.x} ${d1Center.y}`)
-      
-      if (detailRefs.current[1]) {
-        const d2Center = getPoint(detailRefs.current[1]!)
-        detailPaths.push(`M ${d1Center.x} ${d1Center.y} L ${d2Center.x} ${d2Center.y}`)
-      }
-    }
-
-    setPaths({ sources: newSourcePaths, outputs: newOutputPaths, details: detailPaths })
+    setPaths({ sources: newSourcePaths, outputs: newOutputPaths })
   }
 
   useLayoutEffect(() => {
@@ -198,7 +181,7 @@ const ImpactPage: React.FC = () => {
                 { id: 'ops', label: t('impact.flow.output.ops'), color: 'bg-ink-muted' },
                 { id: 'artist', label: t('impact.flow.output.artist'), color: 'bg-brand-primary' },
               ].map((out, i) => (
-                <div key={out.id} className="space-y-16">
+                <div key={out.id} className="flex flex-col items-end">
                   <motion.div
                     id={`output-${out.id}`}
                     ref={el => { outputRefs.current[i] = el }}
@@ -215,31 +198,6 @@ const ImpactPage: React.FC = () => {
                        </span>
                     </div>
                   </motion.div>
-
-                  {/* Deep-dive path for Artist 60% */}
-                  {out.id === 'artist' && (
-                    <div className="pt-32 space-y-32 flex flex-col items-end">
-                      {[
-                        { id: 'booking', label: t('impact.flow.detail.booking'), color: 'bg-[#CB460C]' },
-                        { id: 'account', label: t('impact.flow.detail.account'), color: 'bg-ink' },
-                      ].map((detail, j) => (
-                        <motion.div
-                          key={detail.id}
-                          ref={el => { detailRefs.current[j] = el }}
-                          initial={{ opacity: 0, y: 30 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: 1.5 + (j * 0.3) }}
-                          className="flex items-center gap-6 group"
-                        >
-                          <span className="font-display text-xl text-[#1a1005] group-hover:text-[#CB460C] transition-colors">{detail.label}</span>
-                          <div className={`w-24 h-24 rounded-full ${detail.color} flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-500`}>
-                            <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 2, repeat: Infinity }} className="w-12 h-12 rounded-full border-2 border-white/20" />
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  )}
                 </div>
               ))}
             </div>
@@ -307,21 +265,6 @@ const ImpactPage: React.FC = () => {
                      transition={{ duration: 2, delay: 1 + (i * 0.1) }} 
                    />
                  </g>
-               ))}
-
-               {/* Artist Deep Dive Path */}
-               {paths.details.map((d, i) => (
-                 <motion.path
-                    key={`detail-path-${i}`}
-                    d={d}
-                    stroke="#CB460C"
-                    strokeWidth="2"
-                    strokeDasharray="10 10"
-                    fill="none"
-                    initial={{ pathLength: 0 }}
-                    whileInView={{ pathLength: 1 }}
-                    transition={{ duration: 1, delay: 2 + (i * 0.5) }}
-                 />
                ))}
             </svg>
           </div>
