@@ -5,15 +5,23 @@ interface PremiumSundargaanTextProps {
   text: string
   className?: string
   style?: React.CSSProperties
+  duration?: number
+  stagger?: number
 }
 
-const PremiumSundargaanText: React.FC<PremiumSundargaanTextProps> = ({ text, className, style }) => {
+const PremiumSundargaanText: React.FC<PremiumSundargaanTextProps> = ({ 
+  text, 
+  className, 
+  style, 
+  duration = 0.8, 
+  stagger = 0.05 
+}) => {
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: (i: number = 1) => ({
       opacity: 1,
-      transition: { staggerChildren: 0.08, delayChildren: 0.2 * i },
+      transition: { staggerChildren: stagger, delayChildren: 0.2 * i },
     }),
   }
 
@@ -25,6 +33,7 @@ const PremiumSundargaanText: React.FC<PremiumSundargaanTextProps> = ({ text, cla
         type: 'spring',
         damping: 12,
         stiffness: 100,
+        duration: duration,
       },
     },
     hidden: {
@@ -34,6 +43,7 @@ const PremiumSundargaanText: React.FC<PremiumSundargaanTextProps> = ({ text, cla
         type: 'spring',
         damping: 12,
         stiffness: 100,
+        duration: duration,
       },
     },
   }

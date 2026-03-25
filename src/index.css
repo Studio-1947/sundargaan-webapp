@@ -20,6 +20,13 @@
   --color-brand-11: #FEFCFB;
   --color-brand-primary: #CB460C;
 
+  /* Cinematic Earthly Tones */
+  --color-clay: #AF8B71;
+  --color-sand: #E5D5CD;
+  --color-mud: #4B3621;
+  --color-mangrove-dark: #1A2421;
+  --color-mangrove-glow: rgba(203, 70, 12, 0.4);
+
   /* Neutrals */
   --color-ink: #1a1005;
   --color-ink-muted: #6b5b4f;
@@ -39,6 +46,8 @@
   /* Custom Gradients */
   --bg-radial-hero: radial-gradient(circle at 50% 0%, var(--color-brand-primary) 0%, transparent 70%);
   --bg-radial-impact: radial-gradient(circle, var(--color-brand-primary) 0%, transparent 70%);
+  --bg-misty-fade: linear-gradient(to right, var(--color-surface) 0%, var(--color-surface) 40%, transparent 100%);
+  --bg-dark-misty-fade: linear-gradient(to right, var(--color-ink) 0%, var(--color-ink) 40%, transparent 100%);
 }
 
 /* ——— Base Layer ——— */

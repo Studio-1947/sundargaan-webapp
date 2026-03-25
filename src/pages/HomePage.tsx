@@ -8,106 +8,81 @@ const HomePage: React.FC = () => {
   const { t, language } = useLanguage()
 
   return (
-    <main className="min-h-screen relative" style={{ backgroundColor: '#FEFCFB', paddingTop: '96px' }}>
-      {/* ——— Hero Section (Centered Card) ——— */}
-      <section className="px-6 md:px-10 py-6 md:py-10">
-        <div
-          className="relative flex flex-col md:flex-row overflow-hidden border border-[#e5d5cd] shadow-[0_24px_80px_rgba(203,70,12,0.08)] bg-white mx-auto max-w-screen-2xl rounded-[32px] md:rounded-[48px]"
-          style={{
-            minHeight: 'calc(100vh - 140px)',
-          }}
-        >
-          {/* ── Left Panel: Content ── */}
-          <div
-            className="flex flex-col justify-center px-6 sm:px-10 md:px-16 lg:px-24 py-16 md:py-24 w-full md:w-1/2"
-          >
-            {/* Headline */}
-            <PremiumSundargaanText 
-              text={t('hero.title')}
-              className="font-body"
-              style={{
-                fontSize: 'clamp(2.5rem, 10vw, 4.5rem)',
-                fontWeight: 400,
-                lineHeight: 1,
-                color: '#1a1005',
-                letterSpacing: '-0.02em',
-                marginBottom: '1rem',
-              }}
-            />
+    <main className="min-h-screen relative bg-[#FEFCFB]">
+      {/* ——— Hero Section (Archive Split Layout) ——— */}
+      <section className="relative min-h-[90vh] md:min-h-screen w-full overflow-hidden flex items-center pt-24 md:pt-32 pb-16 md:pb-24">
+        {/* Background Decorative Gradient */}
+        <div className="absolute top-0 right-0 w-[60%] h-full bg-gradient-to-l from-[#F7EAE5] to-transparent z-0 opacity-40" />
+        
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Content Left */}
+            <div className="max-w-xl">
+              <div className="mb-6 overflow-hidden">
+                <span className="inline-block text-[#CB460C] font-body text-[10px] md:text-xs uppercase tracking-[0.5em] animate-slide-in-left">
+                  {language === 'EN' ? 'Cultural Heritage & Living Archives' : 'সাংস্কৃতিক ঐতিহ্য ও জীবন্ত সংরক্ষণাগার'}
+                </span>
+              </div>
 
-            {/* Body copy */}
-            <div className="space-y-1 mb-12">
-              <p
-                className="font-body animate-fade-in-up delay-200"
-                style={{
-                  fontSize: '1.25rem',
-                  fontWeight: 400,
-                  color: '#6b5b4f',
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                {t('hero.tagline1')}
-              </p>
-              <p
-                className="font-body animate-fade-in-up delay-300"
-                style={{
-                  fontSize: '1.25rem',
-                  fontWeight: 400,
-                  color: '#6b5b4f',
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                {t('hero.tagline2')}
-              </p>
+              <div className="mb-4 sm:mb-8">
+                <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display text-[#1a1005] leading-[1.05] tracking-tight">
+                  <PremiumSundargaanText
+                    text={t('hero.title')}
+                    duration={1}
+                    stagger={0.04}
+                  />
+                </h1>
+              </div>
+
+              <div className="mb-10 space-y-4 opacity-0 animate-fade-in-up delay-400">
+                <p className="text-[#6b5b4f] font-body text-lg md:text-xl leading-relaxed">
+                  {t('hero.tagline1')}
+                </p>
+                <p className="text-[#6b5b4f]/70 font-body text-base md:text-lg">
+                  {t('hero.tagline2')}
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6 opacity-0 animate-fade-in-up delay-600">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="bg-[#CB460C] hover:bg-[#E15012] border-none text-white px-8 sm:px-10 py-4 h-auto rounded-full shadow-[0_15px_30px_rgba(203,70,12,0.2)] transition-all hover:scale-105 active:scale-95 text-base sm:text-lg font-medium"
+                >
+                  {t('hero.btn.join')}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="bg-transparent border-[#CB460C]/20 text-[#CB460C] hover:bg-[#CB460C]/5 px-8 sm:px-10 py-4 h-auto rounded-full transition-all text-base sm:text-lg font-medium"
+                >
+                  {t('hero.btn.more')}
+                </Button>
+              </div>
             </div>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 animate-fade-in-up delay-400">
-              <Button variant="primary" size="lg" className="px-10 h-14 sm:h-auto">
-                {t('hero.btn.join')}
-              </Button>
-              <Button variant="outline" size="lg" className="px-10 h-14 sm:h-auto">
-                {t('hero.btn.more')}
-              </Button>
+            {/* Media Grid Right */}
+            <div className="relative h-[500px] md:h-[600px] lg:h-[700px] opacity-0 animate-fade-in-up delay-300">
+              <div className="absolute inset-0 bg-[#CB460C]/5 rounded-[48px] -rotate-3 blur-3xl scale-95" />
+              <MediaGrid />
             </div>
-          </div>
-
-          {/* ── Center Divider ── */}
-          <div
-            className="hidden md:block absolute top-0 bottom-0 w-px"
-            style={{
-              left: '50%',
-              background: 'linear-gradient(to bottom, transparent 0%, #CB460C 20%, #CB460C 80%, transparent 100%)',
-              opacity: 0.35,
-            }}
-          />
-
-          {/* ── Right Panel: Media Grid ── */}
-          <div
-            className="flex w-full md:flex-1 animate-fade-in delay-200 overflow-hidden"
-            style={{ 
-              backgroundColor: '#F7EAE5',
-              minHeight: '400px'
-            }}
-          >
-            <MediaGrid />
           </div>
         </div>
       </section>
 
       {/* ——— Section 2: The Living Archive ——— */}
-      <section id="archive" className="px-6 md:px-10 py-20">
+      <section id="archive" className="px-6 md:px-10 py-16 md:py-24">
         <div className="max-w-screen-xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16">
-            <div className="space-y-6 max-w-2xl">
-              <h2 className="font-display font-normal text-5xl md:text-6xl text-[#1a1005] tracking-tight">
+            <div className="space-y-4 md:space-y-6 max-w-2xl">
+              <h2 className="font-display font-normal text-4xl sm:text-5xl md:text-6xl text-[#1a1005] tracking-tight">
                 {t('archive.title')}
               </h2>
               <p className="font-body text-[#6b5b4f] text-lg leading-relaxed">
                 {t('archive.desc')}
               </p>
             </div>
-            <Button variant="outline" className="h-14 px-10">
+            <Button variant="outline" className="h-14 px-10 w-full sm:w-auto">
               {t('archive.btn.explore')}
             </Button>
           </div>
@@ -119,8 +94,8 @@ const HomePage: React.FC = () => {
               { title: t('archive.item2'), category: t('archive.cat2') },
               { title: t('archive.item3'), category: t('archive.cat3') },
             ].map((item, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="group relative bg-[#F7EAE5] rounded-[32px] overflow-hidden aspect-[4/5] cursor-pointer"
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1a1005]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -144,22 +119,22 @@ const HomePage: React.FC = () => {
 
       {/* ——— Section 3: Meet the Artists (Asymmetric Card) ——— */}
       <section id="artists" className="px-6 md:px-10 py-20">
-        <div 
+        <div
           className="max-w-screen-2xl mx-auto bg-[#1a1005] rounded-[32px] md:rounded-[48px] overflow-hidden flex flex-col lg:flex-row shadow-2xl"
           style={{ minHeight: '600px' }}
         >
           {/* Artist Image/Visual */}
-          <div className="lg:w-1/2 relative bg-[#CB460C]/10 flex items-center justify-center p-20">
-             <div className="absolute inset-0 opacity-20" style={{ background: 'radial-gradient(circle, #CB460C 0%, transparent 70%)' }} />
-             <div className="relative font-display text-[12vw] text-[#FEFCFB]/5 leading-none select-none">
-                {t('artists.bg')}
-             </div>
-             <div className="absolute inset-20 border border-[#FEFCFB]/10 rounded-full animate-pulse" />
+          <div className="lg:w-1/2 relative bg-[#CB460C]/10 flex items-center justify-center p-12 md:p-20">
+            <div className="absolute inset-0 opacity-20" style={{ background: 'radial-gradient(circle, #CB460C 0%, transparent 70%)' }} />
+            <div className="relative font-display text-[25vw] lg:text-[12vw] text-[#FEFCFB]/5 leading-none select-none">
+              {t('artists.bg')}
+            </div>
+            <div className="absolute inset-20 border border-[#FEFCFB]/10 rounded-full animate-pulse" />
           </div>
 
           {/* Artist Content */}
-          <div className="lg:w-1/2 p-12 md:p-20 flex flex-col justify-center space-y-8">
-            <h2 className="font-display font-normal text-5xl md:text-6xl text-[#FEFCFB] tracking-tight">
+          <div className="lg:w-1/2 p-10 md:p-16 lg:p-24 flex flex-col justify-center space-y-6 md:space-y-8">
+            <h2 className="font-display font-normal text-4xl sm:text-5xl md:text-6xl text-[#FEFCFB] tracking-tight">
               {t('artists.title')}
             </h2>
             <p className="font-body text-[#a89080] text-lg leading-relaxed max-w-xl">
@@ -175,27 +150,27 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* ——— Section 4: Our Impact (Editorial Layout) ——— */}
-      <section id="impact" className="px-6 md:px-10 py-32">
-        <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center gap-20">
-          <div className="md:w-1/3 text-center md:text-left">
-            <h2 className="font-display font-normal text-4xl text-[#1a1005] mb-8 tracking-tight">
+      <section id="impact" className="px-6 md:px-10 py-20 md:py-32">
+        <div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row items-center gap-16 md:gap-20">
+          <div className="lg:w-1/3 text-center lg:text-left">
+            <h2 className="font-display font-normal text-4xl text-[#1a1005] mb-6 md:mb-8 tracking-tight">
               {t('impact.title')}
             </h2>
-            <div className="h-px w-20 bg-[#CB460C] mx-auto md:mx-0" />
+            <div className="h-px w-20 bg-[#CB460C] mx-auto lg:mx-0" />
           </div>
-          
-          <div className="flex-1 grid grid-cols-2 gap-10">
+
+          <div className="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-8 md:gap-10">
             {[
               { val: t('impact.stat1.val'), label: t('impact.stat1.label') },
               { val: t('impact.stat2.val'), label: t('impact.stat2.label') },
               { val: t('impact.stat3.val'), label: t('impact.stat3.label') },
               { val: t('impact.stat4.val'), label: t('impact.stat4.label') },
             ].map((stat, i) => (
-              <div key={i} className="space-y-4">
-                <span className="block font-display font-normal text-6xl text-[#CB460C]">
+              <div key={i} className="space-y-2 md:space-y-4 text-center lg:text-left">
+                <span className="block font-display font-normal text-4xl sm:text-5xl md:text-6xl text-[#CB460C]">
                   {stat.val}
                 </span>
-                <span className="block font-body text-sm uppercase tracking-widest text-[#a89080]">
+                <span className="block font-body text-[10px] md:text-xs uppercase tracking-widest text-[#a89080]">
                   {stat.label}
                 </span>
               </div>

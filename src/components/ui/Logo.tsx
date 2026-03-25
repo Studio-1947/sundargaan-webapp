@@ -14,9 +14,8 @@ const Logo: React.FC<LogoProps> = ({ variant = 'color', className = '', height =
     <img
       src={src}
       alt="Sundargaan"
-      height={height}
-      style={{ height: `${height}px`, width: 'auto' }}
       className={className}
+      style={{ height: height ? `${height}px` : undefined, width: 'auto' }}
     />
   )
 }

@@ -46,12 +46,12 @@ const Navbar: React.FC = () => {
       }}
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
     >
-      <div className="max-w-screen-xl mx-auto px-6 md:px-10 h-24 flex items-center justify-between relative z-50">
-
-        {/* Logo */}
-        <Link to="/" className="flex-shrink-0 flex items-center" aria-label="Sundargaan Home">
-          <Logo variant="color" height={64} />
-        </Link>
+      <div className="max-w-screen-xl mx-auto px-6 md:px-10 h-20 md:h-24 flex items-center justify-between relative z-50">
+  
+          {/* Logo */}
+          <Link to="/" className="flex-shrink-0 flex items-center" aria-label="Sundargaan Home">
+            <Logo variant="color" className="h-12 md:h-16" />
+          </Link>
 
         {/* Nav Links - Desktop */}
         <nav className="hidden md:flex items-center gap-8 lg:gap-12">

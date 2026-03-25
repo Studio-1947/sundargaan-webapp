@@ -5,10 +5,11 @@ import { useLanguage } from '../../context/LanguageContext'
 interface MediaTileProps {
   delay?: number
   index?: number
+  image?: string
 }
 
 // One playable media tile with premium animations
-const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, index = 0 }) => {
+const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, index = 0, image }) => {
   const { t } = useLanguage()
   // Subtle warm gradient backgrounds for demo tiles
   const gradients = [
@@ -31,12 +32,21 @@ const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, index = 0 }) => {
       className="h-full w-full"
     >
       <motion.div
-        className="relative w-full h-full overflow-hidden rounded-3xl cursor-pointer group"
+        className="relative w-full h-full overflow-hidden rounded-3xl cursor-pointer group shadow-2xl"
         whileHover="hover"
-        style={{
-          background: gradients[index % gradients.length],
-        }}
       >
+        {image ? (
+          <img 
+            src={image} 
+            alt="Thumbnail" 
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+        ) : (
+          <div 
+            className="absolute inset-0 w-full h-full"
+            style={{ background: gradients[index % gradients.length] }}
+          />
+        )}
         <motion.div
           className="absolute inset-0 bg-black/5"
           variants={{
@@ -106,27 +116,33 @@ const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, index = 0 }) => {
   )
 }
 
-// Responsive asymmetric media grid
 const MediaGrid: React.FC = () => {
+  const images = [
+    '/src/assets/thumbnails/1 (1).jpeg',
+    '/src/assets/thumbnails/1 (2).jpeg',
+    '/src/assets/archive/landscape_thumb.png',
+    '/src/assets/archive/performing_art_thumb.png',
+  ]
+
   return (
     <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 md:p-8">
       {/* Column 1 */}
       <div className="flex flex-col gap-4 aspect-[4/5] sm:aspect-auto h-full">
         <div className="flex-[1.6]">
-          <MediaTile index={0} delay={100} />
+          <MediaTile index={0} delay={100} image={images[0]} />
         </div>
         <div className="flex-[1]">
-          <MediaTile index={2} delay={300} />
+          <MediaTile index={2} delay={300} image={images[2]} />
         </div>
       </div>
 
       {/* Column 2 */}
       <div className="flex flex-col gap-4 aspect-[4/5] sm:aspect-auto h-full">
         <div className="flex-[1]">
-          <MediaTile index={1} delay={200} />
+          <MediaTile index={1} delay={200} image={images[1]} />
         </div>
         <div className="flex-[1.4]">
-          <MediaTile index={3} delay={400} />
+          <MediaTile index={3} delay={400} image={images[3]} />
         </div>
       </div>
     </div>
