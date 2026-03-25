@@ -29,8 +29,8 @@
   --color-border: #e5d5cd;
 
   /* Font Families */
-  --font-family-display: 'Inter', system-ui, sans-serif;
-  --font-family-body: 'Inter', system-ui, sans-serif;
+  --font-family-display: 'Noto Sans Bengali', 'Inter', system-ui, sans-serif;
+  --font-family-body: 'Noto Sans Bengali', 'Inter', system-ui, sans-serif;
 
   /* Spacing extras */
   --spacing-18: 4.5rem;

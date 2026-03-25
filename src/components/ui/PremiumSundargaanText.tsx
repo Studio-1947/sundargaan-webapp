@@ -47,27 +47,35 @@ const PremiumSundargaanText: React.FC<PremiumSundargaanTextProps> = ({ text, cla
       initial="hidden"
       animate="visible"
     >
-      {text.split(' ').map((word, wordIndex) => (
-        <span key={wordIndex} className="inline-block whitespace-nowrap mr-[0.25em]">
-          {Array.from(word).map((letter, letterIndex) => (
-            <motion.span
-              key={letterIndex}
-              variants={childVariants}
-              whileHover={{
-                y: -8,
-                color: '#CB460C',
-                transition: { duration: 0.2, ease: 'easeOut' },
-              }}
-              style={{ 
-                display: 'inline-block',
-                cursor: 'default',
-              }}
-            >
-              {letter}
-            </motion.span>
-          ))}
-        </span>
-      ))}
+      {text.split(' ').map((word, wordIndex) => {
+        const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+        const segments = Array.from(segmenter.segment(word))
+        
+        return (
+          <span key={wordIndex} className="inline-block whitespace-nowrap mr-[0.25em]">
+            {segments.map((segmentData, letterIndex) => {
+              const segment = (segmentData as any).segment;
+              return (
+                <motion.span
+                  key={letterIndex}
+                  variants={childVariants}
+                  whileHover={{
+                    y: -8,
+                    color: '#CB460C',
+                    transition: { duration: 0.2, ease: 'easeOut' },
+                  }}
+                  style={{ 
+                    display: 'inline-block',
+                    cursor: 'default',
+                  }}
+                >
+                  {segment}
+                </motion.span>
+              );
+            })}
+          </span>
+        );
+      })}
     </motion.h1>
   )
 }
