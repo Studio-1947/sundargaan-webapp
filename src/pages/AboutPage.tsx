@@ -8,7 +8,7 @@ import Button from '../components/ui/Button'
 
 const Avatar: React.FC<{ initials: string; color?: string }> = ({ initials, color = '#CB460C' }) => (
   <div
-    className="w-24 h-24 md:w-28 md:h-28 rounded-full flex items-center justify-center text-white text-2xl font-semibold select-none flex-shrink-0 shadow-lg"
+    className="w-16 h-16 md:w-24 md:h-24 rounded-full flex items-center justify-center text-white text-lg md:text-2xl font-semibold select-none flex-shrink-0 shadow-lg"
     style={{ background: `linear-gradient(135deg, ${color}cc, ${color})` }}
   >
     {initials}
@@ -43,12 +43,12 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ initials, name, role, org, bi
     transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
     className="group bg-white rounded-[2rem] border border-[#e5d5cd] p-8 md:p-10 flex flex-col gap-6 hover:shadow-2xl hover:-translate-y-1 transition-all duration-400"
   >
-    <div className="flex items-start gap-6">
+    <div className="flex items-start gap-5">
       <Avatar initials={initials} color={accentColor} />
       <div className="flex-1 min-w-0">
-        <h3 className="font-display text-xl md:text-2xl text-[#1a1005] leading-snug">{name}</h3>
+        <h3 className="font-display text-lg md:text-2xl text-[#1a1005] leading-snug">{name}</h3>
         <p className="font-body text-[#CB460C] text-sm font-semibold mt-1">{role}</p>
-        <p className="font-body text-[#a89080] text-xs uppercase tracking-wider mt-1">{org}</p>
+        <p className="font-body text-[#a89080] text-xs uppercase tracking-wider mt-1 leading-snug">{org}</p>
       </div>
     </div>
     <p className="font-body text-[#6b5b4f] leading-relaxed text-base">{bio}</p>

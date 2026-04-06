@@ -332,7 +332,7 @@ const MeetTheArtistPage: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="flex items-center justify-center gap-8 mt-8 text-sm text-[#a89080]"
+            className="flex flex-wrap items-center justify-center gap-4 md:gap-8 mt-8 text-sm text-[#a89080]"
           >
             <span><strong className="text-[#1a1005]">{MOCK_ARTISTS.length}</strong> {language === 'EN' ? 'Artists' : 'শিল্পী'}</span>
             <span className="w-px h-4 bg-[#e5d5cd]" />
@@ -347,7 +347,7 @@ const MeetTheArtistPage: React.FC = () => {
       <div className="container mx-auto px-6 md:px-12 py-12 flex flex-col lg:flex-row gap-10">
 
         {/* Sidebar filters */}
-        <aside className="lg:w-60 shrink-0 space-y-8">
+        <aside className="lg:w-60 shrink-0 space-y-8 lg:sticky lg:top-28 lg:self-start">
           {/* Category filter */}
           <div className="space-y-3">
             <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#a89080]">
@@ -460,7 +460,7 @@ const MeetTheArtistPage: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+            className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4"
           >
             {/* Backdrop */}
             <motion.div
@@ -477,7 +477,7 @@ const MeetTheArtistPage: React.FC = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.97 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="relative bg-white w-full max-w-5xl rounded-[2rem] overflow-hidden flex flex-col md:flex-row max-h-[92vh] shadow-2xl"
+              className="relative bg-white w-full max-w-5xl rounded-t-[2rem] sm:rounded-[2rem] overflow-hidden flex flex-col md:flex-row max-h-[92vh] shadow-2xl"
             >
               {/* ── Left image panel ── */}
               <div className="md:w-[38%] md:min-h-full relative flex-shrink-0 bg-[#f0e8e4]">
@@ -514,15 +514,15 @@ const MeetTheArtistPage: React.FC = () => {
               </div>
 
               {/* ── Right content panel ── */}
-              <div className="md:w-[62%] flex flex-col overflow-hidden">
+              <div className="md:w-[62%] flex flex-col overflow-hidden min-h-0">
                 {/* Header row with tabs + close */}
-                <div className="flex items-center justify-between px-8 pt-7 pb-0 border-b border-[#f0e8e4] shrink-0">
-                  <div className="flex gap-1">
+                <div className="flex items-center justify-between px-4 md:px-8 pt-5 md:pt-7 pb-0 border-b border-[#f0e8e4] shrink-0 gap-2">
+                  <div className="flex gap-0.5 overflow-x-auto no-scrollbar flex-1 min-w-0">
                     {MODAL_TABS.map((tab, i) => (
                       <button
                         key={i}
                         onClick={() => setActiveModalTab(i)}
-                        className={`px-4 py-3 text-sm font-bold rounded-t-lg transition-all relative ${activeModalTab === i ? 'text-[#CB460C]' : 'text-[#a89080] hover:text-[#6b5b4f]'}`}
+                        className={`shrink-0 px-3 md:px-4 py-3 text-xs md:text-sm font-bold rounded-t-lg transition-all relative whitespace-nowrap ${activeModalTab === i ? 'text-[#CB460C]' : 'text-[#a89080] hover:text-[#6b5b4f]'}`}
                       >
                         {tab}
                         {activeModalTab === i && (
@@ -540,7 +540,7 @@ const MeetTheArtistPage: React.FC = () => {
                 </div>
 
                 {/* Scrollable tab content */}
-                <div className="flex-1 overflow-y-auto px-8 py-7">
+                <div className="flex-1 overflow-y-auto px-4 md:px-8 py-5 md:py-7">
 
                   {/* ── Tab 0: About ── */}
                   {activeModalTab === 0 && (

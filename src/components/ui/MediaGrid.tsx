@@ -109,9 +109,9 @@ const MediaGrid: React.FC<MediaGridProps> = ({ onTileClick }) => {
   ]
 
   return (
-    <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 md:p-8">
+    <div className="w-full h-full grid grid-cols-2 gap-3 p-4 md:p-8">
       {/* Column 1 */}
-      <div className="flex flex-col gap-4 aspect-[4/5] sm:aspect-auto h-full">
+      <div className="flex flex-col gap-3 h-full">
         <div className="flex-[1.6]">
           <MediaTile index={0} delay={100} image={assets[0].img} onClick={onTileClick} />
         </div>
@@ -120,8 +120,8 @@ const MediaGrid: React.FC<MediaGridProps> = ({ onTileClick }) => {
         </div>
       </div>
 
-      {/* Column 2 */}
-      <div className="flex flex-col gap-4 aspect-[4/5] sm:aspect-auto h-full">
+      {/* Column 2 — offset down slightly for visual stagger */}
+      <div className="flex flex-col gap-3 h-full pt-6 md:pt-10">
         <div className="flex-[1]">
           <MediaTile index={1} delay={200} image={assets[1].img} onClick={onTileClick} />
         </div>

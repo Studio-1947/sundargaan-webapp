@@ -112,7 +112,7 @@ const ImpactPage: React.FC = () => {
       </section>
 
       {/* ——— The Interactive Flow Story ——— */}
-      <section className="py-24 px-6 relative min-h-[140vh] bg-[#F7EAE5]/20 overflow-hidden">
+      <section className="py-16 md:py-24 px-6 relative bg-[#F7EAE5]/20 overflow-hidden">
         <div className="max-w-screen-xl mx-auto relative h-full">
           
           <div className="text-center mb-24 md:mb-48">
@@ -124,7 +124,7 @@ const ImpactPage: React.FC = () => {
             </p>
           </div>
 
-          <div ref={containerRef} className="relative grid grid-cols-1 lg:grid-cols-3 gap-24 items-start pb-64">
+          <div ref={containerRef} className="relative grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-24 items-start pb-16 lg:pb-64">
             
             {/* Column 1: Sources */}
             <div className="space-y-10 lg:space-y-16 lg:pt-12 relative z-20">
@@ -153,7 +153,7 @@ const ImpactPage: React.FC = () => {
             </div>
 
             {/* Column 2: Center Hub */}
-            <div className="flex flex-col items-center justify-center pt-32 lg:pt-72 relative z-30">
+            <div className="flex flex-col items-center justify-center pt-0 lg:pt-72 relative z-30">
               <motion.div
                 ref={hubRef}
                 initial={{ scale: 0, rotate: -45 }}
