@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage'
 import ArchivePage from './pages/ArchivePage'
 import ImpactPage from './pages/ImpactPage'
 import MeetTheArtistPage from './pages/MeetTheArtistPage'
+import AboutPage from './pages/AboutPage'
 import { LanguageProvider } from './context/LanguageContext'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route path="/archive" element={<ArchivePage />} />
             <Route path="/impact" element={<ImpactPage />} />
             <Route path="/artists" element={<MeetTheArtistPage />} />
+            <Route path="/about" element={<AboutPage />} />
           </Routes>
         </main>
         <Footer />
