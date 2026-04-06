@@ -14,16 +14,9 @@ const PremiumSundargaanText: React.FC<PremiumSundargaanTextProps> = ({
   className, 
   style, 
   duration = 0.8, 
-  stagger = 0.05 
+  stagger: _stagger = 0.05
 }) => {
 
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: (i: number = 1) => ({
-      opacity: 1,
-      transition: { staggerChildren: stagger, delayChildren: 0.2 * i },
-    }),
-  }
 
   const childVariants: Variants = {
     visible: {
@@ -49,13 +42,10 @@ const PremiumSundargaanText: React.FC<PremiumSundargaanTextProps> = ({
   }
 
   return (
-    <motion.h1
+    <div
       key={text}
       className={`relative flex flex-wrap ${className}`}
       style={style}
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
     >
       {text.split(' ').map((word, wordIndex) => {
         const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
@@ -69,6 +59,9 @@ const PremiumSundargaanText: React.FC<PremiumSundargaanTextProps> = ({
                 <motion.span
                   key={letterIndex}
                   variants={childVariants}
+                  initial="hidden"
+                  animate="visible"
+                  custom={1}
                   whileHover={{
                     y: -8,
                     color: '#CB460C',
@@ -86,7 +79,7 @@ const PremiumSundargaanText: React.FC<PremiumSundargaanTextProps> = ({
           </span>
         );
       })}
-    </motion.h1>
+    </div>
   )
 }
 

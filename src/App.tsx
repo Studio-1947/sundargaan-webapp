@@ -4,6 +4,7 @@ import Footer from './components/layout/Footer'
 import HomePage from './pages/HomePage'
 import ArchivePage from './pages/ArchivePage'
 import ImpactPage from './pages/ImpactPage'
+import MeetTheArtistPage from './pages/MeetTheArtistPage'
 import { LanguageProvider } from './context/LanguageContext'
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/archive" element={<ArchivePage />} />
             <Route path="/impact" element={<ImpactPage />} />
+            <Route path="/artists" element={<MeetTheArtistPage />} />
           </Routes>
         </main>
         <Footer />

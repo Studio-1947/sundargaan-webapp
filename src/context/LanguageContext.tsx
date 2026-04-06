@@ -47,6 +47,27 @@ const translations: Translations = {
   },
   'artists.btn': { EN: 'Meet the Team', BN: 'দলের সাথে দেখা করুন' },
   'artists.bg': { EN: 'ARTISTS', BN: 'শিল্পী' },
+  
+  // Artist Page
+  'artist.page.title': { EN: 'Meet the Artists', BN: 'শিল্পীদের সাথে আলাপ' },
+  'artist.page.search.placeholder': { EN: 'Search by name, song, or instrument...', BN: 'নাম, গান বা বাদ্যযন্ত্র দিয়ে খুঁজুন...' },
+  'artist.search.btn': { EN: 'Search', BN: 'অনুসন্ধান' },
+  'artist.filter.all': { EN: 'All Blocks', BN: 'সব ব্লক' },
+  'artist.filter.category': { EN: 'Category', BN: 'বিভাগ' },
+  'artist.card.famousSong': { EN: 'Famous Song', BN: 'বিখ্যাত গান' },
+  'artist.card.address': { EN: 'Location', BN: 'স্থান' },
+  'artist.card.book': { EN: 'Book Artist', BN: 'শিল্পী বুক করুন' },
+  'artist.card.more': { EN: 'Know More', BN: 'আরও জানুন' },
+  'artist.modal.booking': { EN: 'Booking Request', BN: 'বুকিং অনুরোধ' },
+  'artist.modal.contact': { EN: 'Contact Info', BN: 'যোগাযোগের তথ্য' },
+  'artist.modal.send': { EN: 'Send Request', BN: 'অনুরোধ পাঠান' },
+  'artist.modal.close': { EN: 'Close', BN: 'বন্ধ করুন' },
+  'artist.modal.name': { EN: 'Your Name', BN: 'আপনার নাম' },
+  'artist.modal.message': { EN: 'Message', BN: 'বার্তা' },
+  'artist.modal.success': { EN: 'Request sent successfully!', BN: 'অনুরোধ সফলভাবে পাঠানো হয়েছে!' },
+  'artist.modal.tab.about': { EN: 'About', BN: 'সম্পর্কে' },
+  'artist.modal.tab.works': { EN: 'Sample Works', BN: 'নমুনা কাজ' },
+  'artist.modal.tab.book': { EN: 'Book & Contact', BN: 'বুকিং ও যোগাযোগ' },
 
   // Impact
   'impact.title': { EN: 'Documenting Change, Preserving Legacy.', BN: 'পরিবর্তন নথিবদ্ধ করা, ঐতিহ্য সংরক্ষণ।' },
