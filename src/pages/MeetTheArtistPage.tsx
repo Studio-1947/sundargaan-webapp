@@ -1,7 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { MOCK_ARTISTS, ARTIST_BLOCKS, ARTIST_CATEGORIES, Artist, SampleWork } from '../data/artistData';
+import { getArtists } from '../api/artists';
+import { createBooking } from '../api/bookings';
 
 // ─── Icon helpers ────────────────────────────────────────────────────────────
 
@@ -222,9 +224,21 @@ const MeetTheArtistPage: React.FC = () => {
   const [activeModalTab, setActiveModalTab] = useState(0); // 0 = About, 1 = Works, 2 = Book
   const [bookingForm, setBookingForm] = useState({ name: '', phone: '', eventType: '', date: '', venue: '', message: '' });
   const [isBookingSuccess, setIsBookingSuccess] = useState(false);
+  const [isBookingSubmitting, setIsBookingSubmitting] = useState(false);
+
+  const [artists, setArtists] = useState<Artist[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getArtists({ limit: 100 })
+      .then(res => setArtists(res.data.length > 0 ? res.data : MOCK_ARTISTS))
+      .catch(() => setArtists(MOCK_ARTISTS))
+      .finally(() => setIsLoading(false));
+  }, []);
 
   const filteredArtists = useMemo(() => {
-    return MOCK_ARTISTS.filter(artist => {
+    return artists.filter(artist => {
       const q = searchTerm.toLowerCase();
       const matchesSearch = !searchTerm ||
         artist.name.toLowerCase().includes(q) ||
@@ -238,7 +252,7 @@ const MeetTheArtistPage: React.FC = () => {
       const matchesCategory = selectedCategory ? artist.category === selectedCategory : true;
       return matchesSearch && matchesBlock && matchesCategory;
     });
-  }, [searchTerm, selectedBlock, selectedCategory]);
+  }, [artists, searchTerm, selectedBlock, selectedCategory]);
 
   const openModal = (artist: Artist, tab: number) => {
     setSelectedArtist(artist);
@@ -252,13 +266,30 @@ const MeetTheArtistPage: React.FC = () => {
     setIsBookingSuccess(false);
   };
 
-  const handleBookingSubmit = (e: React.FormEvent) => {
+  const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsBookingSuccess(true);
-    setTimeout(() => {
-      setIsBookingSuccess(false);
-      closeModal();
-    }, 3000);
+    if (!selectedArtist) return;
+    setIsBookingSubmitting(true);
+    try {
+      await createBooking({
+        artistId: selectedArtist.id,
+        requesterName: bookingForm.name,
+        phone: bookingForm.phone,
+        eventType: bookingForm.eventType,
+        eventDate: bookingForm.date || undefined,
+        venue: bookingForm.venue || undefined,
+        message: bookingForm.message || undefined,
+      });
+      setIsBookingSuccess(true);
+      setTimeout(() => {
+        setIsBookingSuccess(false);
+        closeModal();
+      }, 3000);
+    } catch {
+      // keep form open so the user can retry
+    } finally {
+      setIsBookingSubmitting(false);
+    }
   };
 
   const eventTypes = language === 'EN' ? EVENT_TYPES_EN : EVENT_TYPES_BN;
@@ -334,11 +365,11 @@ const MeetTheArtistPage: React.FC = () => {
             transition={{ delay: 0.3 }}
             className="flex flex-wrap items-center justify-center gap-4 md:gap-8 mt-8 text-sm text-[#a89080]"
           >
-            <span><strong className="text-[#1a1005]">{MOCK_ARTISTS.length}</strong> {language === 'EN' ? 'Artists' : 'শিল্পী'}</span>
+            <span><strong className="text-[#1a1005]">{artists.length}</strong> {language === 'EN' ? 'Artists' : 'শিল্পী'}</span>
             <span className="w-px h-4 bg-[#e5d5cd]" />
             <span><strong className="text-[#1a1005]">{ARTIST_CATEGORIES.length}</strong> {language === 'EN' ? 'Art Forms' : 'শিল্পরূপ'}</span>
             <span className="w-px h-4 bg-[#e5d5cd]" />
-            <span><strong className="text-[#1a1005]">{MOCK_ARTISTS.filter(a => a.availability).length}</strong> {language === 'EN' ? 'Available Now' : 'এখন উপলব্ধ'}</span>
+            <span><strong className="text-[#1a1005]">{artists.filter(a => a.availability).length}</strong> {language === 'EN' ? 'Available Now' : 'এখন উপলব্ধ'}</span>
           </motion.div>
         </div>
       </section>
@@ -368,7 +399,7 @@ const MeetTheArtistPage: React.FC = () => {
                 >
                   <span>{language === 'EN' ? cat.en : cat.bn}</span>
                   <span className={`text-xs rounded-full px-2 py-0.5 ${selectedCategory === cat.id ? 'bg-white/20' : 'bg-[#F7EAE5] text-[#CB460C]'}`}>
-                    {MOCK_ARTISTS.filter(a => a.category === cat.id).length}
+                    {artists.filter(a => a.category === cat.id).length}
                   </span>
                 </button>
               ))}
@@ -420,7 +451,21 @@ const MeetTheArtistPage: React.FC = () => {
             </p>
           </div>
 
-          {filteredArtists.length > 0 ? (
+          {isLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-7">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="rounded-[2rem] border border-[#e5d5cd] overflow-hidden bg-white animate-pulse">
+                  <div className="aspect-square w-full bg-[#f0e8e4]" />
+                  <div className="p-7 space-y-3">
+                    <div className="h-6 bg-[#f0e8e4] rounded w-2/3" />
+                    <div className="h-4 bg-[#f0e8e4] rounded w-1/3" />
+                    <div className="h-4 bg-[#f0e8e4] rounded w-full" />
+                    <div className="h-4 bg-[#f0e8e4] rounded w-3/4" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : filteredArtists.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-7">
               {filteredArtists.map((artist, idx) => (
                 <ArtistCard
@@ -789,9 +834,12 @@ const MeetTheArtistPage: React.FC = () => {
 
                             <button
                               type="submit"
-                              className="w-full bg-[#CB460C] text-white py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:brightness-110 transition-all active:scale-[0.98]"
+                              disabled={isBookingSubmitting}
+                              className="w-full bg-[#CB460C] text-white py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:brightness-110 transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
                             >
-                              {t('artist.modal.send')}
+                              {isBookingSubmitting
+                                ? (language === 'EN' ? 'Sending...' : 'পাঠানো হচ্ছে...')
+                                : t('artist.modal.send')}
                             </button>
                           </form>
                         )}

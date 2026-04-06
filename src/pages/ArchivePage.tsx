@@ -1,22 +1,38 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ARCHIVE_CATEGORIES, MOCK_ARCHIVE_ITEMS, ArchiveItem } from '../data/archiveData';
 import Logo from '../components/ui/Logo';
+import { getArchiveItems } from '../api/archive';
 
 const ArchivePage: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeSubcategory, setActiveSubcategory] = useState<string | null>(null);
   const [filterTab, setFilterTab] = useState('Artist');
   const [selectedItem, setSelectedItem] = useState<ArchiveItem | null>(null);
+  const [archiveItems, setArchiveItems] = useState<ArchiveItem[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const filteredItems = useMemo(() => {
-    if (!activeCategory) return [];
-    return MOCK_ARCHIVE_ITEMS.filter((item: ArchiveItem) => {
-      const matchesCategory = item.category === activeCategory;
-      const matchesSubcategory = activeSubcategory ? item.subcategory === activeSubcategory : true;
-      return matchesCategory && matchesSubcategory;
-    });
-  }, [activeCategory, activeSubcategory]);
+  useEffect(() => {
+    if (!activeCategory) return;
+    setIsLoading(true);
+    getArchiveItems({ category: activeCategory, limit: 100 })
+      .then(res => {
+        if (res.data.length > 0) {
+          setArchiveItems(res.data);
+        } else {
+          // fall back to mock data filtered by category
+          setArchiveItems(MOCK_ARCHIVE_ITEMS.filter(i => i.category === activeCategory));
+        }
+      })
+      .catch(() =>
+        setArchiveItems(MOCK_ARCHIVE_ITEMS.filter(i => i.category === activeCategory)),
+      )
+      .finally(() => setIsLoading(false));
+  }, [activeCategory]);
+
+  const filteredItems = activeSubcategory
+    ? archiveItems.filter(item => item.subcategory === activeSubcategory)
+    : archiveItems;
 
   const currentCategory = ARCHIVE_CATEGORIES.find(c => c.id === activeCategory);
 
@@ -81,7 +97,7 @@ const ArchivePage: React.FC = () => {
             <header className="px-6 sm:px-12 py-6 sm:py-10 flex flex-col gap-6 sm:flex-row items-center justify-between bg-white relative z-30 border-b border-border/10 sm:border-none">
               <div className="flex items-center justify-between w-full sm:w-auto gap-6">
                 <button 
-                  onClick={() => setActiveCategory(null)}
+                  onClick={() => { setActiveCategory(null); setActiveSubcategory(null); setArchiveItems([]); }}
                   aria-label="Back to selection"
                   className="p-3 hover:bg-surface-warm rounded-full transition-colors group shrink-0"
                 >
@@ -145,6 +161,13 @@ const ArchivePage: React.FC = () => {
 
                {/* Grid Content Area */}
                <main className="flex-1 p-6 sm:p-10 md:p-14 bg-[#FAFAFA]/60 overflow-y-auto h-full max-h-screen">
+                 {isLoading ? (
+                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8">
+                     {[...Array(8)].map((_, i) => (
+                       <div key={i} className="aspect-square bg-white rounded-[1.5rem] sm:rounded-[2rem] animate-pulse border border-border/40" />
+                     ))}
+                   </div>
+                 ) : (
                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8">
                    <AnimatePresence mode="popLayout">
                      {filteredItems.map((item: ArchiveItem, idx: number) => (
@@ -159,9 +182,9 @@ const ArchivePage: React.FC = () => {
                          className="group cursor-pointer"
                        >
                          <div className="aspect-square bg-white rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden transition-all duration-700 shadow-sm border border-border/40 group-hover:shadow-2xl group-hover:-translate-y-1 sm:group-hover:-translate-y-2 relative">
-                           <img 
-                            src={item.mediaUrl} 
-                            alt={item.title} 
+                           <img
+                            src={item.mediaUrl}
+                            alt={item.title}
                             className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                            />
                            <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors" />
@@ -170,8 +193,9 @@ const ArchivePage: React.FC = () => {
                      ))}
                    </AnimatePresence>
                  </div>
-                 
-                 {filteredItems.length === 0 && (
+                 )}
+
+                 {!isLoading && filteredItems.length === 0 && (
                    <div className="h-64 sm:h-96 flex flex-col items-center justify-center p-12 text-ink-subtle/40 italic font-display text-center">
                      Exploring the collection...
                    </div>

@@ -34,7 +34,7 @@ export class ArtistsService {
 
     const where = conditions.length > 0 ? and(...conditions) : undefined;
 
-    const [items, [{ count }]] = await Promise.all([
+    const [items, total] = await Promise.all([
       this.db.query.artists.findMany({
         where,
         with: { sampleWorks: true },
@@ -42,12 +42,12 @@ export class ArtistsService {
         offset,
         orderBy: (a, { desc }) => [desc(a.createdAt)],
       }),
-      this.db.select({ count: schema.artists.id }).from(schema.artists).where(where),
+      this.db.$count(schema.artists, where),
     ]);
 
     return {
       data: items,
-      meta: { total: Number(count), page, limit, totalPages: Math.ceil(Number(count) / limit) },
+      meta: { total, page, limit, totalPages: Math.ceil(total / limit) },
     };
   }
 
