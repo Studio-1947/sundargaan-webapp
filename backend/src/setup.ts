@@ -1,10 +1,16 @@
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { INestApplication, ValidationPipe, RequestMethod } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { GlobalExceptionFilter } from './common/filters/http-exception.filter';
 
 export function setupApp(app: INestApplication) {
   // Global prefix
+  // Global prefix
   app.setGlobalPrefix('api/v1');
+
+  // Root status message
+  app.getHttpAdapter().get('/', (req: any, res: any) => {
+    res.send('Sundargaan Backend is running! 🚀');
+  });
 
   // CORS
   app.enableCors({
