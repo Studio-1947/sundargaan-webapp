@@ -6,10 +6,11 @@ interface MediaTileProps {
   delay?: number
   index?: number
   image?: string
+  onClick?: () => void
 }
 
 // One playable media tile with premium animations
-const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, index = 0, image }) => {
+const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, index = 0, image, onClick }) => {
   const { t } = useLanguage()
   // Subtle warm gradient backgrounds for demo tiles
   const gradients = [
@@ -30,18 +31,23 @@ const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, index = 0, image }) =>
         ease: [0.16, 1, 0.3, 1]
       }}
       className="h-full w-full"
+      onClick={onClick}
     >
       <motion.div
-        className="relative w-full h-full overflow-hidden rounded-3xl cursor-pointer group shadow-2xl"
+        className="relative w-full h-full overflow-hidden rounded-3xl cursor-pointer group shadow-2xl border border-white/5"
         whileHover="hover"
       >
-        {image ? (
+        {/* Thumbnail Image */}
+        {image && (
           <img 
             src={image} 
             alt="Thumbnail" 
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
           />
-        ) : (
+        )}
+
+        {/* Fallback Gradient */}
+        {!image && (
           <div 
             className="absolute inset-0 w-full h-full"
             style={{ background: gradients[index % gradients.length] }}
@@ -55,40 +61,6 @@ const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, index = 0, image }) =>
           transition={{ duration: 0.4 }}
         />
 
-        {/* Play button */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.div
-            className="flex items-center justify-center rounded-full bg-white/90 shadow-lg"
-            style={{ width: 56, height: 56 }}
-            variants={{
-              hover: { 
-                scale: 1.15, 
-                backgroundColor: '#CB460C',
-                boxShadow: '0 8px 30px rgba(203,70,12,0.4)'
-              }
-            }}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-          >
-            <motion.svg
-              width="18"
-              height="20"
-              viewBox="0 0 16 18"
-              fill="none"
-              className="ml-1"
-              variants={{
-                hover: { fill: '#FEFCFB', stroke: '#FEFCFB' }
-              }}
-              initial={{ fill: '#CB460C', stroke: '#CB460C' }}
-            >
-              <path
-                d="M1 1.5L15 9L1 16.5V1.5Z"
-                strokeWidth="1.5"
-                strokeLinejoin="round"
-              />
-            </motion.svg>
-          </motion.div>
-        </div>
-
         {/* Bottom label hint */}
         <motion.div
           className="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/60 to-transparent"
@@ -99,7 +71,7 @@ const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, index = 0, image }) =>
           transition={{ duration: 0.3 }}
         >
           <p className="text-[11px] font-body font-bold tracking-[0.2em] uppercase text-white">
-            {t('media.watch')}
+            {t('media.explore')}
           </p>
         </motion.div>
 
@@ -116,12 +88,24 @@ const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, index = 0, image }) =>
   )
 }
 
-const MediaGrid: React.FC = () => {
-  const images = [
-    '/src/assets/thumbnails/1 (1).jpeg',
-    '/src/assets/thumbnails/1 (2).jpeg',
-    '/src/assets/archive/landscape_thumb.png',
-    '/src/assets/archive/performing_art_thumb.png',
+interface MediaGridProps {
+  onTileClick?: () => void
+}
+
+const MediaGrid: React.FC<MediaGridProps> = ({ onTileClick }) => {
+  const assets = [
+    {
+      img: '/src/assets/thumbnails/1 (1).jpeg',
+    },
+    {
+      img: '/src/assets/thumbnails/1 (2).jpeg',
+    },
+    {
+      img: '/src/assets/archive/landscape_thumb.png',
+    },
+    {
+      img: '/src/assets/archive/performing_art_thumb.png',
+    },
   ]
 
   return (
@@ -129,20 +113,20 @@ const MediaGrid: React.FC = () => {
       {/* Column 1 */}
       <div className="flex flex-col gap-4 aspect-[4/5] sm:aspect-auto h-full">
         <div className="flex-[1.6]">
-          <MediaTile index={0} delay={100} image={images[0]} />
+          <MediaTile index={0} delay={100} image={assets[0].img} onClick={onTileClick} />
         </div>
         <div className="flex-[1]">
-          <MediaTile index={2} delay={300} image={images[2]} />
+          <MediaTile index={2} delay={300} image={assets[2].img} onClick={onTileClick} />
         </div>
       </div>
 
       {/* Column 2 */}
       <div className="flex flex-col gap-4 aspect-[4/5] sm:aspect-auto h-full">
         <div className="flex-[1]">
-          <MediaTile index={1} delay={200} image={images[1]} />
+          <MediaTile index={1} delay={200} image={assets[1].img} onClick={onTileClick} />
         </div>
         <div className="flex-[1.4]">
-          <MediaTile index={3} delay={400} image={images[3]} />
+          <MediaTile index={3} delay={400} image={assets[3].img} onClick={onTileClick} />
         </div>
       </div>
     </div>

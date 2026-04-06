@@ -70,7 +70,7 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* ——— Section 2: The Living Archive ——— */}
+      {/* Section 2: The Living Archive */}
       <section id="archive" className="px-6 md:px-10 py-16 md:py-24">
         <div className="max-w-screen-xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16">

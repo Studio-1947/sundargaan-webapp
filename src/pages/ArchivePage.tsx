@@ -270,7 +270,7 @@ const ArchivePage: React.FC = () => {
                              </div>
                              <div className="space-y-1">
                                 <span className="text-[9px] sm:text-[10px] text-[#BBBBBB] uppercase tracking-widest font-bold">Medium</span>
-                                <p className="text-xs sm:text-sm font-medium text-black">{selectedItem.mediaType === 'image' ? 'Photography' : 'Video'}</p>
+                                <p className="text-xs sm:text-sm font-medium text-black">Photography</p>
                              </div>
                              <div className="space-y-1">
                                 <span className="text-[9px] sm:text-[10px] text-[#BBBBBB] uppercase tracking-widest font-bold">Collection</span>
