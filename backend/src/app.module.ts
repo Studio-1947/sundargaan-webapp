@@ -4,6 +4,7 @@ import { DatabaseModule } from './database/database.module';
 import { ArtistsModule } from './artists/artists.module';
 import { ArchiveModule } from './archive/archive.module';
 import { BookingsModule } from './bookings/bookings.module';
+import { UploadModule } from './upload/upload.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -18,6 +19,7 @@ import { AppService } from './app.service';
     ArtistsModule,
     ArchiveModule,
     BookingsModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
