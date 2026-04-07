@@ -191,7 +191,7 @@ function ArtistEditor({ artist, onClose, onUpdated, addToast }: ArtistEditorProp
   const handlePhotoUpload = async (file: File) => {
     setPhotoUploading(true)
     try {
-      const result = await uploadFile(file, 'image', 'vercel')
+      const result = await uploadFile(file, 'image', 'cloudinary')
       const updated = await updateArtist(artist.id, { imageUrl: result.url })
       setCurrentPhoto(result.url)
       onUpdated(updated)
@@ -208,7 +208,7 @@ function ArtistEditor({ artist, onClose, onUpdated, addToast }: ArtistEditorProp
     const type = newWork.type === 'video' ? 'video' : 'audio'
     setMediaUploading(true)
     try {
-      const result = await uploadFile(file, type, 'vercel')
+      const result = await uploadFile(file, type, 'cloudinary')
       setNewWork((w) => ({ ...w, mediaUrl: result.url }))
       addToast('success', 'Media uploaded')
     } catch (e: any) {
@@ -222,7 +222,7 @@ function ArtistEditor({ artist, onClose, onUpdated, addToast }: ArtistEditorProp
   const handleThumbnailUpload = async (file: File) => {
     setThumbnailUploading(true)
     try {
-      const result = await uploadFile(file, 'image', 'vercel')
+      const result = await uploadFile(file, 'image', 'cloudinary')
       setNewWork((w) => ({ ...w, thumbnail: result.url }))
       addToast('success', 'Thumbnail uploaded')
     } catch (e: any) {
@@ -835,7 +835,7 @@ function BlobCard({ blob, type, onDelete }: { blob: BlobItem; type: UploadType; 
 
 function UploadsPanel({ addToast }: { addToast: (type: Toast['type'], msg: string) => void }) {
   const [activeTab, setActiveTab] = useState<UploadType>('image')
-  const [provider, setProvider] = useState<ProviderType>('vercel')
+  const [provider, setProvider] = useState<ProviderType>('cloudinary')
   const [blobs, setBlobs] = useState<Record<string, BlobItem[]>>({})
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
