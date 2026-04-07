@@ -1,5 +1,5 @@
 import {
-  Controller, Post, Delete, Body, UploadedFile,
+  Controller, Get, Post, Delete, Body, Query, UploadedFile,
   UseInterceptors, ParseFilePipe, MaxFileSizeValidator,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -61,6 +61,12 @@ export class UploadController {
     @Body('folder') folder?: string,
   ) {
     return this.uploadService.upload(file, 'document', folder);
+  }
+
+  @Get('list')
+  @ApiOperation({ summary: 'List all blobs, optionally filtered by prefix (images/, audios/, videos/, documents/)' })
+  listBlobs(@Query('prefix') prefix?: string) {
+    return this.uploadService.list(prefix);
   }
 
   @Delete()

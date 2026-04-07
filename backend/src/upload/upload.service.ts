@@ -1,5 +1,5 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { put, del } from '@vercel/blob';
+import { put, del, list } from '@vercel/blob';
 
 type UploadType = 'image' | 'audio' | 'video' | 'document';
 
@@ -45,6 +45,18 @@ export class UploadService {
     });
 
     return { url: blob.url, pathname: blob.pathname, size: file.size };
+  }
+
+  async list(prefix?: string): Promise<{ blobs: { url: string; pathname: string; size: number; uploadedAt: Date }[] }> {
+    const result = await list({ prefix });
+    return {
+      blobs: result.blobs.map((b) => ({
+        url: b.url,
+        pathname: b.pathname,
+        size: b.size,
+        uploadedAt: b.uploadedAt,
+      })),
+    };
   }
 
   async delete(url: string): Promise<void> {
