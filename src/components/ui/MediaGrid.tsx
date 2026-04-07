@@ -17,8 +17,8 @@ const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, image, videoSrc, onCli
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ 
         duration: 0.8, 
@@ -109,20 +109,20 @@ const MediaGrid: React.FC<MediaGridProps> = ({ onVideoClick }) => {
   ]
 
   return (
-    <div className="w-full h-full grid grid-cols-2 gap-3 p-4 md:p-8">
+    <div className="w-full aspect-square max-w-[700px] mx-auto grid grid-cols-2 gap-4 p-4 md:p-8">
       {/* Column 1 */}
-      <div className="flex flex-col gap-3 h-full">
-        <div className="flex-[1.6]">
+      <div className="flex flex-col gap-4 h-full">
+        <div className="flex-[1.4]">
           <MediaTile delay={100} image={assets[0].img} videoSrc={assets[0].video} onClick={() => assets[0].video && onVideoClick?.(assets[0].video)} />
         </div>
-        <div className="flex-[1]">
+        <div className="flex-[1.1]">
           <MediaTile delay={300} image={assets[2].img} videoSrc={assets[2].video} onClick={() => assets[2].video && onVideoClick?.(assets[2].video)} />
         </div>
       </div>
 
-      {/* Column 2 — offset down slightly for visual stagger */}
-      <div className="flex flex-col gap-3 h-full pt-6 md:pt-10">
-        <div className="flex-[1]">
+      {/* Column 2 */}
+      <div className="flex flex-col gap-4 h-full">
+        <div className="flex-[1.1]">
           <MediaTile delay={200} image={assets[1].img} videoSrc={assets[1].video} onClick={() => assets[1].video && onVideoClick?.(assets[1].video)} />
         </div>
         <div className="flex-[1.4]">

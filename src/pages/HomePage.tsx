@@ -64,7 +64,7 @@ const HomePage: React.FC = () => {
             </div>
 
             {/* Media Grid Right */}
-            <div className="relative h-[500px] md:h-[600px] lg:h-[700px] opacity-0 animate-fade-in-up delay-300">
+            <div className="relative h-auto animate-in fade-in duration-1000 delay-300 fill-mode-forwards">
               <div className="absolute inset-0 bg-[#CB460C]/5 rounded-[48px] -rotate-3 blur-3xl scale-95" />
               <MediaGrid onVideoClick={(src) => setSelectedVideo(src)} />
             </div>
