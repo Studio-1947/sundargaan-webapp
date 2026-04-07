@@ -1,4 +1,8 @@
-import { INestApplication, ValidationPipe, RequestMethod } from '@nestjs/common';
+import {
+  INestApplication,
+  ValidationPipe,
+  RequestMethod,
+} from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { GlobalExceptionFilter } from './common/filters/http-exception.filter';
 
@@ -16,7 +20,10 @@ export function setupApp(app: INestApplication) {
   const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:3000',
-    ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',').map((u) => u.trim()) : []),
+    'https://sundargaan-webapp.vercel.app',
+    ...(process.env.FRONTEND_URL
+      ? process.env.FRONTEND_URL.split(',').map((u) => u.trim())
+      : []),
   ].filter(Boolean);
 
   app.enableCors({
