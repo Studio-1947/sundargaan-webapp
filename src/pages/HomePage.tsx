@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
         {/* Background Decorative Gradient */}
         <div className="absolute top-0 right-0 w-[60%] h-full bg-gradient-to-l from-[#F7EAE5] to-transparent z-0 opacity-40" />
         
-        <div className="container mx-auto px-6 md:px-12 relative z-10">
+        <div className="w-full max-w-screen-xl mx-auto px-6 md:px-10 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Content Left */}
             <div className="max-w-xl">

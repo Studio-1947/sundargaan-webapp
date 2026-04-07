@@ -1,6 +1,10 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { useLanguage } from '../../context/LanguageContext'
+import thumb1 from '../../assets/thumbnails/1 (1).jpeg'
+import thumb2 from '../../assets/thumbnails/1 (2).jpeg'
+import landscapeThumb from '../../assets/archive/landscape_thumb.png'
+import performingArtThumb from '../../assets/archive/performing_art_thumb.png'
 
 interface MediaTileProps {
   delay?: number
@@ -94,18 +98,10 @@ interface MediaGridProps {
 
 const MediaGrid: React.FC<MediaGridProps> = ({ onTileClick }) => {
   const assets = [
-    {
-      img: '/src/assets/thumbnails/1 (1).jpeg',
-    },
-    {
-      img: '/src/assets/thumbnails/1 (2).jpeg',
-    },
-    {
-      img: '/src/assets/archive/landscape_thumb.png',
-    },
-    {
-      img: '/src/assets/archive/performing_art_thumb.png',
-    },
+    { img: thumb1 },
+    { img: thumb2 },
+    { img: landscapeThumb },
+    { img: performingArtThumb },
   ]
 
   return (
