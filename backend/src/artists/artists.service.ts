@@ -80,4 +80,38 @@ export class ArtistsService {
     await this.db.delete(schema.artists).where(eq(schema.artists.id, id));
     return { message: 'Artist deleted successfully' };
   }
+
+  async addSampleWork(artistId: string, dto: {
+    title: string;
+    titleBn?: string;
+    type: string;
+    mediaUrl: string;
+    thumbnail?: string;
+    duration?: string;
+  }) {
+    await this.findOne(artistId); // throws 404 if artist not found
+    const [work] = await this.db
+      .insert(schema.artistSampleWorks)
+      .values({ ...dto, artistId })
+      .returning();
+    return work;
+  }
+
+  async removeSampleWork(artistId: string, workId: string) {
+    const [work] = await this.db
+      .select()
+      .from(schema.artistSampleWorks)
+      .where(
+        and(
+          eq(schema.artistSampleWorks.id, workId),
+          eq(schema.artistSampleWorks.artistId, artistId),
+        ),
+      )
+      .limit(1);
+    if (!work) throw new NotFoundException(`Sample work ${workId} not found`);
+    await this.db
+      .delete(schema.artistSampleWorks)
+      .where(eq(schema.artistSampleWorks.id, workId));
+    return { message: 'Sample work deleted' };
+  }
 }

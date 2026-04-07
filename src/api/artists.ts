@@ -75,3 +75,33 @@ export async function getArtist(id: string): Promise<Artist> {
   const a = await apiFetch<Record<string, any>>(`/artists/${id}`);
   return mapArtist(a);
 }
+
+export async function updateArtist(id: string, patch: Record<string, any>): Promise<Artist> {
+  const a = await apiFetch<Record<string, any>>(`/artists/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(patch),
+  });
+  return mapArtist(a);
+}
+
+export interface SampleWorkPayload {
+  title: string;
+  titleBn?: string;
+  type: 'song' | 'video' | 'craft';
+  mediaUrl: string;
+  thumbnail?: string;
+  duration?: string;
+}
+
+export async function addSampleWork(artistId: string, payload: SampleWorkPayload) {
+  return apiFetch<Record<string, any>>(`/artists/${artistId}/sample-works`, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function deleteSampleWork(artistId: string, workId: string) {
+  return apiFetch<{ message: string }>(`/artists/${artistId}/sample-works/${workId}`, {
+    method: 'DELETE',
+  });
+}
