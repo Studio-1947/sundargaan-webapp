@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '../components/ui/Button'
 import MediaGrid from '../components/ui/MediaGrid'
+import VideoModal from '../components/ui/VideoModal'
 import PremiumSundargaanText from '../components/ui/PremiumSundargaanText'
 import { useLanguage } from '../context/LanguageContext'
 
 const HomePage: React.FC = () => {
   const { t, language } = useLanguage()
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
 
   return (
     <main className="min-h-screen relative bg-[#FEFCFB]">
@@ -64,7 +66,7 @@ const HomePage: React.FC = () => {
             {/* Media Grid Right */}
             <div className="relative h-[500px] md:h-[600px] lg:h-[700px] opacity-0 animate-fade-in-up delay-300">
               <div className="absolute inset-0 bg-[#CB460C]/5 rounded-[48px] -rotate-3 blur-3xl scale-95" />
-              <MediaGrid />
+              <MediaGrid onVideoClick={(src) => setSelectedVideo(src)} />
             </div>
           </div>
         </div>
@@ -195,6 +197,12 @@ const HomePage: React.FC = () => {
           }}
         />
       </div>
+      {/* Global Video Modal */}
+      <VideoModal 
+        isOpen={!!selectedVideo} 
+        onClose={() => setSelectedVideo(null)} 
+        videoSrc={selectedVideo || ''} 
+      />
     </main>
   )
 }

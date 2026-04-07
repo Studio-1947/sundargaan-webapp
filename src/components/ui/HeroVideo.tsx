@@ -3,9 +3,10 @@ import React, { useRef, useState } from 'react'
 interface HeroVideoProps {
   src: string
   poster?: string
+  className?: string
 }
 
-const HeroVideo: React.FC<HeroVideoProps> = ({ src, poster }) => {
+const HeroVideo: React.FC<HeroVideoProps> = ({ src, poster, className = '' }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isPlaying, setIsPlaying] = useState(true)
   const [isMuted, setIsMuted] = useState(true)
@@ -28,7 +29,7 @@ const HeroVideo: React.FC<HeroVideoProps> = ({ src, poster }) => {
   }
 
   return (
-    <div className="relative w-full h-full group overflow-hidden bg-[#1a1005]">
+    <div className={`relative w-full h-full group overflow-hidden bg-[#1a1005] ${className}`}>
       {/* Background Glow */}
       <div className="absolute inset-0 opacity-30 blur-3xl scale-110 pointer-events-none" 
            style={{ background: 'radial-gradient(circle at center, #CB460C 0%, transparent 70%)' }} />

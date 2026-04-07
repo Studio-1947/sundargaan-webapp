@@ -1,28 +1,19 @@
-import React from 'react'
 import { motion } from 'framer-motion'
 import { useLanguage } from '../../context/LanguageContext'
-import thumb1 from '../../assets/thumbnails/1 (1).jpeg'
 import thumb2 from '../../assets/thumbnails/1 (2).jpeg'
 import landscapeThumb from '../../assets/archive/landscape_thumb.png'
-import performingArtThumb from '../../assets/archive/performing_art_thumb.png'
 
 interface MediaTileProps {
   delay?: number
   index?: number
   image?: string
+  videoSrc?: string
   onClick?: () => void
 }
 
 // One playable media tile with premium animations
-const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, index = 0, image, onClick }) => {
+const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, image, videoSrc, onClick }) => {
   const { t } = useLanguage()
-  // Subtle warm gradient backgrounds for demo tiles
-  const gradients = [
-    'linear-gradient(135deg, #EDC6B5 0%, #E89F80 100%)',
-    'linear-gradient(135deg, #F1D8CD 0%, #EAB39B 100%)',
-    'linear-gradient(135deg, #E89F80 0%, #E77746 100%)',
-    'linear-gradient(135deg, #EAB39B 0%, #E86228 100%)',
-  ]
 
   return (
     <motion.div
@@ -46,16 +37,19 @@ const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, index = 0, image, onCl
           <img 
             src={image} 
             alt="Thumbnail" 
-            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         )}
 
-        {/* Fallback Gradient */}
-        {!image && (
-          <div 
-            className="absolute inset-0 w-full h-full"
-            style={{ background: gradients[index % gradients.length] }}
-          />
+        {/* Play Button Overlay for Videos */}
+        {videoSrc && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors duration-500">
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white scale-90 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_50px_rgba(203,70,12,0.3)]">
+               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="ml-1">
+                 <path d="M8 5v14l11-7z" />
+               </svg>
+            </div>
+          </div>
         )}
         <motion.div
           className="absolute inset-0 bg-black/5"
@@ -93,15 +87,21 @@ const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, index = 0, image, onCl
 }
 
 interface MediaGridProps {
-  onTileClick?: () => void
+  onVideoClick?: (src: string) => void
 }
 
-const MediaGrid: React.FC<MediaGridProps> = ({ onTileClick }) => {
+const MediaGrid: React.FC<MediaGridProps> = ({ onVideoClick }) => {
   const assets = [
-    { img: thumb1 },
+    { 
+      img: "https://res.cloudinary.com/drgb8w8ak/image/upload/v1775564860/sundargaan/images/gughdsliizqlagvntjhl.jpg", 
+      video: "https://712vsvopahcsqllv.public.blob.vercel-storage.com/hero_video_1-SYsQdTu8bw2gRoXixPC5rPhUhJAkF7.mp4" 
+    },
     { img: thumb2 },
     { img: landscapeThumb },
-    { img: performingArtThumb },
+    { 
+      img: "https://res.cloudinary.com/drgb8w8ak/image/upload/v1775566166/sundargaan/images/k6yqrrwy1kwmy1zloj3k.jpg", 
+      video: "https://712vsvopahcsqllv.public.blob.vercel-storage.com/hero_video_2-hrApTjHsIXqjPpwCGWjSKyIKMXpOcy.mp4" 
+    },
   ]
 
   return (
@@ -109,20 +109,20 @@ const MediaGrid: React.FC<MediaGridProps> = ({ onTileClick }) => {
       {/* Column 1 */}
       <div className="flex flex-col gap-3 h-full">
         <div className="flex-[1.6]">
-          <MediaTile index={0} delay={100} image={assets[0].img} onClick={onTileClick} />
+          <MediaTile delay={100} image={assets[0].img} videoSrc={assets[0].video} onClick={() => assets[0].video && onVideoClick?.(assets[0].video)} />
         </div>
         <div className="flex-[1]">
-          <MediaTile index={2} delay={300} image={assets[2].img} onClick={onTileClick} />
+          <MediaTile delay={300} image={assets[2].img} />
         </div>
       </div>
 
       {/* Column 2 — offset down slightly for visual stagger */}
       <div className="flex flex-col gap-3 h-full pt-6 md:pt-10">
         <div className="flex-[1]">
-          <MediaTile index={1} delay={200} image={assets[1].img} onClick={onTileClick} />
+          <MediaTile delay={200} image={assets[1].img} />
         </div>
         <div className="flex-[1.4]">
-          <MediaTile index={3} delay={400} image={assets[3].img} onClick={onTileClick} />
+          <MediaTile delay={400} image={assets[3].img} videoSrc={assets[3].video} onClick={() => assets[3].video && onVideoClick?.(assets[3].video)} />
         </div>
       </div>
     </div>
