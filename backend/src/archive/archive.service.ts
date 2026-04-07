@@ -1,5 +1,5 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { eq, ilike, and, SQL } from 'drizzle-orm';
+import { eq, ilike, and, SQL, count } from 'drizzle-orm';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { DRIZZLE } from '../database/database.module';
 import * as schema from '../schema';
@@ -33,7 +33,7 @@ export class ArchiveService {
 
     const where = and(...conditions);
 
-    const [items, total] = await Promise.all([
+    const [items, [{ count: totalRaw }]] = await Promise.all([
       this.db.query.archiveItems.findMany({
         where,
         with: { artist: { columns: { id: true, name: true, nameBn: true } } },
@@ -41,8 +41,10 @@ export class ArchiveService {
         offset,
         orderBy: (a, { desc }) => [desc(a.createdAt)],
       }),
-      this.db.$count(schema.archiveItems, where),
+      this.db.select({ count: count() }).from(schema.archiveItems).where(where),
     ]);
+
+    const total = Number(totalRaw);
 
     return {
       data: items,

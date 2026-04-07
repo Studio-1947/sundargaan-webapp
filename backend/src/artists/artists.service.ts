@@ -1,5 +1,5 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { eq, ilike, and, or, SQL } from 'drizzle-orm';
+import { eq, ilike, and, or, SQL, count } from 'drizzle-orm';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { DRIZZLE } from '../database/database.module';
 import * as schema from '../schema';
@@ -34,7 +34,7 @@ export class ArtistsService {
 
     const where = conditions.length > 0 ? and(...conditions) : undefined;
 
-    const [items, total] = await Promise.all([
+    const [items, [{ count: totalRaw }]] = await Promise.all([
       this.db.query.artists.findMany({
         where,
         with: { sampleWorks: true },
@@ -42,8 +42,10 @@ export class ArtistsService {
         offset,
         orderBy: (a, { desc }) => [desc(a.createdAt)],
       }),
-      this.db.$count(schema.artists, where),
+      this.db.select({ count: count() }).from(schema.artists).where(where),
     ]);
+
+    const total = Number(totalRaw);
 
     return {
       data: items,
