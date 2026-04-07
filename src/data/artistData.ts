@@ -4,6 +4,7 @@ export interface SampleWork {
   titleBN: string;
   type: 'song' | 'video' | 'craft';
   thumbnail: string;
+  mediaUrl?: string;
   youtubeId?: string;
   duration?: string;
 }

@@ -30,6 +30,7 @@ function mapArtist(a: Record<string, any>): Artist {
         titleBN: w.titleBn ?? '',
         type: w.type as 'song' | 'video' | 'craft',
         thumbnail: w.thumbnail ?? w.mediaUrl ?? '',
+        mediaUrl: w.mediaUrl ?? undefined,
         duration: w.duration,
       }),
     ),

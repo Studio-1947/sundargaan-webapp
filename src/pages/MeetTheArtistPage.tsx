@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { MOCK_ARTISTS, ARTIST_BLOCKS, ARTIST_CATEGORIES, Artist, SampleWork } from '../data/artistData';
@@ -54,6 +54,312 @@ const IconSearch = () => (
     <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
   </svg>
 );
+
+const IconPause = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+    <rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>
+  </svg>
+);
+
+const IconVolume = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+  </svg>
+);
+
+const IconVolumeMute = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+  </svg>
+);
+
+const IconLoader = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="animate-spin">
+    <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+  </svg>
+);
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+function fmtTime(s: number): string {
+  if (!isFinite(s)) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${m}:${sec.toString().padStart(2, '0')}`;
+}
+
+// ─── Audio Player Modal ───────────────────────────────────────────────────────
+
+interface PlayerProps {
+  work: SampleWork;
+  artistName: string;
+  onClose: () => void;
+}
+
+const AudioPlayerModal: React.FC<PlayerProps> = ({ work, artistName, onClose }) => {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
+  const [muted, setMuted] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  const hasMedia = !!work.mediaUrl;
+
+  useEffect(() => {
+    const el = audioRef.current;
+    if (!el) return;
+    const onLoad = () => { setDuration(el.duration); setLoading(false); };
+    const onTime = () => setCurrentTime(el.currentTime);
+    const onPlay = () => setIsPlaying(true);
+    const onPause = () => setIsPlaying(false);
+    const onEnd = () => { setIsPlaying(false); setCurrentTime(0); };
+    const onErr = () => { setError(true); setLoading(false); };
+    const onWait = () => setLoading(true);
+    const onCanPlay = () => setLoading(false);
+    el.addEventListener('loadedmetadata', onLoad);
+    el.addEventListener('timeupdate', onTime);
+    el.addEventListener('play', onPlay);
+    el.addEventListener('pause', onPause);
+    el.addEventListener('ended', onEnd);
+    el.addEventListener('error', onErr);
+    el.addEventListener('waiting', onWait);
+    el.addEventListener('canplay', onCanPlay);
+    return () => {
+      el.removeEventListener('loadedmetadata', onLoad);
+      el.removeEventListener('timeupdate', onTime);
+      el.removeEventListener('play', onPlay);
+      el.removeEventListener('pause', onPause);
+      el.removeEventListener('ended', onEnd);
+      el.removeEventListener('error', onErr);
+      el.removeEventListener('waiting', onWait);
+      el.removeEventListener('canplay', onCanPlay);
+      el.pause();
+    };
+  }, []);
+
+  const togglePlay = useCallback(() => {
+    const el = audioRef.current;
+    if (!el || error) return;
+    if (isPlaying) el.pause();
+    else el.play().catch(() => setError(true));
+  }, [isPlaying, error]);
+
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const t = Number(e.target.value);
+    if (audioRef.current) audioRef.current.currentTime = t;
+    setCurrentTime(t);
+  };
+
+  const handleVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const v = Number(e.target.value);
+    setVolume(v);
+    if (audioRef.current) audioRef.current.volume = v;
+    if (v === 0) setMuted(true);
+    else setMuted(false);
+  };
+
+  const toggleMute = () => {
+    if (!audioRef.current) return;
+    const next = !muted;
+    setMuted(next);
+    audioRef.current.muted = next;
+  };
+
+  const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+      <motion.div
+        initial={{ scale: 0.92, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.92, opacity: 0, y: 20 }}
+        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        onClick={e => e.stopPropagation()}
+        className="relative w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl"
+      >
+        {/* Blurred thumbnail background */}
+        <div className="absolute inset-0">
+          <img src={work.thumbnail} alt="" className="w-full h-full object-cover scale-110" />
+          <div className="absolute inset-0 bg-[#1a1005]/75 backdrop-blur-xl" />
+        </div>
+
+        <div className="relative p-7 flex flex-col gap-5">
+          {/* Header */}
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] uppercase tracking-widest font-bold text-[#CB460C] bg-[#CB460C]/15 px-3 py-1 rounded-full">
+              ♪ Song
+            </span>
+            <button
+              onClick={onClose}
+              className="w-8 h-8 rounded-full flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+            >
+              <IconClose />
+            </button>
+          </div>
+
+          {/* Thumbnail + Info */}
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0 shadow-lg ring-2 ring-white/10">
+              <img src={work.thumbnail} alt={work.title} className="w-full h-full object-cover" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-white font-display text-lg leading-tight truncate">{work.title}</p>
+              <p className="text-white/50 text-sm mt-0.5 truncate">{artistName}</p>
+              {work.duration && (
+                <p className="text-[#CB460C] text-xs font-mono mt-1">{work.duration}</p>
+              )}
+            </div>
+          </div>
+
+          {/* Audio element */}
+          {hasMedia && (
+            <audio ref={audioRef} src={work.mediaUrl} preload="metadata" />
+          )}
+
+          {/* No media state */}
+          {!hasMedia && (
+            <div className="text-center py-2 text-white/40 text-sm">
+              Audio preview not available
+            </div>
+          )}
+
+          {/* Seek bar */}
+          {hasMedia && (
+            <div className="space-y-1.5">
+              <div className="relative h-2 rounded-full bg-white/15">
+                <div
+                  className="absolute inset-y-0 left-0 bg-[#CB460C] rounded-full"
+                  style={{ width: `${progress}%` }}
+                />
+                <input
+                  type="range"
+                  min={0}
+                  max={duration || 0}
+                  step={0.1}
+                  value={currentTime}
+                  onChange={handleSeek}
+                  disabled={error}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+              </div>
+              <div className="flex justify-between text-white/40 text-[11px] font-mono">
+                <span>{fmtTime(currentTime)}</span>
+                <span>{fmtTime(duration)}</span>
+              </div>
+            </div>
+          )}
+
+          {/* Play / Pause */}
+          <div className="flex items-center justify-center">
+            <button
+              onClick={togglePlay}
+              disabled={!hasMedia || error}
+              className="w-16 h-16 rounded-full flex items-center justify-center text-white shadow-lg transition-all active:scale-95 disabled:opacity-40"
+              style={{ backgroundColor: '#CB460C' }}
+            >
+              {loading && hasMedia
+                ? <IconLoader />
+                : isPlaying
+                  ? <IconPause />
+                  : <IconPlay />
+              }
+            </button>
+          </div>
+
+          {/* Volume */}
+          {hasMedia && (
+            <div className="flex items-center gap-3">
+              <button onClick={toggleMute} className="text-white/50 hover:text-white transition-colors shrink-0">
+                {muted || volume === 0 ? <IconVolumeMute /> : <IconVolume />}
+              </button>
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.05}
+                value={muted ? 0 : volume}
+                onChange={handleVolume}
+                className="flex-1 h-1 accent-[#CB460C] cursor-pointer"
+              />
+            </div>
+          )}
+
+          {error && (
+            <p className="text-center text-red-400 text-xs">Could not load audio. Check the media URL.</p>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+// ─── Video Player Modal ───────────────────────────────────────────────────────
+
+const VideoPlayerModal: React.FC<PlayerProps> = ({ work, onClose }) => {
+  const hasMedia = !!work.mediaUrl;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" />
+      <motion.div
+        initial={{ scale: 0.94, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.94, opacity: 0 }}
+        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        onClick={e => e.stopPropagation()}
+        className="relative w-full max-w-3xl rounded-2xl overflow-hidden shadow-2xl bg-black"
+      >
+        {/* Title bar */}
+        <div className="flex items-center justify-between px-4 py-3 bg-[#1a1005]/90">
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] uppercase tracking-widest font-bold text-red-400 bg-red-400/15 px-2.5 py-0.5 rounded-full">
+              ▶ Video
+            </span>
+            <span className="text-white/80 text-sm font-medium truncate max-w-[260px]">{work.title}</span>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-8 h-8 rounded-full flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-colors shrink-0"
+          >
+            <IconClose />
+          </button>
+        </div>
+
+        {/* Video */}
+        {hasMedia ? (
+          <video
+            src={work.mediaUrl}
+            controls
+            autoPlay
+            className="w-full max-h-[70vh] bg-black"
+            style={{ display: 'block' }}
+          />
+        ) : (
+          <div className="relative aspect-video bg-[#0d0a07] flex flex-col items-center justify-center gap-3">
+            <img src={work.thumbnail} alt={work.title} className="absolute inset-0 w-full h-full object-cover opacity-20" />
+            <div className="relative text-white/40 text-sm">Video preview not available</div>
+          </div>
+        )}
+      </motion.div>
+    </motion.div>
+  );
+};
 
 // ─── Event types ─────────────────────────────────────────────────────────────
 
@@ -169,11 +475,14 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onBook, onKno
 
 // ─── Sample Work Card ─────────────────────────────────────────────────────────
 
-const SampleWorkCard: React.FC<{ work: SampleWork; language: string }> = ({ work, language }) => {
+const SampleWorkCard: React.FC<{ work: SampleWork; language: string; onClick?: () => void }> = ({ work, language, onClick }) => {
   const isMedia = work.type === 'song' || work.type === 'video';
 
   return (
-    <div className="group rounded-xl overflow-hidden border border-[#e5d5cd] bg-white hover:shadow-md transition-all cursor-pointer">
+    <div
+      onClick={isMedia ? onClick : undefined}
+      className={`group rounded-xl overflow-hidden border border-[#e5d5cd] bg-white hover:shadow-md transition-all ${isMedia ? 'cursor-pointer' : 'cursor-default'}`}
+    >
       <div className="relative aspect-video overflow-hidden bg-[#f0e8e4]">
         <img src={work.thumbnail} alt={work.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         {isMedia && (
@@ -226,6 +535,10 @@ const MeetTheArtistPage: React.FC = () => {
   const [isBookingSuccess, setIsBookingSuccess] = useState(false);
   const [isBookingSubmitting, setIsBookingSubmitting] = useState(false);
 
+  const [activeWork, setActiveWork] = useState<SampleWork | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const PAGE_SIZE = 6;
+
   const [artists, setArtists] = useState<Artist[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -254,6 +567,12 @@ const MeetTheArtistPage: React.FC = () => {
     });
   }, [artists, searchTerm, selectedBlock, selectedCategory]);
 
+  // Reset to page 1 whenever filters change
+  useEffect(() => { setCurrentPage(1); }, [searchTerm, selectedBlock, selectedCategory]);
+
+  const totalPages = Math.ceil(filteredArtists.length / PAGE_SIZE);
+  const pagedArtists = filteredArtists.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+
   const openModal = (artist: Artist, tab: number) => {
     setSelectedArtist(artist);
     setActiveModalTab(tab);
@@ -264,6 +583,7 @@ const MeetTheArtistPage: React.FC = () => {
   const closeModal = () => {
     setSelectedArtist(null);
     setIsBookingSuccess(false);
+    setActiveWork(null);
   };
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
@@ -433,7 +753,7 @@ const MeetTheArtistPage: React.FC = () => {
           {/* Clear filters */}
           {(selectedBlock || selectedCategory || searchTerm) && (
             <button
-              onClick={() => { setSelectedBlock(null); setSelectedCategory(null); setSearchTerm(''); }}
+              onClick={() => { setSelectedBlock(null); setSelectedCategory(null); setSearchTerm(''); setCurrentPage(1); }}
               className="w-full text-center text-xs text-[#CB460C] font-bold uppercase tracking-widest py-2 border border-[#CB460C]/30 rounded-full hover:bg-[#F7EAE5] transition-colors"
             >
               {language === 'EN' ? 'Clear all filters' : 'সব ফিল্টার মুছুন'}
@@ -443,12 +763,17 @@ const MeetTheArtistPage: React.FC = () => {
 
         {/* Artist grid */}
         <main className="flex-1 min-w-0">
-          {/* Result count */}
+          {/* Result count + page info */}
           <div className="flex items-center justify-between mb-8">
             <p className="text-sm text-[#a89080]">
               <strong className="text-[#1a1005]">{filteredArtists.length}</strong>{' '}
               {language === 'EN' ? `artist${filteredArtists.length !== 1 ? 's' : ''} found` : 'জন শিল্পী পাওয়া গেছে'}
             </p>
+            {totalPages > 1 && (
+              <p className="text-xs text-[#a89080]">
+                {language === 'EN' ? `Page ${currentPage} of ${totalPages}` : `পৃষ্ঠা ${currentPage} / ${totalPages}`}
+              </p>
+            )}
           </div>
 
           {isLoading ? (
@@ -466,18 +791,72 @@ const MeetTheArtistPage: React.FC = () => {
               ))}
             </div>
           ) : filteredArtists.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-7">
-              {filteredArtists.map((artist, idx) => (
-                <ArtistCard
-                  key={artist.id}
-                  artist={artist}
-                  language={language}
-                  onBook={(a) => openModal(a, 2)}
-                  onKnowMore={(a) => openModal(a, 0)}
-                  index={idx}
-                />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-7">
+                {pagedArtists.map((artist, idx) => (
+                  <ArtistCard
+                    key={artist.id}
+                    artist={artist}
+                    language={language}
+                    onBook={(a) => openModal(a, 2)}
+                    onKnowMore={(a) => openModal(a, 0)}
+                    index={idx}
+                  />
+                ))}
+              </div>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex items-center justify-center gap-2 mt-12">
+                  {/* Prev */}
+                  <button
+                    onClick={() => { setCurrentPage(p => Math.max(1, p - 1)); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                    disabled={currentPage === 1}
+                    className="w-10 h-10 rounded-full flex items-center justify-center border border-[#e5d5cd] text-[#6b5b4f] hover:border-[#CB460C] hover:text-[#CB460C] hover:bg-[#F7EAE5] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                    aria-label="Previous page"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                  </button>
+
+                  {/* Page numbers */}
+                  {(() => {
+                    const pages: (number | '…')[] = [];
+                    if (totalPages <= 7) {
+                      for (let i = 1; i <= totalPages; i++) pages.push(i);
+                    } else {
+                      pages.push(1);
+                      if (currentPage > 3) pages.push('…');
+                      for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) pages.push(i);
+                      if (currentPage < totalPages - 2) pages.push('…');
+                      pages.push(totalPages);
+                    }
+                    return pages.map((p, i) =>
+                      p === '…' ? (
+                        <span key={`ellipsis-${i}`} className="w-10 h-10 flex items-center justify-center text-[#a89080] text-sm select-none">…</span>
+                      ) : (
+                        <button
+                          key={p}
+                          onClick={() => { setCurrentPage(p as number); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                          className={`w-10 h-10 rounded-full text-sm font-bold transition-all ${currentPage === p ? 'bg-[#CB460C] text-white shadow-md' : 'border border-[#e5d5cd] text-[#6b5b4f] hover:border-[#CB460C] hover:text-[#CB460C] hover:bg-[#F7EAE5]'}`}
+                        >
+                          {p}
+                        </button>
+                      )
+                    );
+                  })()}
+
+                  {/* Next */}
+                  <button
+                    onClick={() => { setCurrentPage(p => Math.min(totalPages, p + 1)); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                    disabled={currentPage === totalPages}
+                    className="w-10 h-10 rounded-full flex items-center justify-center border border-[#e5d5cd] text-[#6b5b4f] hover:border-[#CB460C] hover:text-[#CB460C] hover:bg-[#F7EAE5] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                    aria-label="Next page"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
             <div className="py-24 text-center">
               <div className="text-5xl mb-4 opacity-30">♪</div>
@@ -670,7 +1049,12 @@ const MeetTheArtistPage: React.FC = () => {
                       </p>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {selectedArtist.sampleWorks.map(work => (
-                          <SampleWorkCard key={work.id} work={work} language={language} />
+                          <SampleWorkCard
+                            key={work.id}
+                            work={work}
+                            language={language}
+                            onClick={() => setActiveWork(work)}
+                          />
                         ))}
                       </div>
                       <div className="mt-8 p-5 bg-[#F7EAE5]/50 rounded-xl border border-[#e5d5cd] text-center">
@@ -851,6 +1235,26 @@ const MeetTheArtistPage: React.FC = () => {
               </div>
             </motion.div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Media Player Modals ───────────────────────────────────── */}
+      <AnimatePresence>
+        {activeWork && activeWork.type === 'song' && (
+          <AudioPlayerModal
+            key="audio-player"
+            work={activeWork}
+            artistName={selectedArtist ? (language === 'EN' ? selectedArtist.name : selectedArtist.nameBN) : ''}
+            onClose={() => setActiveWork(null)}
+          />
+        )}
+        {activeWork && activeWork.type === 'video' && (
+          <VideoPlayerModal
+            key="video-player"
+            work={activeWork}
+            artistName={selectedArtist ? (language === 'EN' ? selectedArtist.name : selectedArtist.nameBN) : ''}
+            onClose={() => setActiveWork(null)}
+          />
         )}
       </AnimatePresence>
     </div>
