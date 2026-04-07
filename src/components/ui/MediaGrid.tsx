@@ -32,25 +32,23 @@ const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, image, videoSrc, onCli
         className="relative w-full h-full overflow-hidden rounded-3xl cursor-pointer group shadow-2xl border border-white/5"
         whileHover="hover"
       >
-        {/* Thumbnail Image */}
-        {image && (
+        {/* Background Image or Video */}
+        {videoSrc ? (
+          <video
+            src={videoSrc}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+        ) : image ? (
           <img 
             src={image} 
             alt="Thumbnail" 
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
-        )}
-
-        {/* Play Button Overlay for Videos */}
-        {videoSrc && (
-          <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors duration-500">
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white scale-90 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_50px_rgba(203,70,12,0.3)]">
-               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="ml-1">
-                 <path d="M8 5v14l11-7z" />
-               </svg>
-            </div>
-          </div>
-        )}
+        ) : null}
         <motion.div
           className="absolute inset-0 bg-black/5"
           variants={{
@@ -96,8 +94,14 @@ const MediaGrid: React.FC<MediaGridProps> = ({ onVideoClick }) => {
       img: "https://res.cloudinary.com/drgb8w8ak/image/upload/v1775564860/sundargaan/images/gughdsliizqlagvntjhl.jpg", 
       video: "https://712vsvopahcsqllv.public.blob.vercel-storage.com/hero_video_1-SYsQdTu8bw2gRoXixPC5rPhUhJAkF7.mp4" 
     },
-    { img: thumb2 },
-    { img: landscapeThumb },
+    { 
+      img: thumb2,
+      video: "https://712vsvopahcsqllv.public.blob.vercel-storage.com/Hero_video_3.mp4" 
+    },
+    { 
+      img: landscapeThumb,
+      video: "https://712vsvopahcsqllv.public.blob.vercel-storage.com/Hero_video_4.mp4" 
+    },
     { 
       img: "https://res.cloudinary.com/drgb8w8ak/image/upload/v1775566166/sundargaan/images/k6yqrrwy1kwmy1zloj3k.jpg", 
       video: "https://712vsvopahcsqllv.public.blob.vercel-storage.com/hero_video_2-hrApTjHsIXqjPpwCGWjSKyIKMXpOcy.mp4" 
@@ -112,14 +116,14 @@ const MediaGrid: React.FC<MediaGridProps> = ({ onVideoClick }) => {
           <MediaTile delay={100} image={assets[0].img} videoSrc={assets[0].video} onClick={() => assets[0].video && onVideoClick?.(assets[0].video)} />
         </div>
         <div className="flex-[1]">
-          <MediaTile delay={300} image={assets[2].img} />
+          <MediaTile delay={300} image={assets[2].img} videoSrc={assets[2].video} onClick={() => assets[2].video && onVideoClick?.(assets[2].video)} />
         </div>
       </div>
 
       {/* Column 2 — offset down slightly for visual stagger */}
       <div className="flex flex-col gap-3 h-full pt-6 md:pt-10">
         <div className="flex-[1]">
-          <MediaTile delay={200} image={assets[1].img} />
+          <MediaTile delay={200} image={assets[1].img} videoSrc={assets[1].video} onClick={() => assets[1].video && onVideoClick?.(assets[1].video)} />
         </div>
         <div className="flex-[1.4]">
           <MediaTile delay={400} image={assets[3].img} videoSrc={assets[3].video} onClick={() => assets[3].video && onVideoClick?.(assets[3].video)} />

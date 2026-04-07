@@ -45,7 +45,7 @@ const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose, videoSrc }) =>
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/90 backdrop-blur-2xl"
+            className="absolute inset-0 bg-black/20 backdrop-blur-3xl"
             onClick={onClose}
           />
 
