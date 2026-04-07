@@ -54,12 +54,12 @@ const Navbar: React.FC = () => {
           </Link>
 
         {/* Nav Links - Desktop */}
-        <nav className="hidden md:flex items-center gap-8 lg:gap-12">
+        <nav className="hidden md:flex items-center gap-4 lg:gap-10">
           {navLinks.map((link) => (
             <Link
               key={link.label}
               to={link.href}
-              className={`font-body text-base font-medium tracking-wide transition-colors duration-200 ${
+              className={`font-body text-base font-medium tracking-wide transition-colors duration-200 whitespace-nowrap ${
                 location.pathname === link.href ? 'text-brand-primary' : ''
               }`}
               style={{ color: location.pathname === link.href ? '#CB460C' : '#4a3b33' }}
@@ -72,12 +72,12 @@ const Navbar: React.FC = () => {
         </nav>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-4 md:gap-8 lg:gap-10">
+        <div className="flex items-center gap-3 md:gap-6 lg:gap-8">
           <div className="hidden sm:block">
             <LanguageToggle />
           </div>
           
-          <Button variant="primary" size="lg" className="!hidden md:!inline-flex px-10">
+          <Button variant="primary" size="lg" className="!hidden md:!inline-flex px-6 lg:px-10">
             {t('nav.join')}
           </Button>
 
