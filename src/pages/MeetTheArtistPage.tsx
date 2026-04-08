@@ -19,11 +19,7 @@ const IconMusic = () => (
   </svg>
 );
 
-const IconClock = () => (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-  </svg>
-);
+
 
 const IconPlay = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -372,7 +368,7 @@ interface ArtistCardProps {
   artist: Artist;
   language: string;
   onBook: (a: Artist) => void;
-  onKnowMore: (a: Artist) => void;
+  onKnowMore: (a: Artist, tab?: number) => void;
   index: number;
 }
 
@@ -405,15 +401,11 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onBook, onKno
           <span className={`w-1.5 h-1.5 rounded-full inline-block ${artist.availability ? 'bg-green-500' : 'bg-gray-400'}`} />
           {artist.availability ? (language === 'EN' ? 'Available' : 'উপলব্ধ') : (language === 'EN' ? 'Busy' : 'ব্যস্ত')}
         </div>
-        {/* Experience tag at bottom */}
-        <div className="absolute bottom-4 left-4 flex items-center gap-1 text-white text-xs font-semibold">
-          <IconClock />
-          {artist.experience} {language === 'EN' ? 'yrs exp.' : 'বছর অভিজ্ঞতা'}
-        </div>
+
       </div>
 
       {/* Content */}
-      <div className="p-7 flex flex-col flex-1 gap-4">
+      <div className="p-5 flex flex-col flex-1 gap-3">
         {/* Name + category */}
         <div>
           <h3 className="text-2xl font-display text-[#1a1005] leading-tight mb-1">
@@ -425,9 +417,19 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onBook, onKno
         </div>
 
         {/* Famous song + address */}
-        <div className="space-y-2 text-sm text-[#6b5b4f]">
-          <div className="flex items-start gap-2">
-            <span className="text-[#CB460C] mt-0.5 shrink-0"><IconMusic /></span>
+        <div className="space-y-1 text-sm text-[#6b5b4f]">
+          <div 
+            onClick={(e) => { if (artist.sampleWorks.length > 0) { e.stopPropagation(); onKnowMore(artist, 1); } }}
+            className={`flex items-start gap-2 ${artist.sampleWorks.length > 0 ? 'cursor-pointer hover:text-[#CB460C] transition-colors group/song' : ''}`}
+          >
+            <div className="relative text-[#CB460C] mt-0.5 shrink-0">
+              <IconMusic />
+              {artist.sampleWorks.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#CB460C] text-white text-[8px] w-3 h-3 rounded-full flex items-center justify-center font-bold border border-white group-hover/song:scale-110 transition-transform">
+                  {artist.sampleWorks.length}
+                </span>
+              )}
+            </div>
             <span className="italic">{language === 'EN' ? artist.famousSong : artist.famousSongBN}</span>
           </div>
           <div className="flex items-start gap-2">
@@ -445,14 +447,18 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onBook, onKno
           ))}
         </div>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mt-auto">
-          {(language === 'EN' ? artist.tags : artist.tagsBN).slice(0, 3).map((tag, i) => (
-            <span key={i} className="px-2.5 py-1 border border-[#e5d5cd] text-[#a89080] text-[11px] rounded-full font-medium uppercase tracking-wide">
-              {tag}
-            </span>
-          ))}
-        </div>
+
+
+        {/* Tags (only if no portfolio to save space, or just keep them) */}
+        {!artist.sampleWorks.length && (
+          <div className="flex flex-wrap gap-1.5 mt-auto">
+            {(language === 'EN' ? artist.tags : artist.tagsBN).slice(0, 3).map((tag, i) => (
+              <span key={i} className="px-2.5 py-1 border border-[#e5d5cd] text-[#a89080] text-[11px] rounded-full font-medium uppercase tracking-wide">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* Action buttons */}
         <div className="flex gap-2 pt-2">
@@ -535,6 +541,7 @@ const MeetTheArtistPage: React.FC = () => {
   const [bookingForm, setBookingForm] = useState({ name: '', phone: '', eventType: '', date: '', venue: '', message: '' });
   const [isBookingSuccess, setIsBookingSuccess] = useState(false);
   const [isBookingSubmitting, setIsBookingSubmitting] = useState(false);
+  const [onlyWithPortfolio, setOnlyWithPortfolio] = useState(false);
 
   const [activeWork, setActiveWork] = useState<SampleWork | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -564,12 +571,13 @@ const MeetTheArtistPage: React.FC = () => {
         artist.tags.some(t => t.toLowerCase().includes(q));
       const matchesBlock = selectedBlock ? artist.block === selectedBlock : true;
       const matchesCategory = selectedCategory ? artist.category === selectedCategory : true;
-      return matchesSearch && matchesBlock && matchesCategory;
+      const matchesPortfolio = onlyWithPortfolio ? artist.sampleWorks.length > 0 : true;
+      return matchesSearch && matchesBlock && matchesCategory && matchesPortfolio;
     });
-  }, [artists, searchTerm, selectedBlock, selectedCategory]);
+  }, [artists, searchTerm, selectedBlock, selectedCategory, onlyWithPortfolio]);
 
   // Reset to page 1 whenever filters change
-  useEffect(() => { setCurrentPage(1); }, [searchTerm, selectedBlock, selectedCategory]);
+  useEffect(() => { setCurrentPage(1); }, [searchTerm, selectedBlock, selectedCategory, onlyWithPortfolio]);
 
   const totalPages = Math.ceil(filteredArtists.length / PAGE_SIZE);
   const pagedArtists = filteredArtists.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
@@ -585,6 +593,14 @@ const MeetTheArtistPage: React.FC = () => {
     setSelectedArtist(null);
     setIsBookingSuccess(false);
     setActiveWork(null);
+  };
+
+  const handleClearFilters = () => {
+    setSelectedBlock(null);
+    setSelectedCategory(null);
+    setSearchTerm('');
+    setOnlyWithPortfolio(false);
+    setCurrentPage(1);
   };
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
@@ -617,8 +633,8 @@ const MeetTheArtistPage: React.FC = () => {
   const category = selectedArtist ? ARTIST_CATEGORIES.find(c => c.id === selectedArtist.category) : null;
 
   const MODAL_TABS = language === 'EN'
-    ? ['About', 'Sample Works', 'Book & Contact']
-    : ['সম্পর্কে', 'নমুনা কাজ', 'বুকিং ও যোগাযোগ'];
+    ? ['About', 'Artistic Portfolio', 'Book & Contact']
+    : ['সম্পর্কে', 'আর্টিস্টিক পোর্টফোলিও', 'বুকিং ও যোগাযোগ'];
 
   return (
     <div className="min-h-screen bg-[#FEFCFB] pb-24 font-body text-[#1a1005]">
@@ -751,10 +767,26 @@ const MeetTheArtistPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Clear filters */}
-          {(selectedBlock || selectedCategory || searchTerm) && (
+          {/* Portfolio filter */}
+          <div className="space-y-3">
+            <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#a89080]">
+               {language === 'EN' ? 'Portfolio' : 'পোর্টফোলিও'}
+            </h3>
             <button
-              onClick={() => { setSelectedBlock(null); setSelectedCategory(null); setSearchTerm(''); setCurrentPage(1); }}
+              onClick={() => setOnlyWithPortfolio(!onlyWithPortfolio)}
+              className={`w-full px-4 py-2 rounded-xl text-sm text-left font-medium transition-colors flex items-center justify-between gap-2 ${onlyWithPortfolio ? 'bg-[#CB460C] text-white shadow-md' : 'bg-white border border-[#e5d5cd] text-[#4a3b33] hover:bg-[#F7EAE5]'}`}
+            >
+              <span>{language === 'EN' ? 'Only with Portfolio' : 'শুধুমাত্র পোর্টফোলিও সহ'}</span>
+              <div className={`w-4 h-4 rounded shadow-inner flex items-center justify-center ${onlyWithPortfolio ? 'bg-white' : 'bg-[#f0e8e4]'}`}>
+                {onlyWithPortfolio && <div className="w-2 h-2 bg-[#CB460C] rounded-sm" />}
+              </div>
+            </button>
+          </div>
+
+          {/* Clear filters */}
+          {(selectedBlock || selectedCategory || searchTerm || onlyWithPortfolio) && (
+            <button
+              onClick={handleClearFilters}
               className="w-full text-center text-xs text-[#CB460C] font-bold uppercase tracking-widest py-2 border border-[#CB460C]/30 rounded-full hover:bg-[#F7EAE5] transition-colors"
             >
               {language === 'EN' ? 'Clear all filters' : 'সব ফিল্টার মুছুন'}
@@ -800,7 +832,7 @@ const MeetTheArtistPage: React.FC = () => {
                     artist={artist}
                     language={language}
                     onBook={(a) => openModal(a, 2)}
-                    onKnowMore={(a) => openModal(a, 0)}
+                    onKnowMore={(a, tab) => openModal(a, tab ?? 0)}
                     index={idx}
                   />
                 ))}
@@ -932,9 +964,7 @@ const MeetTheArtistPage: React.FC = () => {
                     <span className={`w-1.5 h-1.5 rounded-full inline-block ${selectedArtist.availability ? 'bg-green-500' : 'bg-gray-400'}`} />
                     {selectedArtist.availability ? (language === 'EN' ? 'Available' : 'উপলব্ধ') : (language === 'EN' ? 'Busy' : 'ব্যস্ত')}
                   </div>
-                  <div className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-white/80 text-[#6b5b4f]">
-                    <IconClock /> {selectedArtist.experience} {language === 'EN' ? 'yrs' : 'বছর'}
-                  </div>
+
                 </div>
               </div>
 
@@ -1005,12 +1035,7 @@ const MeetTheArtistPage: React.FC = () => {
                             ))}
                           </div>
                         </div>
-                        <div className="bg-[#FEFCFB] border border-[#e5d5cd] rounded-xl p-4">
-                          <p className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold mb-2">
-                            {language === 'EN' ? 'Experience' : 'অভিজ্ঞতা'}
-                          </p>
-                          <p className="text-2xl font-display text-[#CB460C]">{selectedArtist.experience} <span className="text-base text-[#6b5b4f]">{language === 'EN' ? 'years' : 'বছর'}</span></p>
-                        </div>
+
                       </div>
 
                       {/* Tags */}
@@ -1036,7 +1061,7 @@ const MeetTheArtistPage: React.FC = () => {
                     </motion.div>
                   )}
 
-                  {/* ── Tab 1: Sample Works ── */}
+                  {/* ── Tab 1: Artistic Portfolio ── */}
                   {activeModalTab === 1 && (
                     <motion.div
                       initial={{ opacity: 0, x: 10 }}
