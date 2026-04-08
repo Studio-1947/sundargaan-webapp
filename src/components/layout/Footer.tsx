@@ -1,5 +1,6 @@
 import React from 'react'
 import Logo from '../ui/Logo'
+import Button from '../ui/Button'
 import { useLanguage } from '../../context/LanguageContext'
 
 const Footer: React.FC = () => {
@@ -88,12 +89,14 @@ const Footer: React.FC = () => {
             © {currentYear} Sundargaan. {t('footer.rights')}
           </p>
           <div className="flex gap-8">
-            <button 
+            <Button 
+              variant="outline"
+              size="sm"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="font-body text-xs font-semibold uppercase tracking-widest text-[#CB460C] hover:opacity-70 transition-opacity"
+              className="text-[10px] uppercase tracking-widest border-[#CB460C]/20 hover:border-[#CB460C]"
             >
               {t('footer.top')} ↑
-            </button>
+            </Button>
           </div>
         </div>
       </div>
