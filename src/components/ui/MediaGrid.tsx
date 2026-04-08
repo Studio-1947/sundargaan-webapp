@@ -20,8 +20,8 @@ const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, image, videoSrc, onCli
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      transition={{ 
-        duration: 0.8, 
+      transition={{
+        duration: 0.8,
         delay: delay / 1000,
         ease: [0.16, 1, 0.3, 1]
       }}
@@ -43,9 +43,9 @@ const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, image, videoSrc, onCli
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         ) : image ? (
-          <img 
-            src={image} 
-            alt="Thumbnail" 
+          <img
+            src={image}
+            alt="Thumbnail"
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         ) : null}
@@ -90,21 +90,21 @@ interface MediaGridProps {
 
 const MediaGrid: React.FC<MediaGridProps> = ({ onVideoClick }) => {
   const assets = [
-    { 
-      img: "https://res.cloudinary.com/drgb8w8ak/image/upload/v1775564860/sundargaan/images/gughdsliizqlagvntjhl.jpg", 
-      video: "https://712vsvopahcsqllv.public.blob.vercel-storage.com/hero_video_1-SYsQdTu8bw2gRoXixPC5rPhUhJAkF7.mp4" 
+    {
+      img: "https://res.cloudinary.com/drgb8w8ak/image/upload/v1775564860/sundargaan/images/gughdsliizqlagvntjhl.jpg",
+      video: "https://res.cloudinary.com/drgb8w8ak/video/upload/hero_video_1_upf9ro.mp4"
     },
-    { 
+    {
       img: thumb2,
-      video: "https://712vsvopahcsqllv.public.blob.vercel-storage.com/Hero_video_3.mp4" 
+      video: "https://res.cloudinary.com/drgb8w8ak/video/upload/Hero_video_3_wwx3sy.mp4"
     },
-    { 
+    {
       img: landscapeThumb,
-      video: "https://712vsvopahcsqllv.public.blob.vercel-storage.com/Hero_video_4.mp4" 
+      video: "https://res.cloudinary.com/drgb8w8ak/video/upload/Hero_video_4_sn34k5.mp4"
     },
-    { 
-      img: "https://res.cloudinary.com/drgb8w8ak/image/upload/v1775566166/sundargaan/images/k6yqrrwy1kwmy1zloj3k.jpg", 
-      video: "https://712vsvopahcsqllv.public.blob.vercel-storage.com/hero_video_2-hrApTjHsIXqjPpwCGWjSKyIKMXpOcy.mp4" 
+    {
+      img: "https://res.cloudinary.com/drgb8w8ak/image/upload/v1775566166/sundargaan/images/k6yqrrwy1kwmy1zloj3k.jpg",
+      video: "https://res.cloudinary.com/drgb8w8ak/video/upload/hero_video_2_axdq88.mp4"
     },
   ]
 
