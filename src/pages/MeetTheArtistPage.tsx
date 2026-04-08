@@ -384,7 +384,8 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onBook, onKno
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
-      className="group bg-white rounded-[2rem] border border-[#e5d5cd] overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-400 flex flex-col"
+      onClick={() => onKnowMore(artist)}
+      className="group bg-white rounded-[2rem] border border-[#e5d5cd] overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-400 flex flex-col cursor-pointer"
     >
       {/* Image */}
       <div className="aspect-square w-full relative overflow-hidden bg-[#f0e8e4]">
@@ -456,14 +457,14 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onBook, onKno
         {/* Action buttons */}
         <div className="flex gap-2 pt-2">
           <button
-            onClick={() => onBook(artist)}
-            className="flex-1 bg-[#CB460C] text-white py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:brightness-110 transition-all active:scale-95"
+            onClick={(e) => { e.stopPropagation(); onBook(artist); }}
+             className="flex-1 bg-[#CB460C] text-white py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:brightness-110 transition-all active:scale-95"
           >
             {language === 'EN' ? 'Book Artist' : 'শিল্পী বুক করুন'}
           </button>
           <button
-            onClick={() => onKnowMore(artist)}
-            className="flex-1 border border-[#CB460C] text-[#CB460C] py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#F7EAE5] transition-all active:scale-95"
+            onClick={(e) => { e.stopPropagation(); onKnowMore(artist); }}
+             className="flex-1 border border-[#CB460C] text-[#CB460C] py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#F7EAE5] transition-all active:scale-95"
           >
             {language === 'EN' ? 'Know More' : 'আরও জানুন'}
           </button>
