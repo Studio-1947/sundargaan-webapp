@@ -396,12 +396,6 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onBook, onKno
         <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-[#CB460C]">
           {artist.block}
         </div>
-        {/* Availability badge */}
-        <div className={`absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${artist.availability ? 'bg-green-50/90 text-green-700' : 'bg-gray-100/90 text-gray-500'}`}>
-          <span className={`w-1.5 h-1.5 rounded-full inline-block ${artist.availability ? 'bg-green-500' : 'bg-gray-400'}`} />
-          {artist.availability ? (language === 'EN' ? 'Available' : 'উপলব্ধ') : (language === 'EN' ? 'Busy' : 'ব্যস্ত')}
-        </div>
-
       </div>
 
       {/* Content */}
@@ -434,7 +428,12 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onBook, onKno
           </div>
           <div className="flex items-start gap-2">
             <span className="text-[#CB460C] mt-0.5 shrink-0"><IconPin /></span>
-            <span>{language === 'EN' ? artist.address : artist.addressBN}</span>
+            <span className="truncate">
+              {language === 'EN' 
+                ? `Village: ${artist.village || ''}, Post: ${artist.post || ''}`
+                : `গ্রাম: ${artist.villageBN || ''}, পোস্ট: ${artist.postBN || ''}`
+              }
+            </span>
           </div>
         </div>
 
@@ -705,8 +704,6 @@ const MeetTheArtistPage: React.FC = () => {
             <span><strong className="text-[#1a1005]">{artists.length}</strong> {language === 'EN' ? 'Artists' : 'শিল্পী'}</span>
             <span className="w-px h-4 bg-[#e5d5cd]" />
             <span><strong className="text-[#1a1005]">{ARTIST_CATEGORIES.length}</strong> {language === 'EN' ? 'Art Forms' : 'শিল্পরূপ'}</span>
-            <span className="w-px h-4 bg-[#e5d5cd]" />
-            <span><strong className="text-[#1a1005]">{artists.filter(a => a.availability).length}</strong> {language === 'EN' ? 'Available Now' : 'এখন উপলব্ধ'}</span>
           </motion.div>
         </div>
       </section>
@@ -954,18 +951,15 @@ const MeetTheArtistPage: React.FC = () => {
                     {language === 'EN' ? selectedArtist.name : selectedArtist.nameBN}
                   </h2>
                   <p className="text-white/70 text-sm mt-1 flex items-center gap-1.5">
-                    <IconPin /> {language === 'EN' ? selectedArtist.address : selectedArtist.addressBN}
+                    <IconPin /> 
+                    {language === 'EN' 
+                      ? `Village: ${selectedArtist.village || ''}, Post: ${selectedArtist.post || ''}`
+                      : `গ্রাম: ${selectedArtist.villageBN || ''}, পোস্ট: ${selectedArtist.postBN || ''}`
+                    }
                   </p>
                 </div>
 
-                {/* Availability + exp badges */}
-                <div className="absolute top-4 left-4 flex flex-col gap-2">
-                  <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${selectedArtist.availability ? 'bg-green-50/95 text-green-700' : 'bg-white/80 text-gray-500'}`}>
-                    <span className={`w-1.5 h-1.5 rounded-full inline-block ${selectedArtist.availability ? 'bg-green-500' : 'bg-gray-400'}`} />
-                    {selectedArtist.availability ? (language === 'EN' ? 'Available' : 'উপলব্ধ') : (language === 'EN' ? 'Busy' : 'ব্যস্ত')}
-                  </div>
-
-                </div>
+                {/* Availability removed */}
               </div>
 
               {/* ── Right content panel ── */}
@@ -1239,7 +1233,7 @@ const MeetTheArtistPage: React.FC = () => {
                                 onChange={e => setBookingForm(f => ({ ...f, message: e.target.value }))}
                                 placeholder={language === 'EN' ? 'Tell the artist about your event, any special requests...' : 'শিল্পীকে আপনার অনুষ্ঠান সম্পর্কে বলুন, যেকোনো বিশেষ অনুরোধ...'}
                                 className="w-full p-4 rounded-xl border border-[#e5d5cd] focus:border-[#CB460C] outline-none text-sm bg-[#FEFCFB] text-[#1a1005] resize-none"
-                              />
+                              ></textarea>
                             </div>
 
                             <button

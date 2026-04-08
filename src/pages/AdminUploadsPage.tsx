@@ -132,6 +132,10 @@ function ArtistEditor({ artist, onClose, onUpdated, addToast }: ArtistEditorProp
     email: artist.email,
     experience: String(artist.experience ?? 0),
     availability: artist.availability,
+    village: artist.village ?? '',
+    villageBn: artist.villageBN ?? '',
+    post: artist.post ?? '',
+    postBn: artist.postBN ?? '',
     instruments: (artist.instruments ?? []).join(', '),
     tags: (artist.tags ?? []).join(', '),
   })
@@ -174,6 +178,10 @@ function ArtistEditor({ artist, onClose, onUpdated, addToast }: ArtistEditorProp
         email: fields.email || undefined,
         experience: parseInt(fields.experience) || 0,
         availability: fields.availability,
+        village: fields.village || undefined,
+        villageBn: fields.villageBn || undefined,
+        post: fields.post || undefined,
+        postBn: fields.postBn || undefined,
         instruments: fields.instruments ? fields.instruments.split(',').map((s) => s.trim()).filter(Boolean) : [],
         tags: fields.tags ? fields.tags.split(',').map((s) => s.trim()).filter(Boolean) : [],
       }
@@ -342,26 +350,52 @@ function ArtistEditor({ artist, onClose, onUpdated, addToast }: ArtistEditorProp
               }
             </div>
             <div className="flex-1 space-y-2">
-              {currentPhoto && (
-                <p className="text-xs truncate" style={{ color: '#a89080' }}>{currentPhoto}</p>
-              )}
-              <input ref={photoInputRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden"
-                onChange={(e) => { const f = e.target.files?.[0]; if (f) handlePhotoUpload(f); e.target.value = '' }} />
-              <button
-                onClick={() => photoInputRef.current?.click()}
-                disabled={photoUploading}
-                className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors"
-                style={{ backgroundColor: '#F7EAE5', color: '#CB460C' }}
-                onMouseEnter={(e) => { if (!photoUploading) e.currentTarget.style.backgroundColor = '#F1D8CD' }}
-                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#F7EAE5' }}
-              >
-                {photoUploading
-                  ? <><motion.span animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
-                    </motion.span> Uploading…</>
-                  : <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Upload Photo</>
-                }
-              </button>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  placeholder="Paste URL →"
+                  className="flex-1 px-3 py-2 text-sm rounded-lg border outline-none transition-colors"
+                  style={{ borderColor: '#e5d5cd', backgroundColor: '#FEFCFB', color: '#1a1005' }}
+                  onFocus={(e) => e.target.style.borderColor = '#CB460C'}
+                  onBlur={(e) => e.target.style.borderColor = '#e5d5cd'}
+                  onKeyDown={async (e) => {
+                    if (e.key === 'Enter') {
+                      const url = e.currentTarget.value.trim();
+                      if (url) {
+                        setPhotoUploading(true);
+                        try {
+                          const updated = await updateArtist(artist.id, { imageUrl: url });
+                          setCurrentPhoto(url);
+                          onUpdated(updated);
+                          addToast('success', 'Profile photo URL updated');
+                        } catch (err: any) {
+                          addToast('error', err.message ?? 'Update failed');
+                        } finally {
+                          setPhotoUploading(false);
+                        }
+                      }
+                    }
+                  }}
+                />
+                <input ref={photoInputRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" title="Upload Artist Photo"
+                  onChange={(e) => { const f = e.target.files?.[0]; if (f) handlePhotoUpload(f); e.target.value = '' }} />
+                <button
+                  onClick={() => photoInputRef.current?.click()}
+                  disabled={photoUploading}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                  style={{ backgroundColor: '#F7EAE5', color: '#CB460C' }}
+                  onMouseEnter={(e) => { if (!photoUploading) e.currentTarget.style.backgroundColor = '#F1D8CD' }}
+                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#F7EAE5' }}
+                >
+                  {photoUploading
+                    ? <><motion.span animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+                      </motion.span></>
+                    : <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></>
+                  }
+                  Upload
+                </button>
+              </div>
             </div>
           </div>
         </section>
@@ -384,6 +418,14 @@ function ArtistEditor({ artist, onClose, onUpdated, addToast }: ArtistEditorProp
                 </select>
               </div>
               <Field label="Block" value={fields.block} onChange={(v) => setFields((f) => ({ ...f, block: v }))} />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <Field label="Village (English)" value={fields.village} onChange={(v) => setFields((f) => ({ ...f, village: v }))} />
+              <Field label="Village (Bengali)" value={fields.villageBn} onChange={(v) => setFields((f) => ({ ...f, villageBn: v }))} />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <Field label="Post Office (English)" value={fields.post} onChange={(v) => setFields((f) => ({ ...f, post: v }))} />
+              <Field label="Post Office (Bengali)" value={fields.postBn} onChange={(v) => setFields((f) => ({ ...f, postBn: v }))} />
             </div>
             <Field label="Address (English)" value={fields.address} onChange={(v) => setFields((f) => ({ ...f, address: v }))} />
             <Field label="Address (Bengali)" value={fields.addressBn} onChange={(v) => setFields((f) => ({ ...f, addressBn: v }))} />

@@ -13,6 +13,7 @@ export class ArtistsService {
   constructor(@Inject(DRIZZLE) private readonly db: DB) {}
 
   async findAll(query: QueryArtistDto) {
+    console.log('--- FIND ALL ARTISTS ---');
     const { search, category, block, availability, page = 1, limit = 20 } = query;
     const offset = (page - 1) * limit;
 

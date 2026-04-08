@@ -65,6 +65,10 @@ export const artists = pgTable('artists', {
   imageUrl:       text('image_url'),
   phone:          varchar('phone', { length: 20 }),
   email:          varchar('email', { length: 255 }),
+  village:        varchar('village', { length: 255 }).notNull().default(''),
+  villageBn:      varchar('village_bn', { length: 255 }).notNull().default(''),
+  post:           varchar('post', { length: 255 }).notNull().default(''),
+  postBn:         varchar('post_bn', { length: 255 }).notNull().default(''),
   createdAt:      timestamp('created_at').defaultNow().notNull(),
   updatedAt:      timestamp('updated_at').defaultNow().notNull(),
 });

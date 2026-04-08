@@ -47,6 +47,22 @@ export class CreateArtistDto {
   @IsString() @IsNotEmpty()
   addressBn: string;
 
+  @ApiProperty({ example: 'Satjelia' })
+  @IsString() @IsOptional() @MaxLength(255)
+  village?: string;
+
+  @ApiProperty({ example: 'সাতজেলিয়া' })
+  @IsString() @IsOptional() @MaxLength(255)
+  villageBn?: string;
+
+  @ApiProperty({ example: 'Satjelia' })
+  @IsString() @IsOptional() @MaxLength(255)
+  post?: string;
+
+  @ApiProperty({ example: 'সাতজেলিয়া' })
+  @IsString() @IsOptional() @MaxLength(255)
+  postBn?: string;
+
   @ApiProperty()
   @IsString() @IsNotEmpty()
   description: string;
