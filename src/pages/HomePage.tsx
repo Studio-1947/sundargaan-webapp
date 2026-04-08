@@ -12,7 +12,7 @@ const HomePage: React.FC = () => {
   return (
     <main className="min-h-screen relative bg-[#FEFCFB]">
       {/* ——— Hero Section (Archive Split Layout) ——— */}
-      <section className="relative min-h-[90vh] md:min-h-screen w-full overflow-hidden flex items-center pt-24 md:pt-32 pb-16 md:pb-24">
+      <section className="relative min-h-[90vh] md:min-h-screen w-full overflow-hidden flex items-center pt-10 md:pt-16 pb-16 md:pb-24">
         {/* Background Decorative Gradient */}
         <div className="absolute top-0 right-0 w-[60%] h-full bg-gradient-to-l from-[#F7EAE5] to-transparent z-0 opacity-40" />
         

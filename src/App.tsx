@@ -13,7 +13,7 @@ function SiteLayout() {
   return (
     <>
       <Navbar />
-      <main className="pt-24 min-h-screen">
+      <main className="pt-20 md:pt-24 min-h-screen">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/archive" element={<ArchivePage />} />
