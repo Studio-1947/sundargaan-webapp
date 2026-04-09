@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { MOCK_ARTISTS, ARTIST_BLOCKS, ARTIST_CATEGORIES, Artist, SampleWork } from '../data/artistData';
 import { getArtists } from '../api/artists';
-import { createBooking } from '../api/bookings';
 
 // ─── Icon helpers ────────────────────────────────────────────────────────────
 
@@ -24,18 +23,6 @@ const IconMusic = () => (
 const IconPlay = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
     <polygon points="5 3 19 12 5 21 5 3"/>
-  </svg>
-);
-
-const IconPhone = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-  </svg>
-);
-
-const IconMail = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
   </svg>
 );
 
@@ -357,22 +344,16 @@ const VideoPlayerModal: React.FC<PlayerProps> = ({ work, onClose }) => {
   );
 };
 
-// ─── Event types ─────────────────────────────────────────────────────────────
-
-const EVENT_TYPES_EN = ['Select event type...', 'Wedding Ceremony', 'Cultural Festival', 'School / College Program', 'Corporate Event', 'Private Concert', 'Community Gathering', 'Other'];
-const EVENT_TYPES_BN = ['অনুষ্ঠানের ধরন নির্বাচন করুন...', 'বিবাহ অনুষ্ঠান', 'সাংস্কৃতিক উৎসব', 'স্কুল / কলেজ অনুষ্ঠান', 'কর্পোরেট ইভেন্ট', 'একক সঙ্গীতানুষ্ঠান', 'সম্প্রদায়িক সমাবেশ', 'অন্যান্য'];
-
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 interface ArtistCardProps {
   artist: Artist;
   language: string;
-  onBook: (a: Artist) => void;
   onKnowMore: (a: Artist, tab?: number) => void;
   index: number;
 }
 
-const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onBook, onKnowMore, index }) => {
+const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onKnowMore, index }) => {
   const category = ARTIST_CATEGORIES.find(c => c.id === artist.category);
 
   return (
@@ -460,16 +441,10 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onBook, onKno
         )}
 
         {/* Action buttons */}
-        <div className="flex gap-2 pt-2">
-          <button
-            onClick={(e) => { e.stopPropagation(); onBook(artist); }}
-             className="flex-1 bg-[#CB460C] text-white py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:brightness-110 transition-all active:scale-95"
-          >
-            {language === 'EN' ? 'Book Artist' : 'শিল্পী বুক করুন'}
-          </button>
+        <div className="flex pt-2">
           <button
             onClick={(e) => { e.stopPropagation(); onKnowMore(artist); }}
-             className="flex-1 border border-[#CB460C] text-[#CB460C] py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#F7EAE5] transition-all active:scale-95"
+             className="w-full border border-[#CB460C] text-[#CB460C] py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#F7EAE5] transition-all active:scale-95"
           >
             {language === 'EN' ? 'Know More' : 'আরও জানুন'}
           </button>
@@ -536,10 +511,7 @@ const MeetTheArtistPage: React.FC = () => {
   const [selectedBlock, setSelectedBlock] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
-  const [activeModalTab, setActiveModalTab] = useState(0); // 0 = About, 1 = Works, 2 = Book
-  const [bookingForm, setBookingForm] = useState({ name: '', phone: '', eventType: '', date: '', venue: '', message: '' });
-  const [isBookingSuccess, setIsBookingSuccess] = useState(false);
-  const [isBookingSubmitting, setIsBookingSubmitting] = useState(false);
+  const [activeModalTab, setActiveModalTab] = useState(0); // 0 = About, 1 = Works
   const [onlyWithPortfolio, setOnlyWithPortfolio] = useState(false);
 
   const [activeWork, setActiveWork] = useState<SampleWork | null>(null);
@@ -584,13 +556,10 @@ const MeetTheArtistPage: React.FC = () => {
   const openModal = (artist: Artist, tab: number) => {
     setSelectedArtist(artist);
     setActiveModalTab(tab);
-    setIsBookingSuccess(false);
-    setBookingForm({ name: '', phone: '', eventType: '', date: '', venue: '', message: '' });
   };
 
   const closeModal = () => {
     setSelectedArtist(null);
-    setIsBookingSuccess(false);
     setActiveWork(null);
   };
 
@@ -602,38 +571,11 @@ const MeetTheArtistPage: React.FC = () => {
     setCurrentPage(1);
   };
 
-  const handleBookingSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!selectedArtist) return;
-    setIsBookingSubmitting(true);
-    try {
-      await createBooking({
-        artistId: selectedArtist.id,
-        requesterName: bookingForm.name,
-        phone: bookingForm.phone,
-        eventType: bookingForm.eventType,
-        eventDate: bookingForm.date || undefined,
-        venue: bookingForm.venue || undefined,
-        message: bookingForm.message || undefined,
-      });
-      setIsBookingSuccess(true);
-      setTimeout(() => {
-        setIsBookingSuccess(false);
-        closeModal();
-      }, 3000);
-    } catch {
-      // keep form open so the user can retry
-    } finally {
-      setIsBookingSubmitting(false);
-    }
-  };
-
-  const eventTypes = language === 'EN' ? EVENT_TYPES_EN : EVENT_TYPES_BN;
   const category = selectedArtist ? ARTIST_CATEGORIES.find(c => c.id === selectedArtist.category) : null;
 
   const MODAL_TABS = language === 'EN'
-    ? ['About', 'Artistic Portfolio', 'Book & Contact']
-    : ['সম্পর্কে', 'আর্টিস্টিক পোর্টফোলিও', 'বুকিং ও যোগাযোগ'];
+    ? ['About', 'Artistic Portfolio']
+    : ['সম্পর্কে', 'আর্টিস্টিক পোর্টফোলিও'];
 
   return (
     <div className="min-h-screen bg-[#FEFCFB] pb-24 font-body text-[#1a1005]">
@@ -668,8 +610,8 @@ const MeetTheArtistPage: React.FC = () => {
             className="text-lg text-[#6b5b4f] max-w-xl mx-auto mb-10 leading-relaxed"
           >
             {language === 'EN'
-              ? 'Discover, connect with, and book the living voices of the Sundarbans.'
-              : 'সুন্দরবনের জীবন্ত কণ্ঠস্বরগুলো আবিষ্কার করুন, যোগাযোগ করুন এবং বুক করুন।'}
+              ? 'Discover and connect with the living voices of the Sundarbans.'
+              : 'সুন্দরবনের জীবন্ত কণ্ঠস্বরগুলো আবিষ্কার করুন এবং তাদের সাথে যোগাযোগ করুন।'}
           </motion.p>
 
           {/* Search bar */}
@@ -828,7 +770,6 @@ const MeetTheArtistPage: React.FC = () => {
                     key={artist.id}
                     artist={artist}
                     language={language}
-                    onBook={(a) => openModal(a, 2)}
                     onKnowMore={(a, tab) => openModal(a, tab ?? 0)}
                     index={idx}
                   />
@@ -1046,12 +987,7 @@ const MeetTheArtistPage: React.FC = () => {
                         </div>
                       </div>
 
-                      <button
-                        onClick={() => setActiveModalTab(2)}
-                        className="w-full bg-[#CB460C] text-white py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:brightness-110 transition-all"
-                      >
-                        {language === 'EN' ? 'Book this Artist' : 'এই শিল্পীকে বুক করুন'}
-                      </button>
+                      {/* Booking CTA removed */}
                     </motion.div>
                   )}
 
@@ -1080,176 +1016,14 @@ const MeetTheArtistPage: React.FC = () => {
                       <div className="mt-8 p-5 bg-[#F7EAE5]/50 rounded-xl border border-[#e5d5cd] text-center">
                         <p className="text-sm text-[#6b5b4f]">
                           {language === 'EN'
-                            ? 'Interested in a custom performance? Book the artist for your event.'
-                            : 'কাস্টম পারফরম্যান্সে আগ্রহী? আপনার অনুষ্ঠানের জন্য শিল্পীকে বুক করুন।'}
+                            ? 'Interested in the cultural heritage? Explore more artists from the collection.'
+                            : 'সাংস্কৃতিক ঐতিহ্যে আগ্রহী? সংগ্রহ থেকে আরও শিল্পী অন্বেষণ করুন।'}
                         </p>
-                        <button
-                          onClick={() => setActiveModalTab(2)}
-                          className="mt-4 bg-[#CB460C] text-white px-8 py-3 rounded-full font-bold text-sm hover:brightness-110 transition-all"
-                        >
-                          {language === 'EN' ? 'Make a Booking' : 'বুকিং করুন'}
-                        </button>
                       </div>
                     </motion.div>
                   )}
 
-                  {/* ── Tab 2: Book & Contact ── */}
-                  {activeModalTab === 2 && (
-                    <motion.div
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.25 }}
-                      className="space-y-6"
-                    >
-                      {/* Contact info */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <a
-                          href={`tel:${selectedArtist.phone}`}
-                          className="flex items-center gap-3 p-4 bg-[#FEFCFB] border border-[#e5d5cd] rounded-xl hover:border-[#CB460C]/40 hover:bg-[#F7EAE5]/50 transition-colors group"
-                        >
-                          <div className="w-9 h-9 rounded-full bg-[#F7EAE5] flex items-center justify-center text-[#CB460C] group-hover:bg-[#CB460C] group-hover:text-white transition-colors">
-                            <IconPhone />
-                          </div>
-                          <div>
-                            <p className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold">{t('artist.modal.contact')}</p>
-                            <p className="text-sm font-semibold text-[#1a1005]">{selectedArtist.phone}</p>
-                          </div>
-                        </a>
-                        <a
-                          href={`mailto:${selectedArtist.email}`}
-                          className="flex items-center gap-3 p-4 bg-[#FEFCFB] border border-[#e5d5cd] rounded-xl hover:border-[#CB460C]/40 hover:bg-[#F7EAE5]/50 transition-colors group"
-                        >
-                          <div className="w-9 h-9 rounded-full bg-[#F7EAE5] flex items-center justify-center text-[#CB460C] group-hover:bg-[#CB460C] group-hover:text-white transition-colors">
-                            <IconMail />
-                          </div>
-                          <div>
-                            <p className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold">Email</p>
-                            <p className="text-sm font-semibold text-[#1a1005] truncate max-w-[140px]">{selectedArtist.email}</p>
-                          </div>
-                        </a>
-                      </div>
 
-                      <div className="h-px bg-[#e5d5cd]" />
-
-                      {/* Booking form */}
-                      <div>
-                        <h3 className="font-display text-xl text-[#1a1005] mb-5">{t('artist.modal.booking')}</h3>
-
-                        {isBookingSuccess ? (
-                          <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center"
-                          >
-                            <div className="text-4xl mb-3">✓</div>
-                            <p className="font-bold text-green-700 text-lg mb-1">{t('artist.modal.success')}</p>
-                            <p className="text-green-600 text-sm">
-                              {language === 'EN'
-                                ? 'The artist will get back to you shortly.'
-                                : 'শিল্পী শীঘ্রই আপনার সাথে যোগাযোগ করবেন।'}
-                            </p>
-                          </motion.div>
-                        ) : (
-                          <form onSubmit={handleBookingSubmit} className="space-y-4">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                              <div>
-                                <label className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold block mb-1.5">
-                                  {t('artist.modal.name')} *
-                                </label>
-                                <input
-                                  required
-                                  type="text"
-                                  value={bookingForm.name}
-                                  onChange={e => setBookingForm(f => ({ ...f, name: e.target.value }))}
-                                  placeholder={language === 'EN' ? 'Your full name' : 'আপনার পুরো নাম'}
-                                  className="w-full h-11 px-4 rounded-xl border border-[#e5d5cd] focus:border-[#CB460C] outline-none text-sm bg-[#FEFCFB] text-[#1a1005]"
-                                />
-                              </div>
-                              <div>
-                                <label className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold block mb-1.5">
-                                  {language === 'EN' ? 'Phone Number' : 'ফোন নম্বর'} *
-                                </label>
-                                <input
-                                  required
-                                  type="tel"
-                                  value={bookingForm.phone}
-                                  onChange={e => setBookingForm(f => ({ ...f, phone: e.target.value }))}
-                                  placeholder="+91 00000 00000"
-                                  className="w-full h-11 px-4 rounded-xl border border-[#e5d5cd] focus:border-[#CB460C] outline-none text-sm bg-[#FEFCFB] text-[#1a1005]"
-                                />
-                              </div>
-                            </div>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                              <div>
-                                <label className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold block mb-1.5">
-                                  {language === 'EN' ? 'Event Type' : 'অনুষ্ঠানের ধরন'} *
-                                </label>
-                                <select
-                                  required
-                                  value={bookingForm.eventType}
-                                  onChange={e => setBookingForm(f => ({ ...f, eventType: e.target.value }))}
-                                  className="w-full h-11 px-4 rounded-xl border border-[#e5d5cd] focus:border-[#CB460C] outline-none text-sm bg-[#FEFCFB] text-[#1a1005] appearance-none"
-                                >
-                                  {eventTypes.map((et, i) => (
-                                    <option key={i} value={i === 0 ? '' : et} disabled={i === 0}>{et}</option>
-                                  ))}
-                                </select>
-                              </div>
-                              <div>
-                                <label className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold block mb-1.5">
-                                  {language === 'EN' ? 'Preferred Date' : 'পছন্দের তারিখ'}
-                                </label>
-                                <input
-                                  type="date"
-                                  value={bookingForm.date}
-                                  onChange={e => setBookingForm(f => ({ ...f, date: e.target.value }))}
-                                  min={new Date().toISOString().split('T')[0]}
-                                  className="w-full h-11 px-4 rounded-xl border border-[#e5d5cd] focus:border-[#CB460C] outline-none text-sm bg-[#FEFCFB] text-[#1a1005]"
-                                />
-                              </div>
-                            </div>
-
-                            <div>
-                              <label className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold block mb-1.5">
-                                {language === 'EN' ? 'Venue / Location' : 'স্থান / ভেন্যু'}
-                              </label>
-                              <input
-                                type="text"
-                                value={bookingForm.venue}
-                                onChange={e => setBookingForm(f => ({ ...f, venue: e.target.value }))}
-                                placeholder={language === 'EN' ? 'Event venue or address' : 'অনুষ্ঠানের ভেন্যু বা ঠিকানা'}
-                                className="w-full h-11 px-4 rounded-xl border border-[#e5d5cd] focus:border-[#CB460C] outline-none text-sm bg-[#FEFCFB] text-[#1a1005]"
-                              />
-                            </div>
-
-                            <div>
-                              <label className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold block mb-1.5">
-                                {t('artist.modal.message')}
-                              </label>
-                              <textarea
-                                rows={3}
-                                value={bookingForm.message}
-                                onChange={e => setBookingForm(f => ({ ...f, message: e.target.value }))}
-                                placeholder={language === 'EN' ? 'Tell the artist about your event, any special requests...' : 'শিল্পীকে আপনার অনুষ্ঠান সম্পর্কে বলুন, যেকোনো বিশেষ অনুরোধ...'}
-                                className="w-full p-4 rounded-xl border border-[#e5d5cd] focus:border-[#CB460C] outline-none text-sm bg-[#FEFCFB] text-[#1a1005] resize-none"
-                              ></textarea>
-                            </div>
-
-                            <button
-                              type="submit"
-                              disabled={isBookingSubmitting}
-                              className="w-full bg-[#CB460C] text-white py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:brightness-110 transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
-                            >
-                              {isBookingSubmitting
-                                ? (language === 'EN' ? 'Sending...' : 'পাঠানো হচ্ছে...')
-                                : t('artist.modal.send')}
-                            </button>
-                          </form>
-                        )}
-                      </div>
-                    </motion.div>
-                  )}
 
                 </div>
               </div>
