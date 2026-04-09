@@ -42,7 +42,7 @@ const ArchivePage: React.FC = () => {
       {/* Dynamic Background Elements */}
       <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-brand-primary/5 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-[#E5D5CD]/20 rounded-full blur-[120px] pointer-events-none" />
-      
+
       <AnimatePresence mode="wait">
         {!activeCategory ? (
           /* SECTION 1: Premium Light Category Selection View */
@@ -63,12 +63,12 @@ const ArchivePage: React.FC = () => {
               >
                 The Digital Archives
               </motion.div>
-              
-              <PremiumSundargaanText 
-                text="Immersive Portal to Sundarbans' Heritage" 
+
+              <PremiumSundargaanText
+                text="Immersive Portal to Sundarbans' Heritage"
                 className="text-4xl md:text-7xl font-display text-ink font-light justify-center text-center leading-[1.1]"
               />
-              
+
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -78,7 +78,7 @@ const ArchivePage: React.FC = () => {
                 Explore a curated collection of artefacts, meet the master craftsmen, and witness the sacred art forms that define the soul of the delta.
               </motion.p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 w-full px-4">
               {ARCHIVE_CATEGORIES.map((cat, idx) => (
                 <motion.div
@@ -92,9 +92,9 @@ const ArchivePage: React.FC = () => {
                 >
                   {/* Image Container with Parallax Effect */}
                   <div className="absolute inset-0">
-                    <img 
-                      src={cat.image} 
-                      alt={cat.label} 
+                    <img
+                      src={cat.image}
+                      alt={cat.label}
                       className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/10 to-transparent opacity-90 group-hover:opacity-60 transition-opacity" />
@@ -122,16 +122,16 @@ const ArchivePage: React.FC = () => {
                 </motion.div>
               ))}
             </div>
-            
+
             {/* Scroll Indicator */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
               transition={{ delay: 1.5, duration: 1 }}
               className="mt-28 flex flex-col items-center gap-6"
             >
-              <div className="w-[1px] h-16 bg-gradient-to-b from-brand-primary to-transparent" />
-              <span className="text-[11px] uppercase tracking-[0.6em] font-bold text-ink/30">Scroll to immerse</span>
+              {/* <div className="w-[1px] h-16 bg-gradient-to-b from-brand-primary to-transparent" />
+              <span className="text-[11px] uppercase tracking-[0.6em] font-bold text-ink/30">Scroll to immerse</span> */}
             </motion.div>
           </motion.section>
         ) : (
@@ -147,7 +147,7 @@ const ArchivePage: React.FC = () => {
             {/* Integrated Header */}
             <header className="px-6 sm:px-12 py-8 flex flex-col gap-6 sm:flex-row items-center justify-between bg-white relative z-30 border-b border-border/20">
               <div className="flex items-center justify-between w-full sm:w-auto gap-8">
-                <button 
+                <button
                   onClick={() => { setActiveCategory(null); setActiveSubcategory(null); setArchiveItems([]); }}
                   aria-label="Back to selection"
                   className="w-12 h-12 flex items-center justify-center hover:bg-surface-warm rounded-full transition-all group shrink-0 border border-border/40"
@@ -155,12 +155,12 @@ const ArchivePage: React.FC = () => {
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                 </button>
                 <div className="flex items-center gap-4">
-                   <img src={logoCol} alt="Sundargaan" className="h-10 w-auto" />
-                   <div className="h-8 w-[1px] bg-border mr-2" />
-                   <div>
-                      <span className="text-[10px] text-brand-primary uppercase tracking-[0.3em] font-bold block opacity-60 leading-none mb-1">Archive</span>
-                      <span className="text-lg font-display font-medium text-ink tracking-tight leading-none capitalize">{activeCategory?.replace('-', ' ')}</span>
-                   </div>
+                  <img src={logoCol} alt="Sundargaan" className="h-10 w-auto" />
+                  <div className="h-8 w-[1px] bg-border mr-2" />
+                  <div>
+                    <span className="text-[10px] text-brand-primary uppercase tracking-[0.3em] font-bold block opacity-60 leading-none mb-1">Archive</span>
+                    <span className="text-lg font-display font-medium text-ink tracking-tight leading-none capitalize">{activeCategory?.replace('-', ' ')}</span>
+                  </div>
                 </div>
               </div>
 
@@ -170,9 +170,8 @@ const ArchivePage: React.FC = () => {
                   <button
                     key={tab}
                     onClick={() => setFilterTab(tab)}
-                    className={`text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-300 px-8 py-2.5 rounded-full ${
-                      filterTab === tab ? 'bg-white text-brand-primary shadow-sm border border-border/40' : 'text-ink-subtle/50 hover:text-ink'
-                    }`}
+                    className={`text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-300 px-8 py-2.5 rounded-full ${filterTab === tab ? 'bg-white text-brand-primary shadow-sm border border-border/40' : 'text-ink-subtle/50 hover:text-ink'
+                      }`}
                   >
                     {tab}
                   </button>
@@ -188,80 +187,78 @@ const ArchivePage: React.FC = () => {
 
             {/* Content Body - Mobile Header Nav + Grid */}
             <div className="flex flex-1 flex-col md:flex-row border-t border-border/40 min-h-0">
-               {/* Fixed Sidebar for Desktop / Horizontal Strip for Mobile */}
-               <aside className="w-full md:w-72 border-b md:border-b-0 md:border-r border-border/30 bg-white/40 backdrop-blur-md z-10 overflow-hidden shrink-0">
-                 <div className="p-4 sm:p-6 md:p-12 md:h-full">
-                    <ul className="flex md:flex-col overflow-x-auto md:overflow-y-auto no-scrollbar gap-2 sm:gap-4 md:space-y-6 px-2 md:px-0">
-                      <li 
-                        onClick={() => setActiveSubcategory(null)}
-                        className={`cursor-pointer text-xs sm:text-[15px] transition-all duration-300 flex items-center gap-3 shrink-0 px-4 py-2 rounded-full border md:border-none ${
-                          activeSubcategory === null ? 'text-black font-bold bg-surface-warm border-border/40 md:bg-transparent' : 'text-[#BBBBBB] border-transparent hover:text-ink'
+              {/* Fixed Sidebar for Desktop / Horizontal Strip for Mobile */}
+              <aside className="w-full md:w-72 border-b md:border-b-0 md:border-r border-border/30 bg-white/40 backdrop-blur-md z-10 overflow-hidden shrink-0">
+                <div className="p-4 sm:p-6 md:p-12 md:h-full">
+                  <ul className="flex md:flex-col overflow-x-auto md:overflow-y-auto no-scrollbar gap-2 sm:gap-4 md:space-y-6 px-2 md:px-0">
+                    <li
+                      onClick={() => setActiveSubcategory(null)}
+                      className={`cursor-pointer text-xs sm:text-[15px] transition-all duration-300 flex items-center gap-3 shrink-0 px-4 py-2 rounded-full border md:border-none ${activeSubcategory === null ? 'text-black font-bold bg-surface-warm border-border/40 md:bg-transparent' : 'text-[#BBBBBB] border-transparent hover:text-ink'
                         }`}
-                      >
-                         <span>All Areas</span>
-                      </li>
-                      {currentCategory?.subcategories.map((sub: string) => (
-                        <li
-                          key={sub}
-                          onClick={() => setActiveSubcategory(sub)}
-                          className={`cursor-pointer text-xs sm:text-[15px] transition-all duration-300 flex items-center gap-3 shrink-0 px-4 py-2 rounded-full border md:border-none ${
-                            activeSubcategory === sub ? 'text-black font-bold bg-surface-warm border-border/40 md:bg-transparent' : 'text-[#BBBBBB] border-transparent hover:text-ink'
+                    >
+                      <span>All Areas</span>
+                    </li>
+                    {currentCategory?.subcategories.map((sub: string) => (
+                      <li
+                        key={sub}
+                        onClick={() => setActiveSubcategory(sub)}
+                        className={`cursor-pointer text-xs sm:text-[15px] transition-all duration-300 flex items-center gap-3 shrink-0 px-4 py-2 rounded-full border md:border-none ${activeSubcategory === sub ? 'text-black font-bold bg-surface-warm border-border/40 md:bg-transparent' : 'text-[#BBBBBB] border-transparent hover:text-ink'
                           }`}
+                      >
+                        <span>Block {sub}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </aside>
+
+              {/* Grid Content Area */}
+              <main className="flex-1 p-6 sm:p-10 md:p-14 bg-[#F7EAE5]/60 overflow-y-auto h-full max-h-screen">
+                {isLoading ? (
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8">
+                    {[...Array(8)].map((_, i) => (
+                      <div key={i} className="aspect-square bg-white rounded-[1.5rem] sm:rounded-[2rem] animate-pulse border border-border/40" />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8">
+                    <AnimatePresence mode="popLayout">
+                      {filteredItems.map((item: ArchiveItem, idx: number) => (
+                        <motion.div
+                          key={item.id}
+                          layout
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, scale: 0.9 }}
+                          transition={{ duration: 0.4, delay: idx * 0.04 }}
+                          onClick={() => setSelectedItem(item)}
+                          className="group cursor-pointer"
                         >
-                           <span>Block {sub}</span>
-                        </li>
+                          <div className="aspect-[3/4] bg-white rounded-[2rem] overflow-hidden transition-all duration-700 shadow-sm border border-border/40 group-hover:shadow-2xl group-hover:-translate-y-2 relative">
+                            <img
+                              src={item.mediaUrl}
+                              alt={item.title}
+                              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                            <div className="absolute inset-x-0 bottom-0 p-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                              <span className="text-[9px] text-white/60 uppercase tracking-widest font-bold mb-1 block">{item.subcategory}</span>
+                              <h4 className="text-white font-medium text-sm line-clamp-1">{item.title}</h4>
+                            </div>
+                          </div>
+                        </motion.div>
                       ))}
-                    </ul>
-                 </div>
-               </aside>
+                    </AnimatePresence>
+                  </div>
+                )}
 
-               {/* Grid Content Area */}
-               <main className="flex-1 p-6 sm:p-10 md:p-14 bg-[#F7EAE5]/60 overflow-y-auto h-full max-h-screen">
-                 {isLoading ? (
-                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8">
-                     {[...Array(8)].map((_, i) => (
-                       <div key={i} className="aspect-square bg-white rounded-[1.5rem] sm:rounded-[2rem] animate-pulse border border-border/40" />
-                     ))}
-                   </div>
-                 ) : (
-                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8">
-                   <AnimatePresence mode="popLayout">
-                     {filteredItems.map((item: ArchiveItem, idx: number) => (
-                       <motion.div
-                         key={item.id}
-                         layout
-                         initial={{ opacity: 0, y: 10 }}
-                         animate={{ opacity: 1, y: 0 }}
-                         exit={{ opacity: 0, scale: 0.9 }}
-                         transition={{ duration: 0.4, delay: idx * 0.04 }}
-                         onClick={() => setSelectedItem(item)}
-                         className="group cursor-pointer"
-                       >
-                         <div className="aspect-[3/4] bg-white rounded-[2rem] overflow-hidden transition-all duration-700 shadow-sm border border-border/40 group-hover:shadow-2xl group-hover:-translate-y-2 relative">
-                           <img
-                            src={item.mediaUrl}
-                            alt={item.title}
-                            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                           />
-                           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                           
-                           <div className="absolute inset-x-0 bottom-0 p-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                             <span className="text-[9px] text-white/60 uppercase tracking-widest font-bold mb-1 block">{item.subcategory}</span>
-                             <h4 className="text-white font-medium text-sm line-clamp-1">{item.title}</h4>
-                           </div>
-                         </div>
-                       </motion.div>
-                     ))}
-                   </AnimatePresence>
-                 </div>
-                 )}
-
-                 {!isLoading && filteredItems.length === 0 && (
-                   <div className="h-64 sm:h-96 flex flex-col items-center justify-center p-12 text-ink-subtle/40 italic font-display text-center">
-                     Exploring the collection...
-                   </div>
-                 )}
-               </main>
+                {!isLoading && filteredItems.length === 0 && (
+                  <div className="h-64 sm:h-96 flex flex-col items-center justify-center p-12 text-ink-subtle/40 italic font-display text-center">
+                    Exploring the collection...
+                  </div>
+                )}
+              </main>
             </div>
           </motion.div>
         )}
@@ -271,110 +268,110 @@ const ArchivePage: React.FC = () => {
       <AnimatePresence>
         {selectedItem && (
           <motion.div
-             initial={{ opacity: 0 }}
-             animate={{ opacity: 1 }}
-             exit={{ opacity: 0 }}
-             className="fixed inset-0 z-[100] flex items-center justify-center p-0 sm:p-6 md:p-12 lg:p-24 overflow-hidden"
-           >
-             <motion.div
-               className="absolute inset-0 bg-white/60 backdrop-blur-xl"
-               onClick={() => setSelectedItem(null)}
-             />
-             
-             <motion.div
-                layoutId={`detail-${selectedItem.id}`}
-                className="relative w-full h-full sm:h-fit max-w-7xl bg-white/90 backdrop-blur-2xl text-ink rounded-none sm:rounded-[4rem] shadow-[0_40px_100px_rgba(203,70,12,0.15)] border border-white overflow-hidden flex flex-col max-h-[100vh] sm:max-h-[90vh]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-0 sm:p-6 md:p-12 lg:p-24 overflow-hidden"
+          >
+            <motion.div
+              className="absolute inset-0 bg-white/60 backdrop-blur-xl"
+              onClick={() => setSelectedItem(null)}
+            />
+
+            <motion.div
+              layoutId={`detail-${selectedItem.id}`}
+              className="relative w-full h-full sm:h-fit max-w-7xl bg-white/90 backdrop-blur-2xl text-ink rounded-none sm:rounded-[4rem] shadow-[0_40px_100px_rgba(203,70,12,0.15)] border border-white overflow-hidden flex flex-col max-h-[100vh] sm:max-h-[90vh]"
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedItem(null)}
+                aria-label="Close detail view"
+                className="absolute top-10 right-10 z-[110] w-14 h-14 flex items-center justify-center rounded-full bg-surface-warm/80 backdrop-blur text-ink hover:bg-brand-primary hover:text-white transition-all shadow-xl"
               >
-                {/* Close Button */}
-                <button 
-                   onClick={() => setSelectedItem(null)}
-                   aria-label="Close detail view"
-                   className="absolute top-10 right-10 z-[110] w-14 h-14 flex items-center justify-center rounded-full bg-surface-warm/80 backdrop-blur text-ink hover:bg-brand-primary hover:text-white transition-all shadow-xl"
-                 >
-                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                </button>
- 
-                <div className="flex flex-1 min-h-0 overflow-y-auto">
-                   {/* Main Gallery Area */}
-                   <div className="flex-1 flex flex-col px-8 sm:px-20 space-y-12 sm:space-y-20 py-20">
-                     {/* Top Row: Hero Image + Description */}
-                     <div className="flex flex-col xl:flex-row gap-12 sm:gap-24 items-start">
-                        <div className="w-full xl:w-[540px] aspect-[4/5] bg-surface-warm rounded-[3rem] overflow-hidden shadow-2xl shrink-0 border border-border/20">
-                           <img 
-                             src={selectedItem.mediaUrl} 
-                             alt={selectedItem.title} 
-                             className="w-full h-full object-cover" 
-                           />
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </button>
+
+              <div className="flex flex-1 min-h-0 overflow-y-auto">
+                {/* Main Gallery Area */}
+                <div className="flex-1 flex flex-col px-8 sm:px-20 space-y-12 sm:space-y-20 py-20">
+                  {/* Top Row: Hero Image + Description */}
+                  <div className="flex flex-col xl:flex-row gap-12 sm:gap-24 items-start">
+                    <div className="w-full xl:w-[540px] aspect-[4/5] bg-surface-warm rounded-[3rem] overflow-hidden shadow-2xl shrink-0 border border-border/20">
+                      <img
+                        src={selectedItem.mediaUrl}
+                        alt={selectedItem.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    <div className="flex-1 space-y-10">
+                      <div className="space-y-4">
+                        <span className="text-[10px] text-brand-primary uppercase tracking-[0.4em] font-bold">Documented Heritage</span>
+                        <h2 className="text-4xl sm:text-6xl font-display font-light text-ink leading-tight">
+                          {selectedItem.title}
+                        </h2>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-y-10 py-10 border-y border-border/20">
+                        <div className="space-y-2">
+                          <span className="text-[10px] text-ink-subtle uppercase tracking-widest font-bold">Archive ID</span>
+                          <p className="text-base font-medium text-ink">#SG-{selectedItem.id.toUpperCase()}</p>
                         </div>
-                        
-                        <div className="flex-1 space-y-10">
-                           <div className="space-y-4">
-                              <span className="text-[10px] text-brand-primary uppercase tracking-[0.4em] font-bold">Documented Heritage</span>
-                              <h2 className="text-4xl sm:text-6xl font-display font-light text-ink leading-tight">
-                                {selectedItem.title}
-                              </h2>
-                           </div>
-                           
-                           <div className="grid grid-cols-2 gap-y-10 py-10 border-y border-border/20">
-                              <div className="space-y-2">
-                                 <span className="text-[10px] text-ink-subtle uppercase tracking-widest font-bold">Archive ID</span>
-                                 <p className="text-base font-medium text-ink">#SG-{selectedItem.id.toUpperCase()}</p>
-                              </div>
-                              <div className="space-y-2">
-                                 <span className="text-[10px] text-ink-subtle uppercase tracking-widest font-bold">Category</span>
-                                 <p className="text-base font-medium text-brand-primary">{selectedItem.subcategory}</p>
-                              </div>
-                              <div className="space-y-2">
-                                 <span className="text-[10px] text-ink-subtle uppercase tracking-widest font-bold">Medium</span>
-                                 <p className="text-base font-medium text-ink">Physical & Oral Tradition</p>
-                              </div>
-                              <div className="space-y-2">
-                                 <span className="text-[10px] text-ink-subtle uppercase tracking-widest font-bold">Collection</span>
-                                 <p className="text-base font-medium text-ink">Sundargram Archives</p>
-                              </div>
-                           </div>
- 
-                           <div className="space-y-6">
-                              <p className="text-ink-muted leading-relaxed text-xl font-body font-light italic">
-                                "{selectedItem.description}"
-                              </p>
-                              
-                              <div className="flex flex-wrap gap-3">
-                                 {selectedItem.tags.map(tag => (
-                                   <span key={tag} className="px-5 py-2 bg-surface-warm text-[10px] font-bold text-ink-subtle rounded-full uppercase tracking-widest border border-border/40">
-                                     {tag}
-                                   </span>
-                                 ))}
-                              </div>
-                           </div>
+                        <div className="space-y-2">
+                          <span className="text-[10px] text-ink-subtle uppercase tracking-widest font-bold">Category</span>
+                          <p className="text-base font-medium text-brand-primary">{selectedItem.subcategory}</p>
                         </div>
-                     </div>
- 
-                     {/* Bottom Row: Contextual Images */}
-                     <div className="space-y-8 pt-12 border-t border-border/10">
-                         <div className="flex items-center justify-between">
-                            <h5 className="text-[12px] text-ink-subtle uppercase tracking-[0.3em] font-bold">Contextual Documentation</h5>
-                            <div className="h-[1px] flex-1 bg-border/20 mx-8 hidden sm:block" />
-                         </div>
-                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-10">
-                             {[...Array(4)].map((_, i) => (
-                               <motion.div 
-                                 key={i} 
-                                 whileHover={{ scale: 1.02 }}
-                                 className="aspect-[4/3] bg-surface-warm rounded-[2rem] overflow-hidden group border border-border/10 cursor-zoom-in"
-                               >
-                                  <img 
-                                   src={`https://picsum.photos/seed/${selectedItem.id}-${i}/600`} 
-                                   alt="related documentation" 
-                                   className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000" 
-                                  />
-                               </motion.div>
-                             ))}
-                         </div>
-                     </div>
-                   </div>
+                        <div className="space-y-2">
+                          <span className="text-[10px] text-ink-subtle uppercase tracking-widest font-bold">Medium</span>
+                          <p className="text-base font-medium text-ink">Physical & Oral Tradition</p>
+                        </div>
+                        <div className="space-y-2">
+                          <span className="text-[10px] text-ink-subtle uppercase tracking-widest font-bold">Collection</span>
+                          <p className="text-base font-medium text-ink">Sundargram Archives</p>
+                        </div>
+                      </div>
+
+                      <div className="space-y-6">
+                        <p className="text-ink-muted leading-relaxed text-xl font-body font-light italic">
+                          "{selectedItem.description}"
+                        </p>
+
+                        <div className="flex flex-wrap gap-3">
+                          {selectedItem.tags.map(tag => (
+                            <span key={tag} className="px-5 py-2 bg-surface-warm text-[10px] font-bold text-ink-subtle rounded-full uppercase tracking-widest border border-border/40">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bottom Row: Contextual Images */}
+                  <div className="space-y-8 pt-12 border-t border-border/10">
+                    <div className="flex items-center justify-between">
+                      <h5 className="text-[12px] text-ink-subtle uppercase tracking-[0.3em] font-bold">Contextual Documentation</h5>
+                      <div className="h-[1px] flex-1 bg-border/20 mx-8 hidden sm:block" />
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-10">
+                      {[...Array(4)].map((_, i) => (
+                        <motion.div
+                          key={i}
+                          whileHover={{ scale: 1.02 }}
+                          className="aspect-[4/3] bg-surface-warm rounded-[2rem] overflow-hidden group border border-border/10 cursor-zoom-in"
+                        >
+                          <img
+                            src={`https://picsum.photos/seed/${selectedItem.id}-${i}/600`}
+                            alt="related documentation"
+                            className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"
+                          />
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-             </motion.div>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

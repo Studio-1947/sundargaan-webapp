@@ -15,7 +15,7 @@ const HomePage: React.FC = () => {
       <section className="relative min-h-[90vh] md:min-h-screen w-full overflow-hidden flex items-center pt-10 md:pt-16 pb-16 md:pb-24">
         {/* Background Decorative Gradient */}
         <div className="absolute top-0 right-0 w-[60%] h-full bg-gradient-to-l from-[#F7EAE5] to-transparent z-0 opacity-40" />
-        
+
         <div className="w-full max-w-screen-xl mx-auto px-6 md:px-10 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Content Left */}
@@ -84,9 +84,9 @@ const HomePage: React.FC = () => {
                 {t('archive.desc')}
               </p>
             </div>
-            <Button variant="outline" className="h-14 px-10 w-full sm:w-auto">
+            {/* <Button variant="outline" className="h-14 px-10 w-full sm:w-auto">
               {t('archive.btn.explore')}
-            </Button>
+            </Button> */}
           </div>
 
           {/* Featured Cards */}
@@ -182,7 +182,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* ——— Scroll indicator ——— */}
-      <div
+      {/* <div
         className="absolute bottom-14 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in delay-500"
         aria-hidden="true"
       >
@@ -196,12 +196,12 @@ const HomePage: React.FC = () => {
             opacity: 0.5,
           }}
         />
-      </div>
+      </div> */}
       {/* Global Video Modal */}
-      <VideoModal 
-        isOpen={!!selectedVideo} 
-        onClose={() => setSelectedVideo(null)} 
-        videoSrc={selectedVideo || ''} 
+      <VideoModal
+        isOpen={!!selectedVideo}
+        onClose={() => setSelectedVideo(null)}
+        videoSrc={selectedVideo || ''}
       />
     </main>
   )
