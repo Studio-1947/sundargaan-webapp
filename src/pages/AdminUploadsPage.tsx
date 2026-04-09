@@ -827,11 +827,39 @@ function ProviderBadge({ provider }: { provider: ProviderType }) {
   )
 }
 
-function BlobCard({ blob, type, onDelete }: { blob: BlobItem; type: UploadType; onDelete: (url: string) => void }) {
+function BlobCard({
+  blob,
+  type,
+  onDelete,
+  selected,
+  onSelect,
+}: {
+  blob: BlobItem;
+  type: UploadType;
+  onDelete: (url: string) => void;
+  selected: boolean;
+  onSelect: (url: string, multi: boolean) => void;
+}) {
   const [confirmDelete, setConfirmDelete] = useState(false)
   return (
     <motion.div layout initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96 }}
-      className="rounded-xl border overflow-hidden" style={{ borderColor: '#e5d5cd', backgroundColor: '#FEFCFB' }}>
+      onClick={(e) => {
+        // Only select if not clicking the delete confirmation buttons
+        if (!(e.target as HTMLElement).closest('button')) {
+          onSelect(blob.url, e.shiftKey);
+        }
+      }}
+      className="relative rounded-xl border overflow-hidden transition-all group cursor-pointer"
+      style={{
+        borderColor: selected ? '#CB460C' : '#e5d5cd',
+        backgroundColor: '#FEFCFB',
+        boxShadow: selected ? '0 0 0 1px #CB460C, 0 4px 12px rgba(203,70,12,0.1)' : 'none',
+      }}>
+      {/* Checkbox Overlay */}
+      <div className={`absolute top-3 left-3 z-10 w-5 h-5 rounded-md border flex items-center justify-center transition-all ${selected ? 'bg-[#CB460C] border-[#CB460C]' : 'bg-white/80 border-[#e5d5cd] opacity-0 group-hover:opacity-100 backdrop-blur-sm'}`}>
+        {selected && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5"><polyline points="20 6 9 17 4 12"/></svg>}
+      </div>
+
       {type === 'image' && <div className="h-40 overflow-hidden" style={{ backgroundColor: '#F7EAE5' }}>
         <img src={blob.url} alt={getFilename(blob.pathname)} className="w-full h-full object-cover" loading="lazy" />
       </div>}
@@ -882,6 +910,8 @@ function UploadsPanel({ addToast }: { addToast: (type: Toast['type'], msg: strin
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [dragging, setDragging] = useState(false)
+  const [selectedUrls, setSelectedUrls] = useState<Set<string>>(new Set())
+  const [bulkDeleting, setBulkDeleting] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const tab = UPLOAD_TABS.find((t) => t.id === activeTab)!
@@ -900,7 +930,10 @@ function UploadsPanel({ addToast }: { addToast: (type: Toast['type'], msg: strin
     }
   }, [addToast])
 
-  useEffect(() => { loadBlobs(provider, activeTab) }, [provider, activeTab, loadBlobs])
+  useEffect(() => {
+    setSelectedUrls(new Set())
+    loadBlobs(provider, activeTab)
+  }, [provider, activeTab, loadBlobs])
 
   const handleUpload = async (files: File[]) => {
     setUploading(true)
@@ -923,8 +956,59 @@ function UploadsPanel({ addToast }: { addToast: (type: Toast['type'], msg: strin
     try {
       await deleteBlob(url, provider)
       setBlobs((prev) => ({ ...prev, [cacheKey]: (prev[cacheKey] ?? []).filter((b) => b.url !== url) }))
+      setSelectedUrls((prev) => {
+        const next = new Set(prev)
+        next.delete(url)
+        return next
+      })
       addToast('success', 'File deleted')
     } catch (e: any) { addToast('error', e.message ?? 'Delete failed') }
+  }
+
+  const handleBulkDelete = async () => {
+    const urls = Array.from(selectedUrls)
+    if (urls.length === 0) return
+    if (!window.confirm(`Are you sure you want to delete ${urls.length} files?`)) return
+
+    setBulkDeleting(true)
+    let ok = 0
+    let fail = 0
+    for (const url of urls) {
+      try {
+        await deleteBlob(url, provider)
+        ok++
+      } catch (e) { fail++ }
+    }
+    setBulkDeleting(false)
+
+    if (ok > 0) {
+      setBlobs((prev) => ({
+        ...prev,
+        [cacheKey]: (prev[cacheKey] ?? []).filter((b) => !selectedUrls.has(b.url)),
+      }))
+      setSelectedUrls(new Set())
+      addToast('success', `Successfully deleted ${ok} file${ok > 1 ? 's' : ''}`)
+    }
+    if (fail > 0) {
+      addToast('error', `Failed to delete ${fail} file${fail > 1 ? 's' : ''}`)
+    }
+  }
+
+  const toggleSelect = (url: string) => {
+    setSelectedUrls((prev) => {
+      const next = new Set(prev)
+      if (next.has(url)) next.delete(url)
+      else next.add(url)
+      return next
+    })
+  }
+
+  const toggleSelectAll = () => {
+    if (selectedUrls.size === currentBlobs.length) {
+      setSelectedUrls(new Set())
+    } else {
+      setSelectedUrls(new Set(currentBlobs.map((b) => b.url)))
+    }
   }
 
   const currentBlobs = blobs[cacheKey] ?? []
@@ -970,18 +1054,34 @@ function UploadsPanel({ addToast }: { addToast: (type: Toast['type'], msg: strin
             <h2 className="text-base font-semibold" style={{ color: '#1a1005' }}>{tab.label}</h2>
             <p className="text-xs" style={{ color: '#a89080' }}>{currentBlobs.length} files · {provider === 'vercel' ? 'Vercel Blob' : 'Cloudinary'}</p>
           </div>
-          <button onClick={() => loadBlobs(provider, activeTab)} disabled={loading}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-medium"
-            style={{ backgroundColor: '#F7EAE5', color: '#CB460C' }}>
-            <motion.span animate={loading ? { rotate: 360 } : { rotate: 0 }}
-              transition={{ repeat: loading ? Infinity : 0, duration: 1, ease: 'linear' }}>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-                <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/>
-                <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>
-              </svg>
-            </motion.span>
-            Refresh
-          </button>
+          <div className="flex items-center gap-2">
+            {selectedUrls.size > 0 && (
+              <div className="flex items-center gap-2 mr-4 pr-4 border-r" style={{ borderColor: '#e5d5cd' }}>
+                <span className="text-xs font-bold" style={{ color: '#CB460C' }}>{selectedUrls.size} Selected</span>
+                <button onClick={toggleSelectAll} className="text-xs px-3 py-1.5 rounded-lg border transition-colors"
+                  style={{ borderColor: '#CB460C', color: '#CB460C' }}>
+                  {selectedUrls.size === currentBlobs.length ? 'Deselect All' : 'Select All'}
+                </button>
+                <button onClick={handleBulkDelete} disabled={bulkDeleting}
+                  className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg font-bold text-white transition-opacity"
+                  style={{ backgroundColor: '#CB460C' }}>
+                  {bulkDeleting ? 'Deleting...' : 'Delete Selected'}
+                </button>
+              </div>
+            )}
+            <button onClick={() => loadBlobs(provider, activeTab)} disabled={loading}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-medium"
+              style={{ backgroundColor: '#F7EAE5', color: '#CB460C' }}>
+              <motion.span animate={loading ? { rotate: 360 } : { rotate: 0 }}
+                transition={{ repeat: loading ? Infinity : 0, duration: 1, ease: 'linear' }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                  <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/>
+                  <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>
+                </svg>
+              </motion.span>
+              Refresh
+            </button>
+          </div>
         </div>
 
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
@@ -1028,7 +1128,16 @@ function UploadsPanel({ addToast }: { addToast: (type: Toast['type'], msg: strin
               : <motion.div layout className="grid gap-3"
                   style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))' }}>
                   <AnimatePresence>
-                    {currentBlobs.map((blob) => <BlobCard key={blob.url} blob={blob} type={activeTab} onDelete={handleDelete} />)}
+                    {currentBlobs.map((blob) => (
+                      <BlobCard
+                        key={blob.url}
+                        blob={blob}
+                        type={activeTab}
+                        onDelete={handleDelete}
+                        selected={selectedUrls.has(blob.url)}
+                        onSelect={toggleSelect}
+                      />
+                    ))}
                   </AnimatePresence>
                 </motion.div>
           }
