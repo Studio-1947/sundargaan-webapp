@@ -14,7 +14,7 @@ export class ArtistsService {
 
   async findAll(query: QueryArtistDto) {
     console.log('--- FIND ALL ARTISTS ---');
-    const { search, category, block, availability, page = 1, limit = 20 } = query;
+    const { search, category, block, gramPanchayat, availability, page = 1, limit = 20 } = query;
     const offset = (page - 1) * limit;
 
     const conditions: SQL[] = [];
@@ -30,7 +30,9 @@ export class ArtistsService {
       );
     }
     if (category) conditions.push(eq(schema.artists.category, category));
-    if (block)    conditions.push(ilike(schema.artists.block, `%${block}%`));
+    // gramPanchayat takes precedence over block when both are provided
+    const blockFilter = gramPanchayat ?? block;
+    if (blockFilter) conditions.push(ilike(schema.artists.block, `%${blockFilter}%`));
     if (availability !== undefined) conditions.push(eq(schema.artists.availability, availability));
 
     const where = conditions.length > 0 ? and(...conditions) : undefined;

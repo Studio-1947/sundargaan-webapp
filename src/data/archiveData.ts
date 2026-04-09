@@ -29,14 +29,14 @@ export const ARCHIVE_CATEGORIES = [
   },
   {
     id: 'artists',
-    label: "Artist's 19 Blocks and prospects with maps",
-    subcategories: ['Hingalganj', 'Gosaba', 'Basanti', 'Canning', 'Sagar'],
+    label: "Artists of Sundargaan by Gram Panchayat",
+    subcategories: ['Kalitala', 'Jogeshganj', 'Gobindakati', 'Sandelerbil', 'Sahebkhali', 'Durgamandap'],
     image: artistsHero
   },
   {
     id: 'art-forms',
     label: 'Art forms of Sundarbans',
-    subcategories: ['Bonbibi Palagaon', 'Baul', 'Bhatiali', 'Jhumur'],
+    subcategories: ['Bhatiyali', 'Baul', 'Palagan', 'Jhumur', 'Tusu', 'Folk Song'],
     image: artFormsHero
   }
 ];

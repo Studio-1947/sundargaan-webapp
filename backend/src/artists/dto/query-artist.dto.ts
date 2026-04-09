@@ -12,9 +12,13 @@ export class QueryArtistDto {
   @IsOptional() @IsEnum(ArtistCategory)
   category?: ArtistCategory;
 
-  @ApiPropertyOptional({ example: 'Gosaba' })
+  @ApiPropertyOptional({ example: 'Kalitala' })
   @IsOptional() @IsString()
   block?: string;
+
+  @ApiPropertyOptional({ example: 'Kalitala', description: 'Filter by gram panchayat (alias for block)' })
+  @IsOptional() @IsString()
+  gramPanchayat?: string;
 
   @ApiPropertyOptional()
   @IsOptional()

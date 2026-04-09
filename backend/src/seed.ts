@@ -3,15 +3,18 @@
  *   npx ts-node -r tsconfig-paths/register src/seed.ts
  *
  * This script:
- *   1. Clears all existing data (bookings → archive_items → artist_sample_works → artists)
- *   2. Inserts 38 real artists from data.json
- *   3. Images / audio / video URLs are left null — update them after upload
+ *   1. Clears existing data
+ *   2. Inserts 38 real artists with Bengali translations (from ARTISTS_SEED)
+ *   3. Inserts archive items from backend/flok_data.json
  */
 import * as dotenv from 'dotenv';
 dotenv.config();
 
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
+import * as fs from 'fs';
+import * as path from 'path';
+import { eq } from 'drizzle-orm';
 import * as schema from './schema';
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL! });
@@ -947,6 +950,48 @@ const ARTISTS_SEED = [
   },
 ];
 
+
+// ─── Flok Data Seeding ────────────────────────────────────────────────────────
+
+interface FlokArtist {
+  id: number;
+  name: string;
+  gram_panchayat: string;
+  age: number;
+  category: string;
+}
+
+async function seedArchiveFromFlok() {
+  const flokPath = path.join(__dirname, '..', 'flok_data.json');
+  if (!fs.existsSync(flokPath)) {
+    console.warn(`⚠️  flok_data.json not found at ${flokPath}, skipping archive seeding.`);
+    return;
+  }
+  const flokData = JSON.parse(fs.readFileSync(flokPath, 'utf-8')) as {
+    total: number;
+    artists: FlokArtist[];
+  };
+
+  console.log(`🎵 Seeding ${flokData.total} items to archive from flok_data.json...`);
+  let inserted = 0;
+
+  for (const a of flokData.artists) {
+    await db.insert(schema.archiveItems).values({
+      title: a.name,
+      description: `${a.name} is a ${a.category} artist from ${a.gram_panchayat}.`,
+      category: 'artists',
+      subcategory: a.category,
+      mediaType: 'image',
+      mediaUrl: '', // Required
+      location: a.gram_panchayat,
+      tags: [a.category, a.gram_panchayat, 'Sundarbans'],
+    });
+    inserted++;
+  }
+
+  console.log(`  ✓ ${inserted} items added to archive.`);
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 async function seed() {
@@ -967,7 +1012,12 @@ async function seed() {
     console.log(`  ✓ ${artist.name} (${artist.category})`);
   }
 
-  console.log(`\n✅ Seed complete! ${ARTISTS_SEED.length} artists inserted.`);
+  console.log(`\n👤 Artists insertion complete. ${ARTISTS_SEED.length} artists inserted.`);
+
+  // ── Step 3: Seed archive items ───────────────────────────────────────────
+  await seedArchiveFromFlok();
+
+  console.log('\n✅ Seed complete!');
   console.log('📸 Images and audio/video URLs are null — update them after uploading media.\n');
   await pool.end();
 }
