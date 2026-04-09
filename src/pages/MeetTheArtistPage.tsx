@@ -431,7 +431,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onKnowMore, i
 
         {/* Tags (only if no portfolio to save space, or just keep them) */}
         {!artist.sampleWorks.length && (
-          <div className="flex flex-wrap gap-1.5 mt-auto">
+          <div className="flex flex-wrap gap-1.5">
             {(language === 'EN' ? artist.tags : artist.tagsBN).slice(0, 3).map((tag, i) => (
               <span key={i} className="px-2.5 py-1 border border-[#e5d5cd] text-[#a89080] text-[11px] rounded-full font-medium uppercase tracking-wide">
                 {tag}
@@ -441,7 +441,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onKnowMore, i
         )}
 
         {/* Action buttons */}
-        <div className="flex pt-2">
+        <div className="flex pt-2 mt-auto">
           <button
             onClick={(e) => { e.stopPropagation(); onKnowMore(artist); }}
              className="w-full border border-[#CB460C] text-[#CB460C] py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#F7EAE5] transition-all active:scale-95"
