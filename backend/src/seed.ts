@@ -994,8 +994,31 @@ async function seedArchiveFromFlok() {
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
+interface ArtistMediaMapping {
+  imageUrl: string | null;
+  sampleWorks: {
+    title: string;
+    type: string;
+    mediaUrl: string;
+    thumbnail?: string;
+    duration?: string;
+  }[];
+}
+
+interface MediaMappings {
+  artists: Record<string, ArtistMediaMapping>;
+}
+
 async function seed() {
   console.log('🌱 Starting seed...\n');
+
+  // Load Media Mappings
+  const mappingPath = path.join(__dirname, '..', 'media_mappings.json');
+  let mappings: MediaMappings = { artists: {} };
+  if (fs.existsSync(mappingPath)) {
+    console.log('📖 Loading media mappings...');
+    mappings = JSON.parse(fs.readFileSync(mappingPath, 'utf-8'));
+  }
 
   // ── Step 1: Clear all tables in dependency order ──────────────────────────
   console.log('🗑️  Clearing existing data...');
@@ -1007,22 +1030,52 @@ async function seed() {
 
   // ── Step 2: Insert real artists ───────────────────────────────────────────
   console.log('👤 Inserting artists...');
+  const artistMap = new Map<string, string>(); // name -> id
+
   for (const artistData of ARTISTS_SEED) {
+    // Apply mapping if available
+    const mapping = mappings.artists[artistData.name];
+    if (mapping && mapping.imageUrl) {
+      (artistData as any).imageUrl = mapping.imageUrl;
+    }
+
     const [artist] = await db.insert(schema.artists).values(artistData).returning();
+    artistMap.set(artist.name, artist.id);
     console.log(`  ✓ ${artist.name} (${artist.category})`);
   }
 
   console.log(`\n👤 Artists insertion complete. ${ARTISTS_SEED.length} artists inserted.`);
 
+  // ── Step 2.5: Seed sample works ───────────────────────────────────────────
+  console.log('\n🎵 Seeding sample works...');
+  let sampleWorksCount = 0;
+  for (const [artistName, mapping] of Object.entries(mappings.artists)) {
+    const artistId = artistMap.get(artistName);
+    if (artistId && mapping.sampleWorks && mapping.sampleWorks.length > 0) {
+      for (const sw of mapping.sampleWorks) {
+        await db.insert(schema.artistSampleWorks).values({
+          artistId,
+          title: sw.title,
+          type: sw.type,
+          mediaUrl: sw.mediaUrl,
+          thumbnail: sw.thumbnail,
+          duration: sw.duration,
+        });
+        sampleWorksCount++;
+      }
+    }
+  }
+  console.log(`  ✓ ${sampleWorksCount} sample works added.`);
+
   // ── Step 3: Seed archive items ───────────────────────────────────────────
   await seedArchiveFromFlok();
 
   console.log('\n✅ Seed complete!');
-  console.log('📸 Images and audio/video URLs are null — update them after uploading media.\n');
+  console.log('📸 Persistent mapping applied from media_mappings.json\n');
   await pool.end();
 }
 
-seed().catch(err => {
+seed().catch((err) => {
   console.error('❌ Seed failed:', err);
   pool.end();
   process.exit(1);
