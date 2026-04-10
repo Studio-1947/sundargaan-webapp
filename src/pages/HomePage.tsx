@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import MediaGrid from '../components/ui/MediaGrid'
 import VideoModal from '../components/ui/VideoModal'
@@ -7,6 +8,7 @@ import { useLanguage } from '../context/LanguageContext'
 
 const HomePage: React.FC = () => {
   const { t, language } = useLanguage()
+  const navigate = useNavigate()
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
 
   return (
@@ -143,7 +145,12 @@ const HomePage: React.FC = () => {
               {t('artists.desc')}
             </p>
             <div className="pt-6">
-              <Button variant="primary" size="lg" className="px-12 bg-[#CB460C] !border-[#CB460C]">
+              <Button 
+                variant="primary" 
+                size="lg" 
+                className="px-12 bg-[#CB460C] !border-[#CB460C]"
+                onClick={() => navigate('/artists')}
+              >
                 {t('artists.btn')}
               </Button>
             </div>

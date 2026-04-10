@@ -45,7 +45,7 @@ const translations: Translations = {
     EN: 'From the humble fishers to the wandering bauls, these are the artists who breathe life into our culture. Join us in celebrating their craft and ensuring their songs are heard by generations to come.',
     BN: 'সাধারণ জেলে থেকে শুরু করে যাযাবর বাউল পর্যন্ত, এরা সেই শিল্পী যারা আমাদের সংস্কৃতিতে প্রাণ সঞ্চার করেন। আসুন আমরা তাদের শিল্প উদযাপন করি এবং নিশ্চিত করি যে তাদের গান আগামী প্রজন্মের কাছে পৌঁছায়।'
   },
-  'artists.btn': { EN: 'Meet the Team', BN: 'দলের সাথে দেখা করুন' },
+  'artists.btn': { EN: 'Meet the Artist', BN: 'শিল্পীদের সাথে আলাপ' },
   'artists.bg': { EN: 'ARTISTS', BN: 'শিল্পী' },
   
   // Artist Page
