@@ -959,6 +959,7 @@ interface FlokArtist {
   gram_panchayat: string;
   age: number;
   category: string;
+  gender?: string;
 }
 
 async function seedArchiveFromFlok() {

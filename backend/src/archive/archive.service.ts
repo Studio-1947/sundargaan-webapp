@@ -11,6 +11,7 @@ export class QueryArchiveDto {
   search?:    string;
   category?:  string;
   subcategory?: string;
+  location?:    string;
   mediaType?: string;
   page?:      number;
   limit?:     number;
@@ -21,7 +22,7 @@ export class ArchiveService {
   constructor(@Inject(DRIZZLE) private readonly db: DB) {}
 
   async findAll(query: QueryArchiveDto) {
-    const { search, category, subcategory, mediaType, page = 1, limit = 20 } = query;
+    const { search, category, subcategory, location, mediaType, page = 1, limit = 20 } = query;
     const offset = (page - 1) * limit;
 
     const conditions: SQL[] = [eq(schema.archiveItems.isPublished, true)];
@@ -29,6 +30,7 @@ export class ArchiveService {
     if (search)      conditions.push(ilike(schema.archiveItems.title, `%${search}%`));
     if (category)    conditions.push(eq(schema.archiveItems.category, category as any));
     if (subcategory) conditions.push(ilike(schema.archiveItems.subcategory, `%${subcategory}%`));
+    if (location)    conditions.push(ilike(schema.archiveItems.location, `%${location}%`));
     if (mediaType)   conditions.push(eq(schema.archiveItems.mediaType, mediaType as any));
 
     const where = and(...conditions);
@@ -49,6 +51,23 @@ export class ArchiveService {
     return {
       data: items,
       meta: { total, page, limit, totalPages: Math.ceil(total / limit) },
+    };
+  }
+
+  async getFilters(category: string) {
+    const records = await this.db.select({
+      location: schema.archiveItems.location,
+      subcategory: schema.archiveItems.subcategory,
+    })
+    .from(schema.archiveItems)
+    .where(eq(schema.archiveItems.category, category as any));
+
+    const locations = Array.from(new Set(records.map(r => r.location).filter(Boolean)));
+    const subcategories = Array.from(new Set(records.map(r => r.subcategory).filter(Boolean)));
+
+    return {
+      locations: locations.sort(),
+      subcategories: subcategories.sort(),
     };
   }
 

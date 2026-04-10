@@ -3,37 +3,70 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ARCHIVE_CATEGORIES, MOCK_ARCHIVE_ITEMS, ArchiveItem } from '../data/archiveData';
 import logoCol from '../assets/sundargaan_logo_col.svg';
 import PremiumSundargaanText from '../components/ui/PremiumSundargaanText';
-import { getArchiveItems } from '../api/archive';
+import { getArchiveItems, getArchiveFilters } from '../api/archive';
+
+const MALE_PLACEHOLDER = 'https://res.cloudinary.com/drgb8w8ak/image/upload/v1775627147/sundargaan/images/civdwpyjq7nfbbhfdzjd.jpg';
+const FEMALE_PLACEHOLDER = 'https://res.cloudinary.com/drgb8w8ak/image/upload/v1775627663/sundargaan/images/btkiflhui40kkn6p735b.jpg';
+
+const guessGender = (name: string): 'Male' | 'Female' => {
+  const femaleNames = ['sneha', 'anushka', 'indrakshi', 'mallika', 'nibha', 'niva', 'ankita', 'ankana', 'putul', 'aparana', 'aparna', 'lakshmi', 'saraswati', 'reka', 'rekha', 'pinky', 'tumpa', 'rita', 'gita', 'mita'];
+  const n = name.toLowerCase();
+  if (femaleNames.some(fn => n.includes(fn))) return 'Female';
+  // Common feminine endings for Bengali names in transliteration
+  if (n.endsWith('a') || n.endsWith('i') || n.endsWith('ee')) return 'Female';
+  return 'Male';
+};
 
 const ArchivePage: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeSubcategory, setActiveSubcategory] = useState<string | null>(null);
-  const [filterTab, setFilterTab] = useState('Artist');
+  const [activeLocation, setActiveLocation] = useState<string | null>(null);
+  const [locations, setLocations] = useState<string[]>([]);
+  const [subcategories, setSubcategories] = useState<string[]>([]);
   const [selectedItem, setSelectedItem] = useState<ArchiveItem | null>(null);
   const [archiveItems, setArchiveItems] = useState<ArchiveItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Fetch Filters based on Category (Unified to artists for now as per user request)
+  useEffect(() => {
+    if (!activeCategory) return;
+    getArchiveFilters('artists')
+      .then(res => {
+        setLocations(res.locations);
+        setSubcategories(res.subcategories);
+      })
+      .catch(err => console.error('Failed to fetch filters:', err));
+  }, [activeCategory]);
+
+  // Fetch Items based on Category, Location, and Subcategory
   useEffect(() => {
     if (!activeCategory) return;
     setIsLoading(true);
-    getArchiveItems({ category: activeCategory, limit: 100 })
+    getArchiveItems({ 
+      category: 'artists', // Unified pool for all digital archive views
+      location: activeLocation || undefined,
+      subcategory: activeSubcategory || undefined,
+      limit: 100 
+    })
       .then(res => {
         if (res.data.length > 0) {
           setArchiveItems(res.data);
         } else {
-          // fall back to mock data filtered by category
-          setArchiveItems(MOCK_ARCHIVE_ITEMS.filter(i => i.category === activeCategory));
+          // fall back to mock data
+          let filtered = MOCK_ARCHIVE_ITEMS.filter(i => i.category === activeCategory);
+          if (activeLocation) filtered = filtered.filter(i => i.subcategory === activeLocation); // Mock uses subcategory for location
+          setArchiveItems(filtered);
         }
       })
-      .catch(() =>
-        setArchiveItems(MOCK_ARCHIVE_ITEMS.filter(i => i.category === activeCategory)),
-      )
+      .catch(() => {
+         let filtered = MOCK_ARCHIVE_ITEMS.filter(i => i.category === activeCategory);
+         if (activeLocation) filtered = filtered.filter(i => i.subcategory === activeLocation);
+         setArchiveItems(filtered);
+      })
       .finally(() => setIsLoading(false));
-  }, [activeCategory]);
+  }, [activeCategory, activeLocation, activeSubcategory]);
 
-  const filteredItems = activeSubcategory
-    ? archiveItems.filter(item => item.subcategory === activeSubcategory)
-    : archiveItems;
+  const filteredItems = archiveItems; // Filtering is done on server now
 
   const currentCategory = ARCHIVE_CATEGORIES.find(c => c.id === activeCategory);
 
@@ -148,7 +181,12 @@ const ArchivePage: React.FC = () => {
             <header className="px-6 sm:px-12 py-8 flex flex-col gap-6 sm:flex-row items-center justify-between bg-white relative z-30 border-b border-border/20">
               <div className="flex items-center justify-between w-full sm:w-auto gap-8">
                 <button
-                  onClick={() => { setActiveCategory(null); setActiveSubcategory(null); setArchiveItems([]); }}
+                  onClick={() => { 
+                    setActiveCategory(null); 
+                    setActiveSubcategory(null); 
+                    setActiveLocation(null);
+                    setArchiveItems([]); 
+                  }}
                   aria-label="Back to selection"
                   className="w-12 h-12 flex items-center justify-center hover:bg-surface-warm rounded-full transition-all group shrink-0 border border-border/40"
                 >
@@ -164,16 +202,23 @@ const ArchivePage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Centered Filter Tabs */}
-              <nav className="flex items-center gap-2 p-1.5 bg-surface-warm/50 rounded-full border border-border/30">
-                {['Artist', 'Artefacts', 'Genre'].map((tab) => (
+              {/* Centered Filter Tabs for Subcategories (Art Forms / Genres) */}
+              <nav className="flex items-center gap-2 p-1.5 bg-surface-warm/50 rounded-full border border-border/30 max-w-[50%] overflow-x-auto no-scrollbar">
+                <button
+                  onClick={() => setActiveSubcategory(null)}
+                  className={`text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-300 px-8 py-2.5 rounded-full shrink-0 ${activeSubcategory === null ? 'bg-white text-brand-primary shadow-sm border border-border/40' : 'text-ink-subtle/50 hover:text-ink'
+                    }`}
+                >
+                  All Genres
+                </button>
+                {subcategories.map((sub) => (
                   <button
-                    key={tab}
-                    onClick={() => setFilterTab(tab)}
-                    className={`text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-300 px-8 py-2.5 rounded-full ${filterTab === tab ? 'bg-white text-brand-primary shadow-sm border border-border/40' : 'text-ink-subtle/50 hover:text-ink'
+                    key={sub}
+                    onClick={() => setActiveSubcategory(sub)}
+                    className={`text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-300 px-8 py-2.5 rounded-full shrink-0 ${activeSubcategory === sub ? 'bg-white text-brand-primary shadow-sm border border-border/40' : 'text-ink-subtle/50 hover:text-ink'
                       }`}
                   >
-                    {tab}
+                    {sub}
                   </button>
                 ))}
               </nav>
@@ -192,20 +237,20 @@ const ArchivePage: React.FC = () => {
                 <div className="p-4 sm:p-6 md:p-12 md:h-full">
                   <ul className="flex md:flex-col overflow-x-auto md:overflow-y-auto no-scrollbar gap-2 sm:gap-4 md:space-y-6 px-2 md:px-0">
                     <li
-                      onClick={() => setActiveSubcategory(null)}
-                      className={`cursor-pointer text-xs sm:text-[15px] transition-all duration-300 flex items-center gap-3 shrink-0 px-4 py-2 rounded-full border md:border-none ${activeSubcategory === null ? 'text-black font-bold bg-surface-warm border-border/40 md:bg-transparent' : 'text-[#BBBBBB] border-transparent hover:text-ink'
+                      onClick={() => setActiveLocation(null)}
+                      className={`cursor-pointer text-xs sm:text-[15px] transition-all duration-300 flex items-center gap-3 shrink-0 px-4 py-2 rounded-full border md:border-none ${activeLocation === null ? 'text-black font-bold bg-surface-warm border-border/40 md:bg-transparent' : 'text-[#BBBBBB] border-transparent hover:text-ink'
                         }`}
                     >
-                      <span>All Areas</span>
+                      <span>All Locations</span>
                     </li>
-                    {currentCategory?.subcategories.map((sub: string) => (
+                    {locations.map((loc: string) => (
                       <li
-                        key={sub}
-                        onClick={() => setActiveSubcategory(sub)}
-                        className={`cursor-pointer text-xs sm:text-[15px] transition-all duration-300 flex items-center gap-3 shrink-0 px-4 py-2 rounded-full border md:border-none ${activeSubcategory === sub ? 'text-black font-bold bg-surface-warm border-border/40 md:bg-transparent' : 'text-[#BBBBBB] border-transparent hover:text-ink'
+                        key={loc}
+                        onClick={() => setActiveLocation(loc)}
+                        className={`cursor-pointer text-xs sm:text-[15px] transition-all duration-300 flex items-center gap-3 shrink-0 px-4 py-2 rounded-full border md:border-none ${activeLocation === loc ? 'text-black font-bold bg-surface-warm border-border/40 md:bg-transparent' : 'text-[#BBBBBB] border-transparent hover:text-ink'
                           }`}
                       >
-                        <span>Block {sub}</span>
+                        <span>{loc} <span className="text-[10px] opacity-40 ml-1">GP</span></span>
                       </li>
                     ))}
                   </ul>
@@ -236,16 +281,18 @@ const ArchivePage: React.FC = () => {
                         >
                           <div className="aspect-[3/4] bg-white rounded-[2rem] overflow-hidden transition-all duration-700 shadow-sm border border-border/40 group-hover:shadow-2xl group-hover:-translate-y-2 relative">
                             <img
-                              src={item.mediaUrl}
+                              src={item.mediaUrl && item.mediaUrl !== '' ? item.mediaUrl : (guessGender(item.title) === 'Female' ? FEMALE_PLACEHOLDER : MALE_PLACEHOLDER)}
                               alt={item.title}
                               className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                             <div className="absolute inset-x-0 bottom-0 p-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                              <span className="text-[9px] text-white/60 uppercase tracking-widest font-bold mb-1 block">{item.subcategory}</span>
-                              <h4 className="text-white font-medium text-sm line-clamp-1">{item.title}</h4>
-                            </div>
+                               <span className="text-[9px] text-white/60 uppercase tracking-widest font-bold mb-1 block">
+                                 {item.subcategory} {item.location ? `• ${item.location}` : ''}
+                               </span>
+                               <h4 className="text-white font-medium text-sm line-clamp-1">{item.title}</h4>
+                             </div>
                           </div>
                         </motion.div>
                       ))}
@@ -298,7 +345,7 @@ const ArchivePage: React.FC = () => {
                   <div className="flex flex-col xl:flex-row gap-12 sm:gap-24 items-start">
                     <div className="w-full xl:w-[540px] aspect-[4/5] bg-surface-warm rounded-[3rem] overflow-hidden shadow-2xl shrink-0 border border-border/20">
                       <img
-                        src={selectedItem.mediaUrl}
+                        src={selectedItem.mediaUrl && selectedItem.mediaUrl !== '' ? selectedItem.mediaUrl : (guessGender(selectedItem.title) === 'Female' ? FEMALE_PLACEHOLDER : MALE_PLACEHOLDER)}
                         alt={selectedItem.title}
                         className="w-full h-full object-cover"
                       />

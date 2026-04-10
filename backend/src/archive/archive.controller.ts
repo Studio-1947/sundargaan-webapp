@@ -13,6 +13,7 @@ class QueryArchiveDto {
   @ApiPropertyOptional() @IsOptional() @IsString() search?: string;
   @ApiPropertyOptional() @IsOptional() @IsString() category?: string;
   @ApiPropertyOptional() @IsOptional() @IsString() subcategory?: string;
+  @ApiPropertyOptional() @IsOptional() @IsString() location?: string;
   @ApiPropertyOptional() @IsOptional() @IsString() mediaType?: string;
   @ApiPropertyOptional() @IsOptional() @Transform(({ value }) => parseInt(value)) page?: number;
   @ApiPropertyOptional() @IsOptional() @Transform(({ value }) => parseInt(value)) limit?: number;
@@ -27,6 +28,12 @@ export class ArchiveController {
   @ApiOperation({ summary: 'List archive items with filters' })
   findAll(@Query() query: QueryArchiveDto) {
     return this.archiveService.findAll(query);
+  }
+
+  @Get('filters/:category')
+  @ApiOperation({ summary: 'Get unique locations and subcategories for a category' })
+  getFilters(@Param('category') category: string) {
+    return this.archiveService.getFilters(category);
   }
 
   @Get(':id')

@@ -17,6 +17,7 @@ export interface ArchiveItem {
   mediaType: 'image';
   category: string; // 'artefacts' | 'artists' | 'art-forms'
   subcategory: string; // e.g., 'dotara', 'basi', 'Block A', etc.
+  location?: string;
   tags: string[];
 }
 
