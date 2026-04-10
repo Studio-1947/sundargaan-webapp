@@ -51,7 +51,7 @@ const Navbar: React.FC = () => {
 
           {/* Logo */}
           <Link to="/" className="flex-shrink-0 flex items-center" aria-label="Sundargaan Home">
-            <Logo variant="color" className="h-12 md:h-16" />
+            <Logo variant="color" className="h-14 md:h-18 lg:h-20" />
           </Link>
 
           {/* Nav Links - Desktop */}

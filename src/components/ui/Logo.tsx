@@ -8,7 +8,7 @@ interface LogoProps {
   height?: number
 }
 
-const Logo: React.FC<LogoProps> = ({ variant = 'color', className = '', height = 48 }) => {
+const Logo: React.FC<LogoProps> = ({ variant = 'color', className = '', height }) => {
   const src = variant === 'white' ? logoWhite : logoCol
   return (
     <img
