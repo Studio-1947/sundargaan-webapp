@@ -67,7 +67,7 @@ const Footer: React.FC = () => {
           
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-6">
-            <Logo variant="color" height={56} />
+            <Logo variant="color" height={72} />
             <p className="font-body text-[#6b5b4f] max-w-sm leading-relaxed">
               {t('footer.brand')}
             </p>
