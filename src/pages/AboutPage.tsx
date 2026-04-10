@@ -55,36 +55,6 @@ const PartnerCard: React.FC<PartnerCardProps> = ({ initials, name, role, org, bi
   </motion.div>
 )
 
-// ─── Team Member Card ─────────────────────────────────────────────────────────
-
-interface TeamMemberProps {
-  initials: string
-  name: string
-  title: string
-  bio: string
-  index: number
-}
-
-const TeamMemberCard: React.FC<TeamMemberProps> = ({ initials, name, title, bio, index }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-    className="group bg-white/10 rounded-[2rem] border border-white/10 p-8 flex flex-col gap-5 hover:bg-white/15 hover:-translate-y-1 transition-all duration-400"
-  >
-    <div className="flex items-center gap-5">
-      <Avatar initials={initials} color="#CB460C" />
-      <div>
-        <h4 className="font-display text-xl text-white leading-snug">{name}</h4>
-        <p className="font-body text-[#CB460C] text-sm font-semibold mt-1">{title}</p>
-        <p className="font-body text-[#a89080] text-xs uppercase tracking-wider mt-1">Studio 1947</p>
-      </div>
-    </div>
-    <p className="font-body text-[#a89080] leading-relaxed text-sm">{bio}</p>
-  </motion.div>
-)
-
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 const AboutPage: React.FC = () => {
@@ -94,103 +64,106 @@ const AboutPage: React.FC = () => {
 
   // ── Strings ────────────────────────────────────────────────────────────────
   const hero = {
-    label:    isEN ? 'About Us'                      : 'আমাদের সম্পর্কে',
-    title:    isEN ? 'Who We Are'                    : 'আমরা কারা',
+    label: isEN ? 'About Us' : 'আমাদের সম্পর্কে',
+    title: isEN ? 'Who We Are' : 'আমরা কারা',
     subtitle: isEN
       ? 'Sundargaan is a living archive and cultural platform rooted in the Sundarbans. We document, preserve, and celebrate the oral traditions, folk music, and artisanal heritage of one of the world\'s most extraordinary ecosystems — giving the voices of the Delta a stage they deserve.'
       : 'সুন্দরগান একটি জীবন্ত আর্কাইভ ও সাংস্কৃতিক প্ল্যাটফর্ম, যার শিকড় সুন্দরবনে। আমরা বিশ্বের অন্যতম অসাধারণ বাস্তুতন্ত্রের মৌখিক ঐতিহ্য, লোকসংগীত এবং কারিগরি ঐতিহ্যকে নথিবদ্ধ, সংরক্ষণ ও উদযাপন করি — ব-দ্বীপের কণ্ঠস্বরগুলিকে একটি যোগ্য মঞ্চ দিয়ে।',
   }
 
-  const missionLabel =  isEN ? 'Our Mission'            : 'আমাদের লক্ষ্য'
-  const missionTitle =  isEN ? 'What We Do'             : 'আমরা কী করি'
+  const missionLabel = isEN ? 'Our Mission' : 'আমাদের লক্ষ্য'
+  const missionTitle = isEN ? 'What We Do' : 'আমরা কী করি'
   const missionPoints = isEN
     ? [
-        'Field documentation of endangered folk traditions across 24+ Sundarban villages',
-        'Digital archiving of songs, stories, and artefacts for future generations',
-        'Fair economic empowerment of over 120 local artists and artisans',
-        'Education programs that keep traditional knowledge alive through practice',
-      ]
+      'Field documentation of endangered folk traditions across 24+ Sundarban villages',
+      'Digital archiving of songs, stories, and artefacts for future generations',
+      'Fair economic empowerment of over 120 local artists and artisans',
+      'Education programs that keep traditional knowledge alive through practice',
+    ]
     : [
-        '২৪+ সুন্দরবন গ্রামে বিলুপ্তপ্রায় লোক ঐতিহ্যের ফিল্ড ডকুমেন্টেশন',
-        'ভবিষ্যৎ প্রজন্মের জন্য গান, গল্প ও নিদর্শনের ডিজিটাল আর্কাইভিং',
-        '১২০+ স্থানীয় শিল্পী ও কারিগরের ন্যায্য অর্থনৈতিক ক্ষমতায়ন',
-        'চর্চার মাধ্যমে ঐতিহ্যগত জ্ঞান জীবিত রাখে এমন শিক্ষা কর্মসূচি',
-      ]
+      '২৪+ সুন্দরবন গ্রামে বিলুপ্তপ্রায় লোক ঐতিহ্যের ফিল্ড ডকুমেন্টেশন',
+      'ভবিষ্যৎ প্রজন্মের জন্য গান, গল্প ও নিদর্শনের ডিজিটাল আর্কাইভিং',
+      '১২০+ স্থানীয় শিল্পী ও কারিগরের ন্যায্য অর্থনৈতিক ক্ষমতায়ন',
+      'চর্চার মাধ্যমে ঐতিহ্যগত জ্ঞান জীবিত রাখে এমন শিক্ষা কর্মসূচি',
+    ]
 
-  const partnersLabel = isEN ? 'Partners & Collaborators'       : 'অংশীদার ও সহযোগী'
-  const partnersTitle = isEN ? 'The Minds Behind the Mission'   : 'মিশনের পেছনের মানুষেরা'
-  const partnersBio   = isEN
+  const partnersLabel = isEN ? 'Partners & Collaborators' : 'অংশীদার ও সহযোগী'
+  const partnersTitle = isEN ? 'The Minds Behind the Mission' : 'মিশনের পেছনের মানুষেরা'
+  const partnersBio = isEN
     ? 'Sundargaan is made possible through meaningful collaboration with organisations and individuals who share our conviction that culture is a living inheritance — not a relic.'
     : 'সুন্দরগান তাদের সাথে অর্থবহ সহযোগিতার মাধ্যমে সম্ভব হয়েছে যারা আমাদের এই বিশ্বাস ভাগ করে নেন যে সংস্কৃতি একটি জীবন্ত উত্তরাধিকার — কোনো ধ্বংসাবশেষ নয়।'
 
   const partners = [
     {
       initials: 'PR',
-      name:     isEN ? 'Pinaki Roy'                       : 'পিনাকী রায়',
-      role:     isEN ? 'Founder & Ecologist'              : 'প্রতিষ্ঠাতা ও পরিবেশবিদ',
-      org:      isEN ? 'Eco Logical Foundation (ELF)'    : 'ইকো লজিক্যাল ফাউন্ডেশন (ELF)',
-      bio:      isEN
+      name: isEN ? 'Pinaki Roy' : 'পিনাকী রায়',
+      role: isEN ? 'Founder & Ecologist' : 'প্রতিষ্ঠাতা ও পরিবেশবিদ',
+      org: isEN ? 'Eco Logical Foundation (ELF)' : 'ইকো লজিক্যাল ফাউন্ডেশন (ELF)',
+      bio: isEN
         ? 'Pinaki Roy is the founding force behind the Eco Logical Foundation — the grassroots organisation that laid the groundwork for field documentation in the Sundarbans. His decades of ecological and cultural fieldwork in the delta form the living backbone of everything Sundargaan stands for.'
         : 'পিনাকী রায় ইকো লজিক্যাল ফাউন্ডেশনের প্রতিষ্ঠাতা শক্তি — যে তৃণমূল সংগঠন সুন্দরবনে ফিল্ড ডকুমেন্টেশনের ভিত্তি স্থাপন করেছে। ব-দ্বীপে তাঁর কয়েক দশকের পরিবেশগত ও সাংস্কৃতিক ক্ষেত্র-কাজ সুন্দরগানের প্রতিটি বিষয়ের জীবন্ত মেরুদণ্ড।',
       accentColor: '#CB460C',
     },
     {
+      initials: 'RI',
+      name: isEN ? 'Rabiul Islam' : 'রবিউল ইসলাম',
+      role: isEN ? 'CEO' : 'সিইও',
+      org: 'Studio 1947',
+      bio: isEN
+        ? 'Rabiul leads Studio 1947 with a vision rooted in both cultural responsibility and operational clarity. He drives the overall direction of Sundargaan\'s production partnerships, ensuring every project stays true to its purpose of preserving the Sundarbans\' living heritage.'
+        : 'রবিউল সাংস্কৃতিক দায়িত্ব ও পরিচালনাগত স্পষ্টতার উপর ভিত্তি করে স্টুডিও ১৯৪৭-কে নেতৃত্ব দেন। তিনি সুন্দরগানের প্রযোজনা অংশীদারিত্বের সামগ্রিক দিকনির্দেশনা পরিচালনা করেন।',
+    },
+    {
       initials: 'IC',
-      name:     isEN ? 'Iman Chakraborty'                         : 'ইমান চক্রবর্তী',
-      role:     isEN ? 'National Award-Winning Artist'             : 'জাতীয় পুরস্কারজয়ী শিল্পী',
-      org:      isEN ? 'Satyajit Ray Film & Television Institute' : 'সত্যজিৎ রায় ফিল্ম অ্যান্ড টেলিভিশন ইনস্টিটিউট',
-      bio:      isEN
+      name: isEN ? 'Iman Chakraborty' : 'ইমান চক্রবর্তী',
+      role: isEN ? 'National Award-Winning Artist' : 'জাতীয় পুরস্কারজয়ী শিল্পী',
+      org: isEN ? 'Satyajit Ray Film & Television Institute' : 'সত্যজিৎ রায় ফিল্ম অ্যান্ড টেলিভিশন ইনস্টিটিউট',
+      bio: isEN
         ? 'A National Award-winning artist and alumna of the Satyajit Ray Film & Television Institute, Iman Chakraborty brings artistic credibility and a deeply felt understanding of Bengal\'s sonic heritage. Her involvement ensures that Sundargaan\'s archival and curatorial work meets the highest standards of artistic authenticity.'
         : 'জাতীয় পুরস্কারপ্রাপ্ত শিল্পী এবং সত্যজিৎ রায় ফিল্ম অ্যান্ড টেলিভিশন ইনস্টিটিউটের প্রাক্তনী ইমান চক্রবর্তী শিল্পগত বিশ্বাসযোগ্যতা এবং বাংলার ধ্বনি ঐতিহ্যের গভীর উপলব্ধি নিয়ে আসেন। তাঁর সম্পৃক্ততা নিশ্চিত করে যে সুন্দরগানের আর্কাইভাল ও কিউরেটরিয়াল কাজ শৈল্পিক সত্যতার সর্বোচ্চ মান পূরণ করে।',
       accentColor: '#E15012',
     },
     {
       initials: 'PM',
-      name:     isEN ? 'Palash Mondal'                      : 'পলাশ মণ্ডল',
-      role:     isEN ? 'Community Partner'                  : 'কমিউনিটি অংশীদার',
-      org:      isEN ? 'Sundarbaan Unayan Bhavan'           : 'সুন্দরবান উন্নয়ন ভবন',
-      bio:      isEN
+      name: isEN ? 'Palash Mondal' : 'পলাশ মণ্ডল',
+      role: isEN ? 'Community Partner' : 'কমিউনিটি অংশীদার',
+      org: isEN ? 'Sundarbaan Unayan Bhavan' : 'সুন্দরবান উন্নয়ন ভবন',
+      bio: isEN
         ? 'Palash Mondal and Sundarbaan Unayan Bhavan form the critical bridge between Sundargaan\'s digital mission and the communities it serves on the ground. Their deep-rooted local presence and trust built over years make it possible to reach artists and villages that remain beyond conventional reach.'
         : 'পলাশ মণ্ডল এবং সুন্দরবান উন্নয়ন ভবন সুন্দরগানের ডিজিটাল লক্ষ্য এবং যে সম্প্রদায়গুলিকে এটি সেবা দেয় তাদের মধ্যে গুরুত্বপূর্ণ সেতু তৈরি করে। বছরের পর বছর ধরে গড়ে ওঠা তাঁদের গভীর স্থানীয় উপস্থিতি এবং আস্থা এমন শিল্পী ও গ্রামে পৌঁছানো সম্ভব করে যারা প্রচলিত নাগালের বাইরে থেকে যায়।',
       accentColor: '#4B3621',
     },
-  ]
-
-  const teamLabel    = isEN ? 'The Team'                    : 'আমাদের দল'
-  const teamTitle    = isEN ? 'Studio 1947'                 : 'স্টুডিও ১৯৪৭'
-  const teamSubtitle = isEN
-    ? 'The production and research engine powering Sundargaan\'s documentation — bringing craft, data, and lens together in service of the Sundarbans.'
-    : 'সুন্দরগানের ডকুমেন্টেশনকে শক্তি দেওয়া প্রযোজনা ও গবেষণা ইঞ্জিন — সুন্দরবনের সেবায় কারুকাজ, তথ্য এবং লেন্সকে একত্রিত করছে।'
-
-  const teamMembers = [
-    {
-      initials: 'RI',
-      name:     isEN ? 'Rabiul Islam'      : 'রবিউল ইসলাম',
-      title:    isEN ? 'CEO'               : 'সিইও',
-      bio:      isEN
-        ? 'Rabiul leads Studio 1947 with a vision rooted in both cultural responsibility and operational clarity. He drives the overall direction of Sundargaan\'s production partnerships, ensuring every project stays true to its purpose of preserving the Sundarbans\' living heritage.'
-        : 'রবিউল সাংস্কৃতিক দায়িত্ব ও পরিচালনাগত স্পষ্টতার উপর ভিত্তি করে স্টুডিও ১৯৪৭-কে নেতৃত্ব দেন। তিনি সুন্দরগানের প্রযোজনা অংশীদারিত্বের সামগ্রিক দিকনির্দেশনা পরিচালনা করেন।',
-    },
-    {
-      initials: 'SB',
-      name:     isEN ? 'Sankhadipta Bose' : 'শঙ্খদীপ্ত বোস',
-      title:    isEN ? 'Data Analyst'      : 'ডেটা অ্যানালিস্ট',
-      bio:      isEN
-        ? 'Sankhadipta brings rigour to the archive — mapping, categorising, and structuring the thousands of cultural data points that make up Sundargaan\'s living record. His analytical work transforms raw field documentation into a searchable, lasting resource.'
-        : 'শঙ্খদীপ্ত আর্কাইভে কঠোরতা নিয়ে আসেন — সুন্দরগানের জীবন্ত নথি তৈরি করা হাজারো সাংস্কৃতিক তথ্যবিন্দু ম্যাপিং, শ্রেণীবিভাগ ও কাঠামোবদ্ধ করেন।',
-    },
-    {
-      initials: 'RC',
-      name:     isEN ? 'Rahul Chettri'    : 'রাহুল ছেত্রী',
-      title:    isEN ? 'Video & Photography' : 'ভিডিও ও ফটোগ্রাফি',
-      bio:      isEN
-        ? 'Rahul is the eye behind the field — capturing the faces, landscapes, and performances that give Sundargaan its visual soul. His work in video and photography ensures the archive is not just heard but truly seen and felt.'
-        : 'রাহুল মাঠের পেছনের চোখ — মুখ, প্রাকৃতিক দৃশ্য এবং পরিবেশনা ধারণ করেন যা সুন্দরগানকে তার দৃশ্যগত প্রাণ দেয়। তাঁর ভিডিও ও ফটোগ্রাফির কাজ নিশ্চিত করে যে আর্কাইভ শুধু শোনাই নয়, সত্যিকার অর্থে দেখা ও অনুভব করা যায়।',
-    },
+    // {
+    //   initials: 'RI',
+    //   name: isEN ? 'Rabiul Islam' : 'রবিউল ইসলাম',
+    //   role: isEN ? 'CEO' : 'সিইও',
+    //   org: 'Studio 1947',
+    //   bio: isEN
+    //     ? 'Rabiul leads Studio 1947 with a vision rooted in both cultural responsibility and operational clarity. He drives the overall direction of Sundargaan\'s production partnerships, ensuring every project stays true to its purpose of preserving the Sundarbans\' living heritage.'
+    //     : 'রবিউল সাংস্কৃতিক দায়িত্ব ও পরিচালনাগত স্পষ্টতার উপর ভিত্তি করে স্টুডিও ১৯৪৭-কে নেতৃত্ব দেন। তিনি সুন্দরগানের প্রযোজনা অংশীদারিত্বের সামগ্রিক দিকনির্দেশনা পরিচালনা করেন।',
+    // },
+    // {
+    //   initials: 'SB',
+    //   name:     isEN ? 'Sankhadipta Bose' : 'শঙ্খদীপ্ত বোস',
+    //   role:     isEN ? 'Data Analyst'      : 'ডেটা অ্যানালিস্ট',
+    //   org:      'Studio 1947',
+    //   bio:      isEN
+    //     ? 'Sankhadipta brings rigour to the archive — mapping, categorising, and structuring the thousands of cultural data points that make up Sundargaan\'s living record. His analytical work transforms raw field documentation into a searchable, lasting resource.'
+    //     : 'শঙ্খদীপ্ত আর্কাইভে কঠোরতা নিয়ে আসেন — সুন্দরগানের জীবন্ত নথি তৈরি করা হাজারো সাংস্কৃতিক তথ্যবিন্দু ম্যাপিং, শ্রেণীবিভাগ ও কাঠামোবদ্ধ করেন।',
+    // },
+    // {
+    //   initials: 'RC',
+    //   name:     isEN ? 'Rahul Chettri'    : 'রাহুল ছেত্রী',
+    //   role:     isEN ? 'Video & Photography' : 'ভিডিও ও ফটোগ্রাফি',
+    //   org:      'Studio 1947',
+    //   bio:      isEN
+    //     ? 'Rahul is the eye behind the field — capturing the faces, landscapes, and performances that give Sundargaan its visual soul. His work in video and photography ensures the archive is not just heard but truly seen and felt.'
+    //     : 'রাহুল মাঠের পেছনের চোখ — মুখ, প্রাকৃতিক দৃশ্য এবং পরিবেশনা ধারণ করেন যা সুন্দরগানকে তার দৃশ্যগত প্রাণ দেয়। তাঁর ভিডিও ও ফটোগ্রাফির কাজ নিশ্চিত করে যে আর্কাইভ শুধু শোনাই নয়, সত্যিকার অর্থে দেখা ও অনুভব করা যায়।',
+    // },
   ]
 
   const ctaTitle = isEN ? 'Want to be part of this?' : 'এর অংশ হতে চান?'
-  const ctaDesc  = isEN
+  const ctaDesc = isEN
     ? 'Every contribution — of time, skill, or support — helps preserve a heritage that belongs to all of us.'
     : 'সময়, দক্ষতা বা সহায়তার প্রতিটি অবদান এমন একটি ঐতিহ্য সংরক্ষণে সাহায্য করে যা আমাদের সকলের।'
 
@@ -279,10 +252,10 @@ const AboutPage: React.FC = () => {
             {/* Right: stat cards */}
             <div className="grid grid-cols-2 gap-4 md:gap-6">
               {[
-                { val: '750+', label: isEN ? 'Songs Preserved'     : 'সংরক্ষিত গান' },
-                { val: '120+', label: isEN ? 'Artists Supported'   : 'সমর্থিত শিল্পী' },
-                { val: '24',   label: isEN ? 'Villages Documented' : 'নথিবদ্ধ গ্রাম' },
-                { val: '1.2M', label: isEN ? 'Digital Grains'      : 'ডিজিটাল দানা' },
+                { val: '750+', label: isEN ? 'Songs Preserved' : 'সংরক্ষিত গান' },
+                { val: '120+', label: isEN ? 'Artists Supported' : 'সমর্থিত শিল্পী' },
+                { val: '24', label: isEN ? 'Villages Documented' : 'নথিবদ্ধ গ্রাম' },
+                { val: '1.2M', label: isEN ? 'Digital Grains' : 'ডিজিটাল দানা' },
               ].map((stat, i) => (
                 <motion.div
                   key={stat.label}
@@ -324,50 +297,7 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ——— Studio 1947 Team ——— */}
-      <section className="py-24 px-6 bg-[#1a1005] relative overflow-hidden">
-        {/* Ambient glows */}
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#CB460C] opacity-[0.07] rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[#E86228] opacity-[0.07] rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-screen-xl mx-auto relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block font-body text-[#CB460C] uppercase tracking-widest text-xs font-semibold mb-4">
-              {teamLabel}
-            </span>
-            <h2 className="font-display text-4xl md:text-5xl text-white leading-tight mb-6">{teamTitle}</h2>
-            <p className="font-body text-lg text-[#a89080] max-w-2xl mx-auto leading-relaxed">{teamSubtitle}</p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {teamMembers.map((m, i) => (
-              <TeamMemberCard key={m.name} {...m} index={i} />
-            ))}
-          </div>
-
-          {/* Studio 1947 wordmark strip */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 1 }}
-            className="mt-20 text-center"
-          >
-            <span
-              className="font-display text-[#FEFCFB]/5 select-none pointer-events-none"
-              style={{ fontSize: 'clamp(3rem, 12vw, 10rem)', letterSpacing: '-0.04em' }}
-            >
-              {isEN ? 'Studio 1947' : 'স্টুডিও ১৯৪৭'}
-            </span>
-          </motion.div>
-        </div>
-      </section>
 
       {/* ——— CTA ——— */}
       <section className="py-28 px-6">

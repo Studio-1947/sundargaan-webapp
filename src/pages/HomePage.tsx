@@ -51,7 +51,7 @@ const HomePage: React.FC = () => {
                   size="lg"
                   className="bg-[#CB460C] hover:bg-[#E15012] border-none text-white px-8 sm:px-10 py-4 h-auto rounded-full shadow-[0_15px_30px_rgba(203,70,12,0.2)] transition-all hover:scale-105 active:scale-95 text-base sm:text-lg font-medium"
                 >
-                  {t('hero.btn.join')}
+                  {t('Support Us')}
                 </Button>
                 <Button
                   variant="outline"

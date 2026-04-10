@@ -48,11 +48,11 @@ const Navbar: React.FC = () => {
         className={`fixed top-0 left-0 right-0 transition-all duration-300 ${isMenuOpen ? 'z-[110]' : 'z-50'}`}
       >
         <div className="max-w-screen-xl mx-auto px-6 md:px-10 h-20 md:h-24 flex items-center justify-between relative z-50">
-    
-            {/* Logo */}
-            <Link to="/" className="flex-shrink-0 flex items-center" aria-label="Sundargaan Home">
-              <Logo variant="color" className="h-12 md:h-16" />
-            </Link>
+
+          {/* Logo */}
+          <Link to="/" className="flex-shrink-0 flex items-center" aria-label="Sundargaan Home">
+            <Logo variant="color" className="h-12 md:h-16" />
+          </Link>
 
           {/* Nav Links - Desktop */}
           <nav className="hidden md:flex items-center gap-4 lg:gap-10">
@@ -60,9 +60,8 @@ const Navbar: React.FC = () => {
               <Link
                 key={link.label}
                 to={link.href}
-                className={`font-body text-base font-medium tracking-wide transition-colors duration-200 whitespace-nowrap ${
-                  location.pathname === link.href ? 'text-brand-primary' : ''
-                }`}
+                className={`font-body text-base font-medium tracking-wide transition-colors duration-200 whitespace-nowrap ${location.pathname === link.href ? 'text-brand-primary' : ''
+                  }`}
                 style={{ color: location.pathname === link.href ? '#CB460C' : '#4a3b33' }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = '#CB460C')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = location.pathname === link.href ? '#CB460C' : '#4a3b33')}
@@ -77,31 +76,30 @@ const Navbar: React.FC = () => {
             <div className="hidden sm:block">
               <LanguageToggle />
             </div>
-            
+
             <Button variant="primary" size="lg" className="!hidden md:!inline-flex px-6 lg:px-10">
-              {t('nav.join')}
+              {t('Support Us')}
             </Button>
 
             {/* Mobile hamburger */}
             <button
-              className={`md:hidden flex flex-col gap-1.5 p-3 rounded-full transition-all duration-300 relative z-[110] overflow-hidden ${
-                isMenuOpen ? 'bg-[#FEFCFB] border border-[#CB460C]/30 shadow-md' : 'hover:bg-[#F7EAE5]'
-              }`}
+              className={`md:hidden flex flex-col gap-1.5 p-3 rounded-full transition-all duration-300 relative z-[110] overflow-hidden ${isMenuOpen ? 'bg-[#FEFCFB] border border-[#CB460C]/30 shadow-md' : 'hover:bg-[#F7EAE5]'
+                }`}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >
-              <motion.span 
-                className="block w-6 h-0.5 rounded" 
+              <motion.span
+                className="block w-6 h-0.5 rounded"
                 style={{ backgroundColor: '#CB460C' }}
                 animate={isMenuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
               />
-              <motion.span 
-                className="block w-6 h-0.5 rounded" 
+              <motion.span
+                className="block w-6 h-0.5 rounded"
                 style={{ backgroundColor: '#CB460C' }}
                 animate={isMenuOpen ? { opacity: 0, x: 20 } : { opacity: 1, x: 0 }}
               />
-              <motion.span 
-                className="block w-4 h-0.5 rounded" 
+              <motion.span
+                className="block w-4 h-0.5 rounded"
                 style={{ backgroundColor: '#CB460C' }}
                 animate={isMenuOpen ? { rotate: -45, y: -7, width: '24px' } : { rotate: 0, y: 0, width: '16px' }}
               />
@@ -122,7 +120,7 @@ const Navbar: React.FC = () => {
           >
             {/* Background decorative elements */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-            
+
             <nav className="flex flex-col gap-6 mb-12 relative z-10">
               {navLinks.map((link, i) => (
                 <motion.div
@@ -141,13 +139,13 @@ const Navbar: React.FC = () => {
                 </motion.div>
               ))}
             </nav>
-            
+
             <div className="mt-auto pb-12 space-y-8 relative z-10">
               <div className="flex flex-col gap-3">
                 <span className="text-[#a89080] font-body text-[10px] uppercase tracking-[0.3em] font-bold">{language === 'BN' ? 'ভাষা' : 'Language'}</span>
                 <LanguageToggle />
               </div>
-              
+
               <Button variant="primary" size="lg" className="w-full text-xl h-16 rounded-2xl shadow-lg shadow-brand-primary/10" onClick={() => setIsMenuOpen(false)}>
                 {t('nav.join')}
               </Button>
