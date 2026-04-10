@@ -12,15 +12,10 @@ import {
   IsUrl,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ARTIST_CATEGORY_VALUES } from '../../../../shared/domain';
 
-export enum ArtistCategory {
-  BAUL         = 'baul',
-  FOLK_SINGER  = 'folk_singer',
-  INSTRUMENTALIST = 'instrumentalist',
-  DANCER       = 'dancer',
-  STORYTELLER  = 'storyteller',
-  CRAFT_ARTISAN = 'craft_artisan',
-}
+export const ArtistCategory = ARTIST_CATEGORY_VALUES;
+export type ArtistCategory = (typeof ArtistCategory)[number];
 
 export class CreateArtistDto {
   @ApiProperty({ example: 'Rahamat Sarkar' })

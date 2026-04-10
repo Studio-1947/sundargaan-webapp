@@ -5,6 +5,7 @@ import { ArtistsModule } from './artists/artists.module';
 import { ArchiveModule } from './archive/archive.module';
 import { BookingsModule } from './bookings/bookings.module';
 import { UploadModule } from './upload/upload.module';
+import { AdminTokenGuard } from './auth/guards/admin-token.guard';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -22,6 +23,6 @@ import { AppService } from './app.service';
     UploadModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AdminTokenGuard],
 })
 export class AppModule {}

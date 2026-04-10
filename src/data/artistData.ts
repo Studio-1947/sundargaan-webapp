@@ -1,3 +1,5 @@
+import { ARTIST_CATEGORY_LABELS } from '../../shared/domain';
+
 export interface SampleWork {
   id: string;
   title: string;
@@ -44,14 +46,13 @@ export const ARTIST_BLOCKS = [
   'Sandeshkhali II', 'Hasnabad', 'Haroa', 'Swarupnagar'
 ];
 
-export const ARTIST_CATEGORIES = [
-  { id: 'baul', en: 'Baul', bn: 'বাউল' },
-  { id: 'bhatiali', en: 'Bhatiali', bn: 'ভাটিয়ালি' },
-  { id: 'jhumur', en: 'Jhumur', bn: 'ঝুমুর' },
-  { id: 'potter', en: 'Potter', bn: 'কুমোর' },
-  { id: 'weaver', en: 'Weaver', bn: 'তাঁতি' },
-  { id: 'storyteller', en: 'Storyteller', bn: 'গল্পকার' }
-];
+export const ARTIST_CATEGORIES = Object.entries(ARTIST_CATEGORY_LABELS).map(
+  ([id, labels]) => ({
+    id,
+    en: labels.en,
+    bn: labels.bn,
+  }),
+);
 
 export const MOCK_ARTISTS: Artist[] = [
   {

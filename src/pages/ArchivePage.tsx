@@ -205,7 +205,7 @@ const ArchivePage: React.FC = () => {
                         className={`cursor-pointer text-xs sm:text-[15px] transition-all duration-300 flex items-center gap-3 shrink-0 px-4 py-2 rounded-full border md:border-none ${activeSubcategory === sub ? 'text-black font-bold bg-surface-warm border-border/40 md:bg-transparent' : 'text-[#BBBBBB] border-transparent hover:text-ink'
                           }`}
                       >
-                        <span>Block {sub}</span>
+                        <span>{sub}</span>
                       </li>
                     ))}
                   </ul>

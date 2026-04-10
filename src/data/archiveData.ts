@@ -34,7 +34,7 @@ export const ARCHIVE_CATEGORIES = [
     image: artistsHero
   },
   {
-    id: 'art-forms',
+    id: FRONTEND_ARCHIVE_CATEGORY_BY_API.art_forms,
     label: 'Sacred Art Forms',
     subcategories: ['Bhatiyali', 'Baul', 'Palagan', 'Jhumur', 'Tusu', 'Folk Song'],
     image: artFormsHero
@@ -132,3 +132,4 @@ export const MOCK_ARCHIVE_ITEMS: ArchiveItem[] = [
     )
   ).filter(item => !CORE_ITEMS.some(core => core.id === item.id))
 ];
+import { FRONTEND_ARCHIVE_CATEGORY_BY_API } from '../../shared/domain';

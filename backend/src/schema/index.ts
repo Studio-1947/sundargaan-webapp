@@ -10,30 +10,19 @@ import {
   varchar,
 } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
+import {
+  ARCHIVE_CATEGORY_VALUES,
+  ARCHIVE_MEDIA_TYPE_VALUES,
+  ARTIST_CATEGORY_VALUES,
+} from '../../../shared/domain';
 
 // ─── Enums ────────────────────────────────────────────────────────────────────
 
-export const artistCategoryEnum = pgEnum('artist_category', [
-  'baul',
-  'folk_singer',
-  'instrumentalist',
-  'dancer',
-  'storyteller',
-  'craft_artisan',
-]);
+export const artistCategoryEnum = pgEnum('artist_category', [...ARTIST_CATEGORY_VALUES]);
 
-export const archiveCategoryEnum = pgEnum('archive_category', [
-  'artists',
-  'artefacts',
-  'art_forms',
-]);
+export const archiveCategoryEnum = pgEnum('archive_category', [...ARCHIVE_CATEGORY_VALUES]);
 
-export const archiveMediaTypeEnum = pgEnum('archive_media_type', [
-  'image',
-  'audio',
-  'video',
-  'document',
-]);
+export const archiveMediaTypeEnum = pgEnum('archive_media_type', [...ARCHIVE_MEDIA_TYPE_VALUES]);
 
 export const bookingStatusEnum = pgEnum('booking_status', [
   'pending',

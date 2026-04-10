@@ -2,10 +2,12 @@ import {
   Controller, Get, Post, Delete,
   Body, Query, UploadedFile,
   UseInterceptors, ParseFilePipe, MaxFileSizeValidator,
+  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiOperation, ApiConsumes, ApiBody, ApiQuery } from '@nestjs/swagger';
 import { UploadService } from './upload.service';
+import { AdminTokenGuard } from '../auth/guards/admin-token.guard';
 
 @ApiTags('Upload')
 @Controller('upload')
@@ -15,6 +17,7 @@ export class UploadController {
   // ── Upload endpoints ──────────────────────────────────────────────────────
 
   @Post('image')
+  @UseGuards(AdminTokenGuard)
   @ApiOperation({ summary: 'Upload an image' })
   @ApiQuery({ name: 'provider', enum: ['vercel', 'cloudinary'], required: false })
   @ApiConsumes('multipart/form-data')
@@ -32,6 +35,7 @@ export class UploadController {
   }
 
   @Post('audio')
+  @UseGuards(AdminTokenGuard)
   @ApiOperation({ summary: 'Upload an audio file' })
   @ApiQuery({ name: 'provider', enum: ['vercel', 'cloudinary'], required: false })
   @ApiConsumes('multipart/form-data')
@@ -49,6 +53,7 @@ export class UploadController {
   }
 
   @Post('video')
+  @UseGuards(AdminTokenGuard)
   @ApiOperation({ summary: 'Upload a video file' })
   @ApiQuery({ name: 'provider', enum: ['vercel', 'cloudinary'], required: false })
   @ApiConsumes('multipart/form-data')
@@ -66,6 +71,7 @@ export class UploadController {
   }
 
   @Post('document')
+  @UseGuards(AdminTokenGuard)
   @ApiOperation({ summary: 'Upload a document' })
   @ApiQuery({ name: 'provider', enum: ['vercel', 'cloudinary'], required: false })
   @ApiConsumes('multipart/form-data')
@@ -86,6 +92,7 @@ export class UploadController {
   // ── List ──────────────────────────────────────────────────────────────────
 
   @Get('list')
+  @UseGuards(AdminTokenGuard)
   @ApiOperation({ summary: 'List blobs from the given provider' })
   @ApiQuery({ name: 'provider', enum: ['vercel', 'cloudinary'], required: false })
   @ApiQuery({ name: 'type', enum: ['image', 'audio', 'video', 'document'], required: false })
@@ -101,6 +108,7 @@ export class UploadController {
   // ── Delete ────────────────────────────────────────────────────────────────
 
   @Delete()
+  @UseGuards(AdminTokenGuard)
   @ApiOperation({ summary: 'Delete a blob by URL' })
   @ApiBody({ schema: { type: 'object', properties: { url: { type: 'string' }, provider: { type: 'string', enum: ['vercel', 'cloudinary'] } } } })
   delete(

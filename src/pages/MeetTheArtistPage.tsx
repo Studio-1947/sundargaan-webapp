@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { MOCK_ARTISTS, ARTIST_BLOCKS, ARTIST_CATEGORIES, Artist, SampleWork } from '../data/artistData';
 import { getArtists } from '../api/artists';
+import { LEGACY_ARTIST_CATEGORY_MAP } from '../../shared/domain';
 
 // ─── Icon helpers ────────────────────────────────────────────────────────────
 
@@ -524,8 +525,22 @@ const MeetTheArtistPage: React.FC = () => {
   useEffect(() => {
     setIsLoading(true);
     getArtists({ limit: 100 })
-      .then(res => setArtists(res.data.length > 0 ? res.data : MOCK_ARTISTS))
-      .catch(() => setArtists(MOCK_ARTISTS))
+      .then(res =>
+        setArtists(
+          (res.data.length > 0 ? res.data : MOCK_ARTISTS).map((artist) => ({
+            ...artist,
+            category: normalizeArtistCategory(artist.category),
+          })),
+        ),
+      )
+      .catch(() =>
+        setArtists(
+          MOCK_ARTISTS.map((artist) => ({
+            ...artist,
+            category: normalizeArtistCategory(artist.category),
+          })),
+        ),
+      )
       .finally(() => setIsLoading(false));
   }, []);
 
@@ -1056,3 +1071,6 @@ const MeetTheArtistPage: React.FC = () => {
 };
 
 export default MeetTheArtistPage;
+function normalizeArtistCategory(category: string): string {
+  return LEGACY_ARTIST_CATEGORY_MAP[category] ?? category;
+}

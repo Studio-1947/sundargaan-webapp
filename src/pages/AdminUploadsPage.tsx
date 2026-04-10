@@ -7,6 +7,7 @@ import {
 } from '../api/artists'
 import type { Artist, SampleWork } from '../data/artistData'
 import Logo from '../components/ui/Logo'
+import { clearAdminToken } from '../lib/adminAuth'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -1206,6 +1207,19 @@ const AdminUploadsPage: React.FC = () => {
         </nav>
 
         <div className="p-4 border-t" style={{ borderColor: '#e5d5cd' }}>
+          <button
+            onClick={() => {
+              clearAdminToken()
+              window.location.reload()
+            }}
+            className="mb-2 flex w-full items-center gap-2 px-4 py-2.5 rounded-xl text-sm transition-colors"
+            style={{ color: '#a89080' }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#CB460C' }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#a89080' }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Lock admin
+          </button>
           <a href="/" className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm transition-colors"
             style={{ color: '#a89080' }}
             onMouseEnter={(e) => { e.currentTarget.style.color = '#CB460C' }}

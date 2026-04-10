@@ -1,5 +1,9 @@
 import { apiFetch } from './client';
 import type { ArchiveItem } from '../data/archiveData';
+import {
+  API_ARCHIVE_CATEGORY_BY_FRONTEND,
+  FRONTEND_ARCHIVE_CATEGORY_BY_API,
+} from '../../shared/domain';
 
 function mapArchiveItem(a: Record<string, any>): ArchiveItem {
   return {
@@ -9,7 +13,10 @@ function mapArchiveItem(a: Record<string, any>): ArchiveItem {
     mediaUrl: a.thumbnailUrl ?? a.mediaUrl ?? '',
     mediaType: 'image',
     // backend uses 'art_forms', frontend uses 'art-forms'
-    category: a.category === 'art_forms' ? 'art-forms' : (a.category ?? ''),
+    category:
+      FRONTEND_ARCHIVE_CATEGORY_BY_API[
+        a.category as keyof typeof FRONTEND_ARCHIVE_CATEGORY_BY_API
+      ] ?? (a.category ?? ''),
     subcategory: a.subcategory ?? '',
     tags: a.tags ?? [],
   };
@@ -55,8 +62,10 @@ export async function getArchiveItems(query?: {
   // All other categories (artefacts, art-forms) use the archive endpoint
   if (query?.category) {
     // frontend uses 'art-forms', backend expects 'art_forms'
-    const cat = query.category === 'art-forms' ? 'art_forms' : query.category;
-    params.set('category', cat);
+    params.set(
+      'category',
+      API_ARCHIVE_CATEGORY_BY_FRONTEND[query.category] ?? query.category,
+    );
   }
   if (query?.subcategory) params.set('subcategory', query.subcategory);
 

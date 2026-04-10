@@ -1,12 +1,14 @@
 import {
   Controller, Get, Post, Patch, Delete,
   Param, Body, Query, ParseUUIDPipe, HttpCode, HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { IsString, IsNotEmpty, IsOptional, IsUrl } from 'class-validator';
 import { ArtistsService } from './artists.service';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { QueryArtistDto } from './dto/query-artist.dto';
+import { AdminTokenGuard } from '../auth/guards/admin-token.guard';
 
 class AddSampleWorkDto {
   @IsString() @IsNotEmpty() title: string;
@@ -36,18 +38,21 @@ export class ArtistsController {
   }
 
   @Post()
+  @UseGuards(AdminTokenGuard)
   @ApiOperation({ summary: 'Create a new artist' })
   create(@Body() dto: CreateArtistDto) {
     return this.artistsService.create(dto);
   }
 
   @Patch(':id')
+  @UseGuards(AdminTokenGuard)
   @ApiOperation({ summary: 'Update an artist' })
   update(@Param('id', ParseUUIDPipe) id: string, @Body() dto: Partial<CreateArtistDto>) {
     return this.artistsService.update(id, dto);
   }
 
   @Delete(':id')
+  @UseGuards(AdminTokenGuard)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Delete an artist' })
   remove(@Param('id', ParseUUIDPipe) id: string) {
@@ -55,6 +60,7 @@ export class ArtistsController {
   }
 
   @Post(':id/sample-works')
+  @UseGuards(AdminTokenGuard)
   @ApiOperation({ summary: 'Add a sample work to an artist' })
   addSampleWork(
     @Param('id', ParseUUIDPipe) id: string,
@@ -64,6 +70,7 @@ export class ArtistsController {
   }
 
   @Delete(':id/sample-works/:workId')
+  @UseGuards(AdminTokenGuard)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Remove a sample work from an artist' })
   removeSampleWork(

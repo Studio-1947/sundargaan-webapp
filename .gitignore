@@ -30,4 +30,7 @@ dist-ssr
 vite.config.ts.timestamp-*
 
 .vercel
+.env
+.env.production
+backend/.env
 .env*.local

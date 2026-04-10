@@ -1,6 +1,7 @@
 import {
   Controller, Get, Post, Patch, Delete,
   Param, Body, Query, ParseUUIDPipe, HttpCode, HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { IsOptional, IsString } from 'class-validator';
@@ -8,6 +9,7 @@ import { Transform } from 'class-transformer';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { ArchiveService } from './archive.service';
 import { CreateArchiveItemDto } from './dto/create-archive-item.dto';
+import { AdminTokenGuard } from '../auth/guards/admin-token.guard';
 
 class QueryArchiveDto {
   @ApiPropertyOptional() @IsOptional() @IsString() search?: string;
@@ -36,18 +38,21 @@ export class ArchiveController {
   }
 
   @Post()
+  @UseGuards(AdminTokenGuard)
   @ApiOperation({ summary: 'Create a new archive item' })
   create(@Body() dto: CreateArchiveItemDto) {
     return this.archiveService.create(dto);
   }
 
   @Patch(':id')
+  @UseGuards(AdminTokenGuard)
   @ApiOperation({ summary: 'Update an archive item' })
   update(@Param('id', ParseUUIDPipe) id: string, @Body() dto: Partial<CreateArchiveItemDto>) {
     return this.archiveService.update(id, dto);
   }
 
   @Delete(':id')
+  @UseGuards(AdminTokenGuard)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Delete an archive item' })
   remove(@Param('id', ParseUUIDPipe) id: string) {
