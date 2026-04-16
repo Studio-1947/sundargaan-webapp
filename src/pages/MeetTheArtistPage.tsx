@@ -373,10 +373,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onKnowMore, i
         />
         {/* Gradient overlay at bottom */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-        {/* Block badge */}
-        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-[#CB460C]">
-          {artist.block}
-        </div>
+
       </div>
 
       {/* Content */}
@@ -386,29 +383,44 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onKnowMore, i
           <h3 className="text-2xl font-display text-[#1a1005] leading-tight mb-1">
             {language === 'EN' ? artist.name : artist.nameBN}
           </h3>
-          <span className="text-[11px] text-[#CB460C] font-bold uppercase tracking-widest">
-            {language === 'EN' ? category?.en : category?.bn}
-          </span>
+
         </div>
 
-        {/* Famous song + address */}
-        <div className="space-y-1 text-sm text-[#6b5b4f]">
-          <div 
-            onClick={(e) => { if (artist.sampleWorks.length > 0) { e.stopPropagation(); onKnowMore(artist, 1); } }}
-            className={`flex items-start gap-2 ${artist.sampleWorks.length > 0 ? 'cursor-pointer hover:text-[#CB460C] transition-colors group/song' : ''}`}
-          >
-            <div className="relative text-[#CB460C] mt-0.5 shrink-0">
-              <IconMusic />
-              {artist.sampleWorks.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#CB460C] text-white text-[8px] w-3 h-3 rounded-full flex items-center justify-center font-bold border border-white group-hover/song:scale-110 transition-transform">
-                  {artist.sampleWorks.length}
+        {/* Featured Song / Famous Song Section */}
+        <div className="space-y-3">
+          {artist.sampleWorks.length > 0 ? (
+            <div 
+              onClick={(e) => { e.stopPropagation(); onKnowMore(artist); }}
+              className="group/track flex items-center gap-3 p-3 rounded-2xl bg-[#F7EAE5] border border-[#CB460C]/10 hover:bg-[#F7EAE5]/80 transition-all font-body"
+            >
+              <div className="w-9 h-9 rounded-full bg-[#CB460C] flex items-center justify-center text-white shadow-md group-hover/track:scale-110 transition-transform shrink-0">
+                <div className="pl-1">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="5 3 19 12 5 21 5 3"/>
+                  </svg>
+                </div>
+              </div>
+              <div className="min-w-0">
+                <span className="block text-[10px] text-[#CB460C] font-bold uppercase tracking-wider mb-0.5 opacity-80">
+                  {language === 'EN' ? 'Featured Track' : 'সেরা গান'}
                 </span>
-              )}
+                <span className="block text-sm font-semibold text-[#1a1005] truncate">
+                  {language === 'EN' ? artist.sampleWorks[0].title : artist.sampleWorks[0].titleBN}
+                </span>
+              </div>
             </div>
-            <span className="italic">{language === 'EN' ? artist.famousSong : artist.famousSongBN}</span>
-          </div>
-          <div className="flex items-start gap-2">
-            <span className="text-[#CB460C] mt-0.5 shrink-0"><IconPin /></span>
+          ) : (
+            <div className="flex items-center gap-2 text-[#6b5b4f] px-3 py-2 rounded-xl bg-[#F7EAE5]/30 font-body">
+              <span className="text-[#CB460C] shrink-0"><IconMusic /></span>
+              <span className="text-xs font-medium italic truncate">
+                {language === 'EN' ? artist.famousSong : artist.famousSongBN}
+              </span>
+            </div>
+          )}
+
+          {/* Location details */}
+          <div className="flex items-center gap-2 px-1 text-[11px] text-[#6b5b4f] font-body">
+            <span className="text-[#CB460C] shrink-0"><IconPin /></span>
             <span className="truncate">
               {language === 'EN' 
                 ? `Village: ${artist.village || ''}, Post: ${artist.post || ''}`
@@ -418,27 +430,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onKnowMore, i
           </div>
         </div>
 
-        {/* Instruments */}
-        <div className="flex flex-wrap gap-1.5">
-          {(language === 'EN' ? artist.instruments : artist.instrumentsBN).map((inst, i) => (
-            <span key={i} className="px-2.5 py-1 bg-[#F7EAE5] text-[#8b5e3c] text-xs rounded-lg font-medium">
-              {inst}
-            </span>
-          ))}
-        </div>
 
-
-
-        {/* Tags (only if no portfolio to save space, or just keep them) */}
-        {!artist.sampleWorks.length && (
-          <div className="flex flex-wrap gap-1.5">
-            {(language === 'EN' ? artist.tags : artist.tagsBN).slice(0, 3).map((tag, i) => (
-              <span key={i} className="px-2.5 py-1 border border-[#e5d5cd] text-[#a89080] text-[11px] rounded-full font-medium uppercase tracking-wide">
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
 
         {/* Action buttons */}
         <div className="flex pt-2 mt-auto">
@@ -511,7 +503,7 @@ const MeetTheArtistPage: React.FC = () => {
   const [selectedBlock, setSelectedBlock] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
-  const [activeModalTab, setActiveModalTab] = useState(0); // 0 = About, 1 = Works
+
   const [onlyWithPortfolio, setOnlyWithPortfolio] = useState(false);
 
   const [activeWork, setActiveWork] = useState<SampleWork | null>(null);
@@ -553,9 +545,8 @@ const MeetTheArtistPage: React.FC = () => {
   const totalPages = Math.ceil(filteredArtists.length / PAGE_SIZE);
   const pagedArtists = filteredArtists.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
-  const openModal = (artist: Artist, tab: number) => {
+  const openModal = (artist: Artist) => {
     setSelectedArtist(artist);
-    setActiveModalTab(tab);
   };
 
   const closeModal = () => {
@@ -573,9 +564,7 @@ const MeetTheArtistPage: React.FC = () => {
 
   const category = selectedArtist ? ARTIST_CATEGORIES.find(c => c.id === selectedArtist.category) : null;
 
-  const MODAL_TABS = language === 'EN'
-    ? ['About', 'Artistic Portfolio']
-    : ['সম্পর্কে', 'আর্টিস্টিক পোর্টফোলিও'];
+  const MODAL_TABS = language === 'EN' ? ['About'] : ['সম্পর্কে'];
 
   return (
     <div className="min-h-screen bg-[#FEFCFB] pb-24 font-body text-[#1a1005]">
@@ -885,9 +874,7 @@ const MeetTheArtistPage: React.FC = () => {
 
                 {/* Name + category overlay at bottom */}
                 <div className="absolute bottom-0 left-0 right-0 p-8">
-                  <p className="text-[11px] text-[#CB460C] font-bold uppercase tracking-widest mb-1 bg-white/90 inline-block px-2.5 py-0.5 rounded-full">
-                    {language === 'EN' ? category?.en : category?.bn}
-                  </p>
+
                   <h2 className="text-3xl font-display text-white leading-tight mt-2">
                     {language === 'EN' ? selectedArtist.name : selectedArtist.nameBN}
                   </h2>
@@ -908,18 +895,9 @@ const MeetTheArtistPage: React.FC = () => {
                 {/* Header row with tabs + close */}
                 <div className="flex items-center justify-between px-4 md:px-8 pt-5 md:pt-7 pb-0 border-b border-[#f0e8e4] shrink-0 gap-2">
                   <div className="flex gap-0.5 overflow-x-auto no-scrollbar flex-1 min-w-0">
-                    {MODAL_TABS.map((tab, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setActiveModalTab(i)}
-                        className={`shrink-0 px-3 md:px-4 py-3 text-xs md:text-sm font-bold rounded-t-lg transition-all relative whitespace-nowrap ${activeModalTab === i ? 'text-[#CB460C]' : 'text-[#a89080] hover:text-[#6b5b4f]'}`}
-                      >
-                        {tab}
-                        {activeModalTab === i && (
-                          <motion.div layoutId="tab-indicator" className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#CB460C] rounded-full" />
-                        )}
-                      </button>
-                    ))}
+                    <span className="px-4 py-3 text-sm font-bold text-[#CB460C] uppercase tracking-widest">
+                      {language === 'EN' ? 'Artist Profile' : 'শিল্পীর প্রোফাইল'}
+                    </span>
                   </div>
                   <button
                     onClick={closeModal}
@@ -933,7 +911,7 @@ const MeetTheArtistPage: React.FC = () => {
                 <div className="flex-1 overflow-y-auto px-4 md:px-8 py-5 md:py-7">
 
                   {/* ── Tab 0: About ── */}
-                  {activeModalTab === 0 && (
+
                     <motion.div
                       initial={{ opacity: 0, x: 10 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -958,70 +936,30 @@ const MeetTheArtistPage: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* Info grid */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="bg-[#FEFCFB] border border-[#e5d5cd] rounded-xl p-4">
-                          <p className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold mb-2">
-                            {language === 'EN' ? 'Instruments' : 'বাদ্যযন্ত্র'}
+                      {/* Portfolio Section merged into About */}
+                      {selectedArtist.sampleWorks.length > 0 && (
+                        <div className="pt-4 border-t border-[#f0e8e4] space-y-6">
+                          <p className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold">
+                            {language === 'EN' ? 'Artistic Portfolio' : 'আর্টিস্টিক পোর্টফোলিও'}
                           </p>
-                          <div className="flex flex-wrap gap-1.5">
-                            {(language === 'EN' ? selectedArtist.instruments : selectedArtist.instrumentsBN).map((inst, i) => (
-                              <span key={i} className="px-2.5 py-1 bg-[#F7EAE5] text-[#8b5e3c] text-xs rounded-lg font-medium">{inst}</span>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {selectedArtist.sampleWorks.map(work => (
+                              <SampleWorkCard
+                                key={work.id}
+                                work={work}
+                                language={language}
+                                onClick={() => setActiveWork(work)}
+                              />
                             ))}
                           </div>
                         </div>
-
-                      </div>
-
-                      {/* Tags */}
-                      <div>
-                        <p className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold mb-3">
-                          {language === 'EN' ? 'Specializations' : 'বিশেষত্ব'}
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          {(language === 'EN' ? selectedArtist.tags : selectedArtist.tagsBN).map((tag, i) => (
-                            <span key={i} className="px-3 py-1.5 border border-[#e5d5cd] text-[#6b5b4f] text-xs rounded-full font-medium">
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
+                      )}
 
                       {/* Booking CTA removed */}
                     </motion.div>
-                  )}
 
-                  {/* ── Tab 1: Artistic Portfolio ── */}
-                  {activeModalTab === 1 && (
-                    <motion.div
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.25 }}
-                    >
-                      <p className="text-sm text-[#a89080] mb-6">
-                        {language === 'EN'
-                          ? `A selection of ${selectedArtist.name}'s recorded work and performances.`
-                          : `${selectedArtist.nameBN}-এর রেকর্ড করা কাজ এবং পরিবেশনার একটি নির্বাচন।`}
-                      </p>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {selectedArtist.sampleWorks.map(work => (
-                          <SampleWorkCard
-                            key={work.id}
-                            work={work}
-                            language={language}
-                            onClick={() => setActiveWork(work)}
-                          />
-                        ))}
-                      </div>
-                      <div className="mt-8 p-5 bg-[#F7EAE5]/50 rounded-xl border border-[#e5d5cd] text-center">
-                        <p className="text-sm text-[#6b5b4f]">
-                          {language === 'EN'
-                            ? 'Interested in the cultural heritage? Explore more artists from the collection.'
-                            : 'সাংস্কৃতিক ঐতিহ্যে আগ্রহী? সংগ্রহ থেকে আরও শিল্পী অন্বেষণ করুন।'}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
+
+
 
 
 
