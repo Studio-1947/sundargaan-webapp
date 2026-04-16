@@ -19,8 +19,8 @@ const translations: Translations = {
   
   // Hero
   'hero.title': { EN: 'Sundargaan', BN: 'সুন্দরগান' },
-  'hero.tagline1': { EN: 'Where the land sings of mangroves and mud.', BN: 'যেখানে ভূমি ম্যানগ্রোভ এবং কাদার গান গায়।' },
-  'hero.tagline2': { EN: 'Stories of soil, rhythm of the Ektara.', BN: 'মাটির গল্প, একতারার ছন্দ।' },
+  'hero.tagline1': { EN: 'Where mangroves meet the restless tide, and the land quietly holds its stories.', BN: 'যেখানে উত্তাল জোয়ারে ম্যানগ্রোভ মেলে হাত, আর ভূমি নিভৃতে আগলে রাখে তার কথামালা।' },
+  'hero.tagline2': { EN: 'Voices rise from soil and everyday life, carrying memories across generations.', BN: 'মাটি আর আটপৌরে জীবন থেকে জেগে ওঠা সুর, যা প্রজন্ম থেকে প্রজন্মান্তরে বয়ে বেড়ায় স্মৃতি।' },
   'hero.btn.join': { EN: 'Join', BN: 'যুক্ত হোন' },
   'hero.btn.more': { EN: 'Know more', BN: 'আরও জানুন' },
   'hero.scroll': { EN: 'Explore', BN: 'অন্বেষণ করুন' },
@@ -85,8 +85,8 @@ const translations: Translations = {
 
   // Footer
   'footer.brand': { 
-    EN: 'Preserving and celebrating the living musical heritage of the Sundarbans. Sundargaan is a digital sanctuary for the stories of soil and the rhythm of the Ektara.', 
-    BN: 'সুন্দরবনের জীবন্ত সংগীত ঐতিহ্য সংরক্ষণ এবং উদযাপন করা হচ্ছে। সুন্দরগান হলো মাটির গল্প এবং একতারার ছন্দের এক ডিজিটাল অভয়ারণ্য।' 
+    EN: 'Preserving and celebrating the living musical heritage of the Sundarbans. A digital sanctuary where memories of soil and tide rise through song.', 
+    BN: 'সুন্দরবনের সংগীত ঐতিহ্য সংরক্ষণ ও উদযাপনে নিবেদিত। এক ডিজিটাল অভয়ারণ্য, যেখানে মাটি আর জোয়ারের স্মৃতি জেগে ওঠে গানের সুরে।' 
   },
   'footer.nav': { EN: 'Navigation', BN: 'নেভিগেশন' },
   'footer.community': { EN: 'Community', BN: 'কমিউনিটি' },

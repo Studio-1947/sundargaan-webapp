@@ -59,6 +59,7 @@ const HomePage: React.FC = () => {
                   variant="outline"
                   size="lg"
                   className="bg-transparent border-[#CB460C]/20 text-[#CB460C] hover:bg-[#CB460C]/5 px-8 sm:px-10 py-4 h-auto rounded-full transition-all text-base sm:text-lg font-medium"
+                  onClick={() => navigate('/about')}
                 >
                   {t('hero.btn.more')}
                 </Button>
