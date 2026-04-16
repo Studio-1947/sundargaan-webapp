@@ -22,14 +22,14 @@ const LanguageToggle: React.FC = () => {
       />
       
       {/* Option labels */}
-      <div className="flex w-full h-full z-10 relative pointer-events-none">
+      <div className="flex w-full h-full z-10 relative pointer-events-none translate-y-[2px]">
         <div className="flex-1 flex items-center justify-center">
-          <span className={`font-body text-[11px] font-bold tracking-tight transition-colors duration-200 ${language === 'EN' ? 'text-white' : 'text-[#6b5b4f]'}`}>
+          <span className={`font-body text-[11px] font-bold tracking-tight leading-none transition-colors duration-200 ${language === 'EN' ? 'text-white' : 'text-[#6b5b4f]'}`}>
             EN
           </span>
         </div>
         <div className="flex-1 flex items-center justify-center">
-          <span className={`font-body text-[11px] font-bold tracking-tight transition-colors duration-200 ${language === 'BN' ? 'text-white' : 'text-[#6b5b4f]'}`}>
+          <span className={`font-body text-[11px] font-bold tracking-tight leading-none transition-colors duration-200 ${language === 'BN' ? 'text-white' : 'text-[#6b5b4f]'}`}>
             বাংলা
           </span>
         </div>

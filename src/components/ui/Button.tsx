@@ -53,7 +53,7 @@ const Button: React.FC<ButtonProps> = ({
         inline-flex items-center justify-center gap-2
         rounded-full font-medium font-body
         transition-all duration-200 ease-out
-        cursor-pointer tracking-wide
+        cursor-pointer tracking-wide leading-none
         focus:outline-none focus:ring-2 focus:ring-[#CB460C]/40 focus:ring-offset-2
         disabled:opacity-50 disabled:cursor-not-allowed
         ${sizeClasses[size]}
@@ -62,7 +62,9 @@ const Button: React.FC<ButtonProps> = ({
       `}
       {...props}
     >
-      {children}
+      <span className="relative translate-y-[1px] inline-flex items-center justify-center gap-2">
+        {children}
+      </span>
     </button>
   )
 }
