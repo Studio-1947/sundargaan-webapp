@@ -8,13 +8,13 @@ import { getArtists } from '../api/artists';
 
 const IconPin = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
   </svg>
 );
 
 const IconMusic = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+    <path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" />
   </svg>
 );
 
@@ -22,43 +22,43 @@ const IconMusic = () => (
 
 const IconPlay = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-    <polygon points="5 3 19 12 5 21 5 3"/>
+    <polygon points="5 3 19 12 5 21 5 3" />
   </svg>
 );
 
 const IconClose = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
   </svg>
 );
 
 const IconSearch = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
   </svg>
 );
 
 const IconPause = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-    <rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>
+    <rect x="6" y="4" width="4" height="16" rx="1" /><rect x="14" y="4" width="4" height="16" rx="1" />
   </svg>
 );
 
 const IconVolume = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" /><path d="M19.07 4.93a10 10 0 0 1 0 14.14" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
   </svg>
 );
 
 const IconVolumeMute = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" /><line x1="23" y1="9" x2="17" y2="15" /><line x1="17" y1="9" x2="23" y2="15" />
   </svg>
 );
 
 const IconLoader = () => (
   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="animate-spin">
-    <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
   </svg>
 );
 
@@ -354,7 +354,6 @@ interface ArtistCardProps {
 }
 
 const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onKnowMore, index }) => {
-  const category = ARTIST_CATEGORIES.find(c => c.id === artist.category);
 
   return (
     <motion.div
@@ -389,14 +388,14 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onKnowMore, i
         {/* Featured Song / Famous Song Section */}
         <div className="space-y-3">
           {artist.sampleWorks.length > 0 ? (
-            <div 
+            <div
               onClick={(e) => { e.stopPropagation(); onKnowMore(artist); }}
               className="group/track flex items-center gap-3 p-3 rounded-2xl bg-[#F7EAE5] border border-[#CB460C]/10 hover:bg-[#F7EAE5]/80 transition-all font-body"
             >
               <div className="w-9 h-9 rounded-full bg-[#CB460C] flex items-center justify-center text-white shadow-md group-hover/track:scale-110 transition-transform shrink-0">
                 <div className="pl-1">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                    <polygon points="5 3 19 12 5 21 5 3"/>
+                    <polygon points="5 3 19 12 5 21 5 3" />
                   </svg>
                 </div>
               </div>
@@ -422,7 +421,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onKnowMore, i
           <div className="flex items-center gap-2 px-1 text-[11px] text-[#6b5b4f] font-body">
             <span className="text-[#CB460C] shrink-0"><IconPin /></span>
             <span className="truncate">
-              {language === 'EN' 
+              {language === 'EN'
                 ? `Village: ${artist.village || ''}, Post: ${artist.post || ''}`
                 : `গ্রাম: ${artist.villageBN || ''}, পোস্ট: ${artist.postBN || ''}`
               }
@@ -436,7 +435,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onKnowMore, i
         <div className="flex pt-2 mt-auto">
           <button
             onClick={(e) => { e.stopPropagation(); onKnowMore(artist); }}
-             className="w-full border border-[#CB460C] text-[#CB460C] py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#F7EAE5] transition-all active:scale-95"
+            className="w-full border border-[#CB460C] text-[#CB460C] py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#F7EAE5] transition-all active:scale-95"
           >
             {language === 'EN' ? 'Know More' : 'আরও জানুন'}
           </button>
@@ -504,7 +503,7 @@ const MeetTheArtistPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
 
-  const [onlyWithPortfolio, setOnlyWithPortfolio] = useState(false);
+
 
   const [activeWork, setActiveWork] = useState<SampleWork | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -529,18 +528,15 @@ const MeetTheArtistPage: React.FC = () => {
         artist.nameBN.includes(searchTerm) ||
         artist.famousSong.toLowerCase().includes(q) ||
         artist.famousSongBN.includes(searchTerm) ||
-        artist.address.toLowerCase().includes(q) ||
-        artist.instruments.some(i => i.toLowerCase().includes(q)) ||
-        artist.tags.some(t => t.toLowerCase().includes(q));
+        artist.address.toLowerCase().includes(q);
       const matchesBlock = selectedBlock ? artist.block === selectedBlock : true;
       const matchesCategory = selectedCategory ? artist.category === selectedCategory : true;
-      const matchesPortfolio = onlyWithPortfolio ? artist.sampleWorks.length > 0 : true;
-      return matchesSearch && matchesBlock && matchesCategory && matchesPortfolio;
+      return matchesSearch && matchesBlock && matchesCategory;
     });
-  }, [artists, searchTerm, selectedBlock, selectedCategory, onlyWithPortfolio]);
+  }, [artists, searchTerm, selectedBlock, selectedCategory]);
 
   // Reset to page 1 whenever filters change
-  useEffect(() => { setCurrentPage(1); }, [searchTerm, selectedBlock, selectedCategory, onlyWithPortfolio]);
+  useEffect(() => { setCurrentPage(1); }, [searchTerm, selectedBlock, selectedCategory]);
 
   const totalPages = Math.ceil(filteredArtists.length / PAGE_SIZE);
   const pagedArtists = filteredArtists.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
@@ -558,13 +554,11 @@ const MeetTheArtistPage: React.FC = () => {
     setSelectedBlock(null);
     setSelectedCategory(null);
     setSearchTerm('');
-    setOnlyWithPortfolio(false);
+
     setCurrentPage(1);
   };
 
-  const category = selectedArtist ? ARTIST_CATEGORIES.find(c => c.id === selectedArtist.category) : null;
 
-  const MODAL_TABS = language === 'EN' ? ['About'] : ['সম্পর্কে'];
 
   return (
     <div className="min-h-screen bg-[#FEFCFB] pb-24 font-body text-[#1a1005]">
@@ -644,6 +638,15 @@ const MeetTheArtistPage: React.FC = () => {
 
         {/* Sidebar filters */}
         <aside className="lg:w-60 shrink-0 space-y-8 lg:sticky lg:top-28 lg:self-start">
+          {/* Clear filters moved to top */}
+          {(selectedBlock || selectedCategory || searchTerm) && (
+            <button
+              onClick={handleClearFilters}
+              className="w-full text-center text-xs text-[#CB460C] font-bold uppercase tracking-widest py-3 border border-[#CB460C]/30 rounded-xl hover:bg-[#CB460C] hover:text-white transition-all shadow-sm"
+            >
+              {language === 'EN' ? 'Clear all filters' : 'সব ফিল্টার মুছুন'}
+            </button>
+          )}
           {/* Category filter */}
           <div className="space-y-3">
             <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#a89080]">
@@ -695,31 +698,7 @@ const MeetTheArtistPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Portfolio filter */}
-          <div className="space-y-3">
-            <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#a89080]">
-               {language === 'EN' ? 'Portfolio' : 'পোর্টফোলিও'}
-            </h3>
-            <button
-              onClick={() => setOnlyWithPortfolio(!onlyWithPortfolio)}
-              className={`w-full px-4 py-2 rounded-xl text-sm text-left font-medium transition-colors flex items-center justify-between gap-2 ${onlyWithPortfolio ? 'bg-[#CB460C] text-white shadow-md' : 'bg-white border border-[#e5d5cd] text-[#4a3b33] hover:bg-[#F7EAE5]'}`}
-            >
-              <span>{language === 'EN' ? 'Only with Portfolio' : 'শুধুমাত্র পোর্টফোলিও সহ'}</span>
-              <div className={`w-4 h-4 rounded shadow-inner flex items-center justify-center ${onlyWithPortfolio ? 'bg-white' : 'bg-[#f0e8e4]'}`}>
-                {onlyWithPortfolio && <div className="w-2 h-2 bg-[#CB460C] rounded-sm" />}
-              </div>
-            </button>
-          </div>
 
-          {/* Clear filters */}
-          {(selectedBlock || selectedCategory || searchTerm || onlyWithPortfolio) && (
-            <button
-              onClick={handleClearFilters}
-              className="w-full text-center text-xs text-[#CB460C] font-bold uppercase tracking-widest py-2 border border-[#CB460C]/30 rounded-full hover:bg-[#F7EAE5] transition-colors"
-            >
-              {language === 'EN' ? 'Clear all filters' : 'সব ফিল্টার মুছুন'}
-            </button>
-          )}
         </aside>
 
         {/* Artist grid */}
@@ -759,7 +738,7 @@ const MeetTheArtistPage: React.FC = () => {
                     key={artist.id}
                     artist={artist}
                     language={language}
-                    onKnowMore={(a, tab) => openModal(a, tab ?? 0)}
+                    onKnowMore={(a) => openModal(a)}
                     index={idx}
                   />
                 ))}
@@ -775,7 +754,7 @@ const MeetTheArtistPage: React.FC = () => {
                     className="w-10 h-10 rounded-full flex items-center justify-center border border-[#e5d5cd] text-[#6b5b4f] hover:border-[#CB460C] hover:text-[#CB460C] hover:bg-[#F7EAE5] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                     aria-label="Previous page"
                   >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
                   </button>
 
                   {/* Page numbers */}
@@ -812,7 +791,7 @@ const MeetTheArtistPage: React.FC = () => {
                     className="w-10 h-10 rounded-full flex items-center justify-center border border-[#e5d5cd] text-[#6b5b4f] hover:border-[#CB460C] hover:text-[#CB460C] hover:bg-[#F7EAE5] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                     aria-label="Next page"
                   >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
                   </button>
                 </div>
               )}
@@ -879,8 +858,8 @@ const MeetTheArtistPage: React.FC = () => {
                     {language === 'EN' ? selectedArtist.name : selectedArtist.nameBN}
                   </h2>
                   <p className="text-white/70 text-sm mt-1 flex items-center gap-1.5">
-                    <IconPin /> 
-                    {language === 'EN' 
+                    <IconPin />
+                    {language === 'EN'
                       ? `Village: ${selectedArtist.village || ''}, Post: ${selectedArtist.post || ''}`
                       : `গ্রাম: ${selectedArtist.villageBN || ''}, পোস্ট: ${selectedArtist.postBN || ''}`
                     }
@@ -912,51 +891,51 @@ const MeetTheArtistPage: React.FC = () => {
 
                   {/* ── Tab 0: About ── */}
 
-                    <motion.div
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.25 }}
-                      className="space-y-6"
-                    >
-                      {/* Description */}
-                      <p className="text-[#4a3b33] leading-relaxed text-[15px]">
-                        {language === 'EN' ? selectedArtist.description : selectedArtist.descriptionBN}
-                      </p>
+                  <motion.div
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="space-y-6"
+                  >
+                    {/* Description */}
+                    <p className="text-[#4a3b33] leading-relaxed text-[15px]">
+                      {language === 'EN' ? selectedArtist.description : selectedArtist.descriptionBN}
+                    </p>
 
-                      {/* Famous song */}
-                      <div className="bg-[#F7EAE5]/60 rounded-xl p-5 flex items-center gap-4 border border-[#e5d5cd]">
-                        <div className="w-10 h-10 rounded-full bg-[#CB460C] flex items-center justify-center text-white shrink-0">
-                          <IconMusic />
-                        </div>
-                        <div>
-                          <p className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold">{t('artist.card.famousSong')}</p>
-                          <p className="font-display text-lg text-[#1a1005]">
-                            {language === 'EN' ? selectedArtist.famousSong : selectedArtist.famousSongBN}
-                          </p>
+                    {/* Famous song */}
+                    <div className="bg-[#F7EAE5]/60 rounded-xl p-5 flex items-center gap-4 border border-[#e5d5cd]">
+                      <div className="w-10 h-10 rounded-full bg-[#CB460C] flex items-center justify-center text-white shrink-0">
+                        <IconMusic />
+                      </div>
+                      <div>
+                        <p className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold">{t('artist.card.famousSong')}</p>
+                        <p className="font-display text-lg text-[#1a1005]">
+                          {language === 'EN' ? selectedArtist.famousSong : selectedArtist.famousSongBN}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Portfolio Section merged into About */}
+                    {selectedArtist.sampleWorks.length > 0 && (
+                      <div className="pt-4 border-t border-[#f0e8e4] space-y-6">
+                        <p className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold">
+                          {language === 'EN' ? 'Artistic Portfolio' : 'আর্টিস্টিক পোর্টফোলিও'}
+                        </p>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          {selectedArtist.sampleWorks.map(work => (
+                            <SampleWorkCard
+                              key={work.id}
+                              work={work}
+                              language={language}
+                              onClick={() => setActiveWork(work)}
+                            />
+                          ))}
                         </div>
                       </div>
+                    )}
 
-                      {/* Portfolio Section merged into About */}
-                      {selectedArtist.sampleWorks.length > 0 && (
-                        <div className="pt-4 border-t border-[#f0e8e4] space-y-6">
-                          <p className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold">
-                            {language === 'EN' ? 'Artistic Portfolio' : 'আর্টিস্টিক পোর্টফোলিও'}
-                          </p>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {selectedArtist.sampleWorks.map(work => (
-                              <SampleWorkCard
-                                key={work.id}
-                                work={work}
-                                language={language}
-                                onClick={() => setActiveWork(work)}
-                              />
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Booking CTA removed */}
-                    </motion.div>
+                    {/* Booking CTA removed */}
+                  </motion.div>
 
 
 
