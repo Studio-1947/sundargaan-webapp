@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
 import PremiumSundargaanText from '../components/ui/PremiumSundargaanText'
 import Button from '../components/ui/Button'
+import impactIllustration from '../assets/impact_illustration.png'
 
 const ImpactPage: React.FC = () => {
   const { t } = useLanguage()
@@ -281,31 +282,35 @@ const ImpactPage: React.FC = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="rounded-[48px] overflow-hidden aspect-square bg-[#F7EAE5] border border-[#e5d5cd] flex items-center justify-center p-12 shadow-xl"
+                className="rounded-[40px] md:rounded-[64px] overflow-hidden aspect-square bg-[#F7EAE5] border border-[#e5d5cd] flex items-center justify-center p-0 shadow-2xl relative group transition-all duration-700"
               >
-                <div className="w-full h-full relative">
-                  <motion.div animate={{ rotate: 360 }} transition={{ duration: 60, repeat: Infinity, ease: 'linear' }} className="absolute inset-0 rounded-full border-2 border-dashed border-[#CB460C]/20" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-3/4 h-3/4 rounded-full bg-gradient-to-tr from-[#CB460C] to-[#E86228] opacity-10 blur-3xl animate-pulse" />
-                    <span className="font-display text-[10rem] text-[#CB460C]/5 select-none">{t('artists.bg')}</span>
-                  </div>
-                </div>
+                <img 
+                  src={impactIllustration} 
+                  alt="Sundargaan Impact" 
+                  className="w-full h-full object-cover mix-blend-multiply opacity-90 group-hover:scale-110 transition-transform duration-1000"
+                />
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#CB460C]/10 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 border-[20px] md:border-[40px] border-white/10 pointer-events-none" />
               </motion.div>
             </div>
-            <div className="order-1 lg:order-2 space-y-8">
-              <span className="font-body text-[#CB460C] uppercase tracking-widest text-sm font-semibold">Our Mission</span>
-              <h2 className="font-display text-5xl md:text-6xl text-[#1a1005] leading-tight">{t('impact.page.story.title')}</h2>
+            <div className="order-1 lg:order-2 space-y-10">
+              <div>
+                <span className="font-body text-[#CB460C] uppercase tracking-widest text-sm font-semibold mb-3 inline-block">Our Mission</span>
+                <h2 className="font-display text-5xl md:text-6xl text-[#1a1005] leading-tight">{t('impact.page.story.title')}</h2>
+              </div>
               <p className="font-body text-xl text-[#6b5b4f] leading-relaxed">{t('impact.page.story.desc')}</p>
-              <div className="pt-4 flex flex-col sm:flex-row gap-6">
-                <div className="space-y-2">
-                  <span className="block font-display text-4xl text-[#1a1005]">100%</span>
-                  <span className="block font-body text-sm text-[#a89080] uppercase tracking-wide">Transparency</span>
-                </div>
-                <div className="w-px h-12 bg-[#e5d5cd] hidden sm:block" />
-                <div className="space-y-2">
-                  <span className="block font-display text-4xl text-[#1a1005]">Fair Pay</span>
-                  <span className="block font-body text-sm text-[#a89080] uppercase tracking-wide">Direct to Artist</span>
-                </div>
+              
+              <div className="grid grid-cols-2 gap-x-8 gap-y-10 pt-10 border-t border-[#e5d5cd]">
+                {[1, 2, 3, 4].map((num) => (
+                  <div key={num} className="space-y-1">
+                    <span className="block font-display text-4xl text-[#1a1005]">
+                      {t(`impact.stat${num}.val`)}
+                    </span>
+                    <span className="block font-body text-[10px] md:text-xs text-[#a89080] uppercase tracking-[0.2em] font-bold">
+                      {t(`impact.stat${num}.label`)}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

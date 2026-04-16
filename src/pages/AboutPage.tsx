@@ -74,8 +74,8 @@ const AboutPage: React.FC = () => {
   const missionLabel = isEN ? 'Our Mission' : 'আমাদের লক্ষ্য'
   const missionTitle = isEN ? 'What We Do' : 'আমরা কী করি'
   const missionDescription = isEN
-    ? 'Our mission is to create a lasting digital sanctuary for the cultural heart of the Sundarbans. We are dedicated to the rigorous field documentation of endangered folk traditions across 24+ villages, building a comprehensive digital archive of songs, stories, and artefacts. Beyond preservation, we focus on the fair economic empowerment of over 120 local artists and artisans, while establishing education programs that ensure traditional knowledge is passed down through active community practice.'
-    : 'সুন্দরগানের লক্ষ্য হলো সুন্দরবনের সাংস্কৃতিক হৃদয়ের জন্য একটি স্থায়ী ডিজিটাল অভয়ারণ্য তৈরি করা। আমরা ২৪টিরও বেশি গ্রামে বিলুপ্তপ্রায় লোকজ ঐতিহ্যের নিবিড় তথ্যচিত্রায়নে নিবেদিত, যা পরবর্তী প্রজন্মের জন্য গান, গল্প এবং প্রত্নবস্তুর একটি সমৃদ্ধ ডিজিটাল আর্কাইভ তৈরি করছে। সংরক্ষণের পাশাপাশি, আমরা ১২০ জনেরও বেশি স্থানীয় শিল্পী ও কারিগরের ন্যায্য অর্থনৈতিক ক্ষমতায়নের ওপর গুরুত্ব দিই। একই সঙ্গে, আমরা এমন শিক্ষা কর্মসূচি গ্রহণ করি যা সক্রিয় চর্চার মাধ্যমে ঐতিহ্যগত জ্ঞানকে ভবিষ্যৎ প্রজন্মের কাছে পৌঁছে দেয়।'
+    ? 'Our mission is to create a lasting digital sanctuary for the cultural heart of the Sundarbans. We are dedicated to the rigorous field documentation of endangered folk traditions across 50+ blocks, building a comprehensive digital archive of 50K+ songs, stories, and artefacts. Beyond preservation, we focus on the fair economic empowerment of over 5K local artists and artisans, with all genres of folk music available for discovery.'
+    : 'সুন্দরগানের লক্ষ্য হলো সুন্দরবনের সাংস্কৃতিক হৃদয়ের জন্য একটি স্থায়ী ডিজিটাল অভয়ারণ্য তৈরি করা। আমরা ৫০টিরও বেশি ব্লকে বিলুপ্তপ্রায় লোকজ ঐতিহ্যের নিবিড় তথ্যচিত্রায়নে নিবেদিত, যা পরবর্তী প্রজন্মের জন্য ৫০,০০০-এর বেশি গান, গল্প এবং প্রত্নবস্তুর একটি সমৃদ্ধ ডিজিটাল আর্কাইভ তৈরি করছে। সংরক্ষণের পাশাপাশি, আমরা ৫০০০-এর বেশি স্থানীয় শিল্পী ও কারিগরের ন্যায্য অর্থনৈতিক ক্ষমতায়নের ওপর গুরুত্ব দিই, যেখানে লোকসংগীতের সব ঘরানা উপলব্ধ।'
 
   const partnersLabel = isEN ? 'Partners & Collaborators' : 'অংশীদার ও সহযোগী'
   const partnersTitle = isEN ? 'The Minds Behind the Mission' : 'মিশনের পেছনের মানুষেরা'
@@ -246,10 +246,10 @@ const AboutPage: React.FC = () => {
             {/* Right: stat cards */}
             <div className="grid grid-cols-2 gap-4 md:gap-6">
               {[
-                { val: '750+', label: isEN ? 'Songs Preserved' : 'সংরক্ষিত গান' },
-                { val: '120+', label: isEN ? 'Artists Supported' : 'সমর্থিত শিল্পী' },
-                { val: '24', label: isEN ? 'Villages Documented' : 'নথিবদ্ধ গ্রাম' },
-                { val: '1.2M', label: isEN ? 'Digital Grains' : 'ডিজিটাল দানা' },
+                { val: '50K+', label: isEN ? 'Songs' : 'গান রেকর্ডিং' },
+                { val: '5K+', label: isEN ? 'Artists' : 'শিল্পী' },
+                { val: '50+', label: isEN ? 'Blocks Covered' : 'ব্লক কভার করা হয়েছে' },
+                { val: 'All', label: isEN ? 'Genres Available' : 'সব ঘরানা উপলব্ধ' },
               ].map((stat, i) => (
                 <motion.div
                   key={stat.label}
@@ -304,7 +304,6 @@ const AboutPage: React.FC = () => {
             transition={{ duration: 0.7 }}
             className="text-center mb-16"
           >
-            <SectionLabel>{partnersLabel}</SectionLabel>
             <h2 className="font-display text-4xl md:text-5xl text-[#1a1005] leading-tight mb-6">{partnersTitle}</h2>
             <p className="font-body text-lg text-[#6b5b4f] max-w-2xl mx-auto leading-relaxed">{partnersBio}</p>
           </motion.div>
