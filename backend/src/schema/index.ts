@@ -14,12 +14,15 @@ import { relations } from 'drizzle-orm';
 // ─── Enums ────────────────────────────────────────────────────────────────────
 
 export const artistCategoryEnum = pgEnum('artist_category', [
+  'bhatiyali',
+  'bhawaiya',
   'baul',
-  'folk_singer',
-  'instrumentalist',
-  'dancer',
-  'storyteller',
-  'craft_artisan',
+  'lokgeet',
+  'sarigaan',
+  'palagaan',
+  'lalon-geet',
+  'prakriti-geet',
+  'manasha',
 ]);
 
 export const archiveCategoryEnum = pgEnum('archive_category', [

@@ -25,7 +25,7 @@ const db = drizzle(pool, { schema });
 function deriveCategory(
   name: string,
   occupation: string,
-): 'baul' | 'folk_singer' | 'instrumentalist' | 'dancer' | 'storyteller' | 'craft_artisan' {
+): 'bhatiyali' | 'bhawaiya' | 'baul' | 'lokgeet' | 'sarigaan' | 'palagaan' | 'lalon-geet' | 'prakriti-geet' | 'manasha' {
   const n = name.toLowerCase();
   const o = occupation.toLowerCase();
 
@@ -34,10 +34,11 @@ function deriveCategory(
     // Muslim Gazi surnames in Sundarbans often belong to the Baul / Fakiri tradition
     return 'baul';
   }
-  if (o.includes('sculptor') || o.includes('craft')) return 'craft_artisan';
-  if (o.includes('dancer') || o.includes('dance')) return 'dancer';
-  if (o.includes('storytell')) return 'storyteller';
-  return 'folk_singer';
+  if (o.includes('sculptor') || o.includes('craft') || o.includes('potter')) return 'lokgeet'; // Defaulting crafts to general folk
+  if (o.includes('dancer') || o.includes('dance')) return 'bhawaiya'; // Common dance form in the list
+  if (o.includes('storytell') || o.includes('ballad')) return 'palagaan';
+  if (o.includes('boat') || o.includes('river')) return 'bhatiyali';
+  return 'lokgeet';
 }
 
 // ─── Helper: build description from available fields ─────────────────────────
@@ -422,7 +423,7 @@ const ARTISTS_SEED = [
   {
     name: 'Kartik Munda',
     nameBn: 'কার্তিক মুন্ডা',
-    category: 'dancer' as const,
+    category: 'palagaan' as const,
     block: 'Basanti',
     address: buildAddress('Gobindokati', 'Sridharkati'),
     addressBn: 'গোবিন্দকাটি, শ্রীধরকাটি',
@@ -468,7 +469,7 @@ const ARTISTS_SEED = [
   {
     name: 'Shyamapada Mistri',
     nameBn: 'শ্যামাপদ মিস্ত্রি',
-    category: 'craft_artisan' as const,
+    category: 'lokgeet' as const,
     block: 'Basanti',
     address: buildAddress('Shamsher Nagar', 'Shamsher Nagar'),
     addressBn: 'শামসের নগর',
@@ -560,7 +561,7 @@ const ARTISTS_SEED = [
   {
     name: 'Pranab Sarkar',
     nameBn: 'প্রণব সরকার',
-    category: 'storyteller' as const,
+    category: 'palagaan' as const,
     block: 'Hingalganj',
     address: buildAddress('Kalitala, Haridashkathi', 'Kalitala, Haridashkathi'),
     addressBn: 'কালীতলা, হরিদাশকাটি',
