@@ -5,6 +5,7 @@ import MediaGrid from '../components/ui/MediaGrid'
 import VideoModal from '../components/ui/VideoModal'
 import PremiumSundargaanText from '../components/ui/PremiumSundargaanText'
 import { useLanguage } from '../context/LanguageContext'
+import ArtistCarousel from '../components/ui/ArtistCarousel'
 
 // Import Artist Images
 import bishnupadaImg from '../assets/stories/bisnu_pada_sarkar.jpg'
@@ -145,23 +146,32 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* ——— Section 3: Meet the Artists (Asymmetric Card) ——— */}
+      {/* ——— Section 3: Meet the Artists (Integrated Carousel) ——— */}
       <section id="artists" className="px-6 md:px-10 py-20">
         <div
           className="max-w-screen-2xl mx-auto bg-[#1a1005] rounded-[32px] md:rounded-[48px] overflow-hidden flex flex-col lg:flex-row shadow-2xl"
-          style={{ minHeight: '600px' }}
+          style={{ minHeight: '650px' }}
         >
-          {/* Artist Image/Visual */}
-          <div className="lg:w-1/2 relative bg-[#CB460C]/10 flex items-center justify-center p-12 md:p-20">
-            <div className="absolute inset-0 opacity-20" style={{ background: 'radial-gradient(circle, #CB460C 0%, transparent 70%)' }} />
-            <div className="relative font-display text-[25vw] lg:text-[12vw] text-[#FEFCFB]/5 leading-none select-none">
-              {t('artists.bg')}
+          {/* Left: Integrated Artist Carousel */}
+          <div className="h-[400px] lg:h-auto lg:w-1/2 relative bg-[#CB460C]/5 flex items-center justify-center overflow-hidden">
+            {/* Background Decorative Text */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+              <span className="font-display text-[25vw] lg:text-[12vw] text-[#FEFCFB]/5 leading-none select-none">
+                {t('artists.bg')}
+              </span>
             </div>
-            <div className="absolute inset-20 border border-[#FEFCFB]/10 rounded-full animate-pulse" />
+            
+            {/* The Carousel */}
+            <div className="absolute inset-0 z-10">
+              <ArtistCarousel />
+            </div>
+
+            {/* Pulsing circle decoration (under carousel but over bg text) */}
+            <div className="absolute inset-20 border border-[#FEFCFB]/5 rounded-full animate-pulse pointer-events-none" />
           </div>
 
-          {/* Artist Content */}
-          <div className="lg:w-1/2 p-10 md:p-16 lg:p-24 flex flex-col justify-center space-y-6 md:space-y-8">
+          {/* Right: Artist Content */}
+          <div className="lg:w-1/2 p-10 md:p-16 lg:p-24 flex flex-col justify-center space-y-6 md:space-y-8 bg-gradient-to-br from-[#1a1005] to-[#2a1a0a]">
             <h2 className="font-display font-normal text-4xl sm:text-5xl md:text-6xl text-[#FEFCFB] tracking-tight">
               {t('artists.title')}
             </h2>
@@ -172,7 +182,7 @@ const HomePage: React.FC = () => {
               <Button
                 variant="primary"
                 size="lg"
-                className="px-12 bg-[#CB460C] !border-[#CB460C]"
+                className="px-12 bg-[#CB460C] !border-[#CB460C] hover:scale-105 transition-transform"
                 onClick={() => navigate('/artists')}
               >
                 {t('artists.btn')}
