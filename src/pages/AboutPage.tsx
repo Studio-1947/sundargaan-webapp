@@ -275,17 +275,17 @@ const AboutPage: React.FC = () => {
             <SectionLabel>{isEN ? 'Rooted in Collaboration' : 'সহযোগিতায় যার ভিত্তি'}</SectionLabel>
           </div>
           <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 opacity-80">
-            <div className="text-center md:text-left">
+            <div className="text-center">
               <h3 className="font-display text-2xl md:text-3xl text-[#1a1005] mb-2">The Eco Logical Foundation</h3>
               <p className="font-body text-[10px] md:text-xs uppercase tracking-[0.2em] text-[#CB460C]">{isEN ? 'Field Documentation' : 'ফিল্ড ডিজাইন ও ডকুমেন্টেশন'}</p>
             </div>
             <div className="hidden md:block w-px h-16 bg-[#e5d5cd]" />
-            <div className="text-center md:text-left">
+            <div className="text-center">
               <h3 className="font-display text-2xl md:text-3xl text-[#1a1005] mb-2">Studio 1947</h3>
               <p className="font-body text-[10px] md:text-xs uppercase tracking-[0.2em] text-[#CB460C]">{isEN ? 'Digital Archiving' : 'ডিজিটাল আর্কাইভিং'}</p>
             </div>
             <div className="hidden md:block w-px h-16 bg-[#e5d5cd]" />
-            <div className="text-center md:text-left">
+            <div className="text-center">
               <h3 className="font-display text-2xl md:text-3xl text-[#1a1005] mb-2">Sundarbaan Unayan Bhavan</h3>
               <p className="font-body text-[10px] md:text-xs uppercase tracking-[0.2em] text-[#CB460C]">{isEN ? 'Community Access' : 'কমিউনিটি এক্সেস'}</p>
             </div>
