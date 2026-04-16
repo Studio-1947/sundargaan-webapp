@@ -51,14 +51,16 @@ const ArtistCarousel: React.FC = () => {
     fetchArtists();
   }, []);
 
+  const [isPaused, setIsPaused] = useState(false);
+
   // Auto-slide logic
   useEffect(() => {
-    if (artists.length <= itemsPerPage) return;
+    if (artists.length <= itemsPerPage || isPaused) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % artists.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, [artists.length, itemsPerPage]);
+  }, [artists.length, itemsPerPage, isPaused]);
 
   // For seamless loop, we prepare a list where we can always see 'itemsPerPage' items
   const displayArtists = useMemo(() => {
@@ -75,7 +77,11 @@ const ArtistCarousel: React.FC = () => {
   if (artists.length === 0) return null;
 
   return (
-    <div className="relative w-full h-full overflow-hidden flex items-center group/carousel">
+    <div 
+      className="relative w-full h-full overflow-hidden flex items-center group/carousel"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       <motion.div 
         className="flex h-full w-full"
         initial={false}
@@ -87,16 +93,11 @@ const ArtistCarousel: React.FC = () => {
           ease: [0.32, 0.72, 0, 1], // Premium "Apple-style" quint easing
           type: "tween"
         }}
-        onUpdate={(latest: any) => {
-          // If we've reached the end of the original list, wrap back silently
-          // This is a simplified version; for a perfect pixel-perfect jump we'd need more logic
-          // but for this UI, the currentIndex reset in the interval handles the logic.
-        }}
       >
         {displayArtists.map((artist, idx) => (
           <div
             key={`${artist.id}-${idx}`}
-            className="relative h-full flex-shrink-0 border-r border-white/5 last:border-r-0 overflow-hidden"
+            className="group relative h-full flex-shrink-0 border-r border-white/5 last:border-r-0 overflow-hidden"
             style={{ width: `${100 / itemsPerPage}%` }}
           >
             {artist.imageUrl ? (
@@ -105,7 +106,7 @@ const ArtistCarousel: React.FC = () => {
                 alt={artist.name}
                 loading="eager"
                 decoding="async"
-                className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-[filter,transform] duration-700 group-hover:scale-110"
+                className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-[filter,transform] duration-500 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] group-hover:scale-110"
                 style={{ backfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', willChange: 'filter, transform' }}
               />
             ) : (
@@ -113,17 +114,17 @@ const ArtistCarousel: React.FC = () => {
             )}
 
             {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1005] via-transparent to-transparent opacity-70 group-hover:opacity-40 transition-opacity duration-700" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1005] via-transparent to-transparent opacity-70 group-hover:opacity-40 transition-opacity duration-500 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)]" />
 
             {/* Vertical Name */}
             <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap z-10 pointer-events-none">
-              <span className="block text-white/40 group-hover:text-white font-display text-[8px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.3em] rotate-180 [writing-mode:vertical-lr] transition-all duration-500">
+              <span className="block text-white/40 group-hover:text-white font-display text-[8px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.3em] rotate-180 [writing-mode:vertical-lr] transition-all duration-500 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)]">
                 {language === 'EN' ? artist.name : artist.nameBn}
               </span>
             </div>
 
             {/* Hover Glow */}
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none shadow-[inset_0_0_60px_rgba(203,70,12,0.4)]" />
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] pointer-events-none shadow-[inset_0_0_60px_rgba(203,70,12,0.4)]" />
           </div>
         ))}
       </motion.div>
