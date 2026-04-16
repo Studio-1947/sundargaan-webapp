@@ -14,14 +14,14 @@ const HomePage: React.FC = () => {
   return (
     <main className="min-h-screen relative bg-[#FEFCFB]">
       {/* ——— Hero Section (Archive Split Layout) ——— */}
-      <section className="relative min-h-[90vh] md:min-h-screen w-full overflow-hidden flex items-center pt-10 md:pt-16 pb-16 md:pb-24">
+      <section className="relative min-h-[85vh] md:min-h-[90vh] w-full overflow-hidden flex items-center pt-16 md:pt-24 pb-16 md:pb-24">
         {/* Background Decorative Gradient */}
         <div className="absolute top-0 right-0 w-[60%] h-full bg-gradient-to-l from-[#F7EAE5] to-transparent z-0 opacity-40" />
 
         <div className="w-full max-w-screen-xl mx-auto px-6 md:px-10 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-10 items-center">
             {/* Content Left */}
-            <div className="max-w-xl">
+            <div className="max-w-4xl">
               <div className="mb-6 overflow-hidden">
                 <span className="inline-block text-[#CB460C] font-body text-[10px] md:text-xs uppercase tracking-[0.5em] animate-slide-in-left">
                   {language === 'EN' ? 'Cultural Heritage & Living Archives' : 'সাংস্কৃতিক ঐতিহ্য ও জীবন্ত সংরক্ষণাগার'}
@@ -38,7 +38,7 @@ const HomePage: React.FC = () => {
                 </h1>
               </div>
 
-              <div className="mb-10 space-y-4 opacity-0 animate-fade-in-up delay-400">
+              <div className="mb-8 space-y-4 opacity-0 animate-fade-in-up delay-400">
                 <p className="text-[#6b5b4f] font-body text-lg md:text-xl leading-relaxed">
                   {t('hero.tagline1')}
                 </p>
@@ -145,9 +145,9 @@ const HomePage: React.FC = () => {
               {t('artists.desc')}
             </p>
             <div className="pt-6">
-              <Button 
-                variant="primary" 
-                size="lg" 
+              <Button
+                variant="primary"
+                size="lg"
                 className="px-12 bg-[#CB460C] !border-[#CB460C]"
                 onClick={() => navigate('/artists')}
               >
