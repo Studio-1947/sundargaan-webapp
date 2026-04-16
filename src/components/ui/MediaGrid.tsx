@@ -47,6 +47,7 @@ const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, image, videoSrc, artis
           <img
             src={image}
             alt="Thumbnail"
+            loading="lazy"
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         ) : null}

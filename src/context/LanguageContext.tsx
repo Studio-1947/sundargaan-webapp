@@ -26,18 +26,18 @@ const translations: Translations = {
   'hero.scroll': { EN: 'Explore', BN: 'অন্বেষণ করুন' },
   
   // Archive
-  'archive.title': { EN: 'The Living Archive', BN: 'জীবন্ত আর্কাইভ' },
+  'archive.title': { EN: 'Stories & Livelihood', BN: 'গল্প ও জীবিকা' },
   'archive.desc': { 
-    EN: 'Explore a vast collection of traditional songs, folk tales, and oral histories recorded directly from the hearts of the Sundarbans. Each piece is a testament to the resilient spirit of our land.', 
-    BN: 'সুন্দরবনের হৃদয় থেকে সরাসরি রেকর্ড করা ঐতিহ্যবাহী গান, লোকগাথা এবং মৌখিক ইতিহাসের এক বিশাল সংগ্রহ অন্বেষণ করুন। প্রতিটি অংশ আমাদের ভূমির সহনশীল চেতনার প্রমাণ।' 
+    EN: 'Explore the personal narratives and traditional occupations of the Sundarbans. These are the stories of resilience, craft, and the rhythmic bond between the people and their land.', 
+    BN: 'সুন্দরবনের ব্যক্তিগত আখ্যান এবং ঐতিহ্যবাহী পেশাগুলো অন্বেষণ করুন। এগুলো সহনশীলতা, শিল্প এবং মানুষ ও তাদের ভূমির মধ্যে ছন্দময় বন্ধনের গল্প।' 
   },
   'archive.btn.explore': { EN: 'Explore All', BN: 'সব দেখুন' },
-  'archive.cat1': { EN: 'Boatman Songs', BN: 'ভাটিয়ালি গান' },
-  'archive.cat2': { EN: 'Mythological Oral History', BN: 'পৌরাণিক মৌখিক ইতিহাস' },
-  'archive.cat3': { EN: 'Celebratory Folk', BN: 'উৎসবের লোকগান' },
-  'archive.item1': { EN: 'Bhatiali Jowar', BN: 'ভাটিয়ালি জোয়ার' },
-  'archive.item2': { EN: 'Bonbibi Katha', BN: 'বনবিবি কথা' },
-  'archive.item3': { EN: 'Ektara Jhumur', BN: 'একতারা ঝুমুর' },
+  'archive.cat1': { EN: 'Coming Soon', BN: 'শীঘ্রই আসছে' },
+  'archive.cat2': { EN: 'Coming Soon', BN: 'শীঘ্রই আসছে' },
+  'archive.cat3': { EN: 'Coming Soon', BN: 'শীঘ্রই আসছে' },
+  'archive.item1': { EN: 'Bishnupada', BN: 'বিষ্ণুপদ' },
+  'archive.item2': { EN: 'Savita', BN: 'সবিতা' },
+  'archive.item3': { EN: 'Atiyar', BN: 'আতিয়ার' },
 
   // Artists
   'artists.title': { EN: 'Voices of the Mud', BN: 'মাটির কণ্ঠস্বর' },

@@ -6,6 +6,11 @@ import VideoModal from '../components/ui/VideoModal'
 import PremiumSundargaanText from '../components/ui/PremiumSundargaanText'
 import { useLanguage } from '../context/LanguageContext'
 
+// Import Artist Images
+import bishnupadaImg from '../assets/stories/bisnu_pada_sarkar.jpg'
+import savitaImg from '../assets/stories/sabita_badya.jpeg'
+import atiyarImg from '../assets/stories/Artist 06 - Atiyar Gazi.jpg'
+
 const HomePage: React.FC = () => {
   const { t, language } = useLanguage()
   const navigate = useNavigate()
@@ -95,26 +100,44 @@ const HomePage: React.FC = () => {
           {/* Featured Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: t('archive.item1'), category: t('archive.cat1') },
-              { title: t('archive.item2'), category: t('archive.cat2') },
-              { title: t('archive.item3'), category: t('archive.cat3') },
+              { title: t('archive.item1'), category: t('archive.cat1'), image: bishnupadaImg },
+              { title: t('archive.item2'), category: t('archive.cat2'), image: savitaImg },
+              { title: t('archive.item3'), category: t('archive.cat3'), image: atiyarImg },
             ].map((item, i) => (
               <div
                 key={i}
-                className="group relative bg-[#F7EAE5] rounded-[32px] overflow-hidden aspect-[4/5] cursor-pointer"
+                className="group relative bg-[#F7EAE5] rounded-[32px] overflow-hidden aspect-[4/5] cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1a1005]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute inset-0 flex flex-col justify-end p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <span className="text-white/80 font-body text-xs uppercase tracking-widest mb-2 opacity-0 group-hover:opacity-100 transition-opacity delay-100">
-                    {item.category}
-                  </span>
-                  <h3 className="text-white font-display font-normal text-3xl opacity-0 group-hover:opacity-100 transition-opacity delay-200">
-                    {item.title}
-                  </h3>
+                {/* Background Image */}
+                <img 
+                  src={item.image} 
+                  alt={item.title}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
+                
+                {/* Overlay Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1a1005]/90 via-[#1a1005]/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+                
+                {/* Content Overlay */}
+                <div className="absolute inset-0 flex flex-col justify-end p-8">
+                  <div className="transform translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="px-3 py-1 bg-[#CB460C] text-white font-body text-[10px] md:text-xs uppercase tracking-[0.2em] rounded-full">
+                        {item.category}
+                      </span>
+                    </div>
+                    <h3 className="text-white font-display font-normal text-3xl md:text-4xl">
+                      {item.title}
+                    </h3>
+                  </div>
                 </div>
-                {/* Placeholder visual */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#CB460C]/20 font-display text-8xl">
-                  {language === 'EN' ? i + 1 : (i + 1).toLocaleString('bn-BD')}
+
+                {/* Coming Soon Indicator (Mobile/Static) */}
+                <div className="absolute top-6 right-6 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="bg-[#FEFCFB]/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full">
+                    <span className="text-white text-[10px] uppercase tracking-widest font-medium">Coming Soon</span>
+                  </div>
                 </div>
               </div>
             ))}
