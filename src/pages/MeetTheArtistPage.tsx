@@ -693,7 +693,7 @@ const MeetTheArtistPage: React.FC = () => {
 
                     {isActive && villages.length > 0 && (
                       <div className="pl-6 space-y-1 relative">
-                        <div className="absolute left-[31px] top-4 bottom-4 w-px bg-[#CB460C]/20" />
+                        <div className="absolute left-[35.5px] top-4 bottom-4 w-px bg-[#CB460C]/20" />
                         {villages.map((v, i) => (
                           <button
                             key={i}
