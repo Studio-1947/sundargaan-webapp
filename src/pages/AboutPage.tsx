@@ -77,7 +77,6 @@ const AboutPage: React.FC = () => {
     ? 'Our mission is to create a lasting digital sanctuary for the cultural heart of the Sundarbans. We are dedicated to the rigorous field documentation of endangered folk traditions across 50+ blocks, building a comprehensive digital archive of 50K+ songs, stories, and artefacts. Beyond preservation, we focus on the fair economic empowerment of over 5K local artists and artisans, with all genres of folk music available for discovery.'
     : 'সুন্দরগানের লক্ষ্য হলো সুন্দরবনের সাংস্কৃতিক হৃদয়ের জন্য একটি স্থায়ী ডিজিটাল অভয়ারণ্য তৈরি করা। আমরা ৫০টিরও বেশি ব্লকে বিলুপ্তপ্রায় লোকজ ঐতিহ্যের নিবিড় তথ্যচিত্রায়নে নিবেদিত, যা পরবর্তী প্রজন্মের জন্য ৫০,০০০-এর বেশি গান, গল্প এবং প্রত্নবস্তুর একটি সমৃদ্ধ ডিজিটাল আর্কাইভ তৈরি করছে। সংরক্ষণের পাশাপাশি, আমরা ৫০০০-এর বেশি স্থানীয় শিল্পী ও কারিগরের ন্যায্য অর্থনৈতিক ক্ষমতায়নের ওপর গুরুত্ব দিই, যেখানে লোকসংগীতের সব ঘরানা উপলব্ধ।'
 
-  const partnersLabel = isEN ? 'Partners & Collaborators' : 'অংশীদার ও সহযোগী'
   const partnersTitle = isEN ? 'The Minds Behind the Mission' : 'মিশনের পেছনের মানুষেরা'
   const partnersBio = isEN
     ? 'Sundargaan is made possible through meaningful collaboration with organisations and individuals who share our conviction that culture is a living inheritance — not a relic.'

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 
 interface Artist {
@@ -77,19 +77,19 @@ const ArtistCarousel: React.FC = () => {
   if (artists.length === 0) return null;
 
   return (
-    <div 
+    <div
       className="relative w-full h-full overflow-hidden flex items-center group/carousel"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <motion.div 
+      <motion.div
         className="flex h-full w-full"
         initial={false}
-        animate={{ 
-          x: `-${currentIndex * (100 / itemsPerPage)}%` 
+        animate={{
+          x: `-${currentIndex * (100 / itemsPerPage)}%`
         }}
-        transition={{ 
-          duration: 1.2, 
+        transition={{
+          duration: 1.2,
           ease: [0.32, 0.72, 0, 1], // Premium "Apple-style" quint easing
           type: "tween"
         }}
