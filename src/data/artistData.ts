@@ -38,19 +38,19 @@ export interface Artist {
 }
 
 export const ARTIST_BLOCKS = [
-  'Hingalganj', 'Gosaba', 'Basanti', 'Canning', 'Sagar',
-  'Namkhana', 'Patharpratima', 'Kultali', 'Mathurapur I', 'Mathurapur II',
-  'Kakdwip', 'Joynagar I', 'Joynagar II', 'Minakhan', 'Sandeshkhali I',
-  'Sandeshkhali II', 'Hasnabad', 'Haroa', 'Swarupnagar'
+  'Hingalganj'
 ];
 
 export const ARTIST_CATEGORIES = [
+  { id: 'bhatiyali', en: 'Bhatiyali', bn: 'ভাটিয়ালি' },
+  { id: 'bhawaiya', en: 'Bhawaiya', bn: 'ভাওয়াইয়া' },
   { id: 'baul', en: 'Baul', bn: 'বাউল' },
-  { id: 'bhatiali', en: 'Bhatiali', bn: 'ভাটিয়ালি' },
-  { id: 'jhumur', en: 'Jhumur', bn: 'ঝুমুর' },
-  { id: 'potter', en: 'Potter', bn: 'কুমোর' },
-  { id: 'weaver', en: 'Weaver', bn: 'তাঁতি' },
-  { id: 'storyteller', en: 'Storyteller', bn: 'গল্পকার' }
+  { id: 'lokgeet', en: 'Lok geet', bn: 'লোক গীতি' },
+  { id: 'sarigaan', en: 'Sarigaan', bn: 'সারিগান' },
+  { id: 'palagaan', en: 'Palagaan', bn: 'পালাগান' },
+  { id: 'lalon-geet', en: 'Lalon geet', bn: 'লালন গীতি' },
+  { id: 'prakriti-geet', en: 'Prakriti geet', bn: 'প্রকৃতি গীতি' },
+  { id: 'manasha', en: 'Manasha', bn: 'মনসা' }
 ];
 
 export const MOCK_ARTISTS: Artist[] = [
@@ -100,7 +100,7 @@ export const MOCK_ARTISTS: Artist[] = [
     post: 'Gosaba',
     postBN: 'গোসাবা',
     block: 'Gosaba',
-    category: 'bhatiali',
+    category: 'bhatiyali',
     image: 'https://picsum.photos/seed/artist2/800/800',
     tags: ['Bhatiali', 'River Songs', 'Traditional', 'Vocalist'],
     tagsBN: ['ভাটিয়ালি', 'নদীর গান', 'ঐতিহ্যবাহী', 'কণ্ঠশিল্পী'],
@@ -131,7 +131,7 @@ export const MOCK_ARTISTS: Artist[] = [
     post: 'Basanti',
     postBN: 'বাসন্তী',
     block: 'Basanti',
-    category: 'potter',
+    category: 'lokgeet',
     image: 'https://picsum.photos/seed/artist3/800/800',
     tags: ['Pottery', 'Clay Art', 'Craft', 'Percussion'],
     tagsBN: ['মৃৎশিল্প', 'মাটির শিল্প', 'কারুশিল্প', 'তাল'],
@@ -162,7 +162,7 @@ export const MOCK_ARTISTS: Artist[] = [
     post: 'Sandeshkhali',
     postBN: 'সন্দেশখালি',
     block: 'Sandeshkhali I',
-    category: 'jhumur',
+    category: 'bhawaiya',
     image: 'https://picsum.photos/seed/artist4/800/800',
     tags: ['Jhumur', 'Dance', 'Adivasi Culture', 'Teacher'],
     tagsBN: ['ঝুমুর', 'নৃত্য', 'আদিবাসী সংস্কৃতি', 'শিক্ষক'],
@@ -193,7 +193,7 @@ export const MOCK_ARTISTS: Artist[] = [
     post: 'Sagar',
     postBN: 'সাগর',
     block: 'Sagar',
-    category: 'storyteller',
+    category: 'palagaan',
     image: 'https://picsum.photos/seed/artist5/800/800',
     tags: ['Oral History', 'Epic', 'Mythology', 'Panchali'],
     tagsBN: ['মৌখিক ইতিহাস', 'মহাকাব্য', 'পৌরাণিক কাহিনী', 'পাঁচালি'],
@@ -224,7 +224,7 @@ export const MOCK_ARTISTS: Artist[] = [
     post: 'Kultali',
     postBN: 'কুলতলি',
     block: 'Hingalganj',
-    category: 'weaver',
+    category: 'sarigaan',
     image: 'https://picsum.photos/seed/artist6/800/800',
     tags: ['Tant Weaving', 'Textile', 'Craft Revival', 'Sundarbans Motifs'],
     tagsBN: ['তাঁত বয়ন', 'বস্ত্র', 'শিল্প পুনরুজ্জীবন', 'সুন্দরবনের নকশা'],
@@ -286,7 +286,7 @@ export const MOCK_ARTISTS: Artist[] = [
     post: 'Namkhana',
     postBN: 'নামখানা',
     block: 'Namkhana',
-    category: 'bhatiali',
+    category: 'bhatiyali',
     image: 'https://picsum.photos/seed/artist8/800/800',
     tags: ['Bhatiali', 'Archive', 'Bay of Bengal', 'Vocalist'],
     tagsBN: ['ভাটিয়ালি', 'আর্কাইভ', 'বঙ্গোপসাগর', 'কণ্ঠশিল্পী'],

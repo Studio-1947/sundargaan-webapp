@@ -18,6 +18,13 @@ const IconMusic = () => (
   </svg>
 );
 
+const IconChevronDown = ({ className }: { className?: string }) => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <polyline points="6 9 12 15 18 9" />
+  </svg>
+);
+
+
 
 
 const IconPlay = () => (
@@ -499,7 +506,8 @@ const SampleWorkCard: React.FC<{ work: SampleWork; language: string; onClick?: (
 const MeetTheArtistPage: React.FC = () => {
   const { t, language } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedBlock, setSelectedBlock] = useState<string | null>(null);
+  const [selectedBlock, setSelectedBlock] = useState<string | null>('Hingalganj');
+  const [selectedVillage, setSelectedVillage] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
 
@@ -530,13 +538,25 @@ const MeetTheArtistPage: React.FC = () => {
         artist.famousSongBN.includes(searchTerm) ||
         artist.address.toLowerCase().includes(q);
       const matchesBlock = selectedBlock ? artist.block === selectedBlock : true;
+      const matchesVillage = selectedVillage ? artist.village === selectedVillage : true;
       const matchesCategory = selectedCategory ? artist.category === selectedCategory : true;
-      return matchesSearch && matchesBlock && matchesCategory;
+      return matchesSearch && matchesBlock && matchesVillage && matchesCategory;
     });
-  }, [artists, searchTerm, selectedBlock, selectedCategory]);
+  }, [artists, searchTerm, selectedBlock, selectedVillage, selectedCategory]);
+
+  const villagesInBlock = useMemo(() => {
+    if (!selectedBlock) return [];
+    // Get unique villages for the selected block and count artists in each
+    const villageMap = new Map<string, number>();
+    artists.filter(a => a.block === selectedBlock).forEach(a => {
+      const v = a.village || 'Unknown';
+      villageMap.set(v, (villageMap.get(v) || 0) + 1);
+    });
+    return Array.from(villageMap.entries()).map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count);
+  }, [artists, selectedBlock]);
 
   // Reset to page 1 whenever filters change
-  useEffect(() => { setCurrentPage(1); }, [searchTerm, selectedBlock, selectedCategory]);
+  useEffect(() => { setCurrentPage(1); }, [searchTerm, selectedBlock, selectedVillage, selectedCategory]);
 
   const totalPages = Math.ceil(filteredArtists.length / PAGE_SIZE);
   const pagedArtists = filteredArtists.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
@@ -552,6 +572,7 @@ const MeetTheArtistPage: React.FC = () => {
 
   const handleClearFilters = () => {
     setSelectedBlock(null);
+    setSelectedVillage(null);
     setSelectedCategory(null);
     setSearchTerm('');
 
@@ -637,68 +658,95 @@ const MeetTheArtistPage: React.FC = () => {
       <div className="container mx-auto px-6 md:px-12 py-12 flex flex-col lg:flex-row gap-10">
 
         {/* Sidebar filters */}
-        <aside className="lg:w-60 shrink-0 space-y-8 lg:sticky lg:top-28 lg:self-start">
+        <aside className="lg:w-64 shrink-0 space-y-8 lg:sticky lg:top-28 lg:self-start">
           {/* Clear filters moved to top */}
-          {(selectedBlock || selectedCategory || searchTerm) && (
+          {(selectedBlock || selectedCategory || searchTerm || selectedVillage) && (
             <button
               onClick={handleClearFilters}
-              className="w-full text-center text-xs text-[#CB460C] font-bold uppercase tracking-widest py-3 border border-[#CB460C]/30 rounded-xl hover:bg-[#CB460C] hover:text-white transition-all shadow-sm"
+              className="w-full text-center text-xs text-[#CB460C] font-bold uppercase tracking-widest py-3 border border-[#CB460C]/30 rounded-full hover:bg-[#CB460C] hover:text-white transition-all shadow-sm"
             >
               {language === 'EN' ? 'Clear all filters' : 'সব ফিল্টার মুছুন'}
             </button>
           )}
-          {/* Category filter */}
-          <div className="space-y-3">
-            <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#a89080]">
-              {t('artist.filter.category')}
+
+          {/* Location / Block Section */}
+          <div className="space-y-4">
+            <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#a89080] px-2 mb-2">
+              {language === 'EN' ? 'Location' : 'অবস্থান'}
             </h3>
-            <div className="flex flex-wrap lg:flex-col gap-2">
+
+            {/* Block List - Timeline style for each block */}
+            <div className="space-y-6">
+              {ARTIST_BLOCKS.map(block => {
+                const isActive = selectedBlock === block;
+                const villages = isActive ? villagesInBlock : [];
+
+                return (
+                  <div key={block} className="space-y-3">
+                    <button
+                      onClick={() => setSelectedBlock(isActive ? null : block)}
+                      className={`w-full flex items-center justify-between px-5 py-3 rounded-2xl border transition-all ${isActive ? 'bg-[#F7EAE5] border-[#CB460C]/20 text-[#CB460C]' : 'bg-white border-[#e5d5cd] text-[#4a3b33] hover:bg-[#F7EAE5]/50'}`}
+                    >
+                      <span className="font-bold text-sm">{block}</span>
+                      <IconChevronDown className={`transition-transform duration-300 ${isActive ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {isActive && villages.length > 0 && (
+                      <div className="pl-6 space-y-1 relative">
+                        <div className="absolute left-[31px] top-4 bottom-4 w-px bg-[#CB460C]/20" />
+                        {villages.map((v, i) => (
+                          <button
+                            key={i}
+                            onClick={() => setSelectedVillage(selectedVillage === v.name ? null : v.name)}
+                            className="group flex items-center gap-4 py-2 text-left w-full focus:outline-none"
+                          >
+                            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold z-10 border transition-all ${selectedVillage === v.name ? 'bg-[#CB460C] text-white border-[#CB460C]' : 'bg-[#F7EAE5] text-[#CB460C] border-[#CB460C]/20 group-hover:bg-[#CB460C]/10'}`}>
+                              {v.count}
+                            </div>
+                            <span className={`text-sm tracking-wide transition-colors ${selectedVillage === v.name ? 'text-[#CB460C] font-semibold' : 'text-[#a89080] group-hover:text-[#6b5b4f]'}`}>
+                              {v.name}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Genre Section */}
+          <div className="space-y-4 pt-2">
+            <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#a89080] px-2">
+              {language === 'EN' ? 'Select Genre' : 'বিভাগ নির্বাচন করুন'}
+            </h3>
+
+            <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => setSelectedCategory(null)}
-                className={`px-4 py-2 rounded-xl text-sm text-left font-medium transition-colors ${!selectedCategory ? 'bg-[#CB460C] text-white' : 'hover:bg-[#F7EAE5] text-[#4a3b33]'}`}
+                className={`flex items-center gap-2 px-3 py-3 rounded-xl border transition-all ${!selectedCategory ? 'bg-[#CB460C] border-[#CB460C] text-white shadow-md' : 'bg-white border-[#e5d5cd] text-[#4a3b33] hover:bg-[#F7EAE5]'}`}
               >
-                {language === 'EN' ? 'All Categories' : 'সব বিভাগ'}
+                <div className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${!selectedCategory ? 'border-white' : 'border-[#CB460C]'}`}>
+                  {!selectedCategory && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                </div>
+                <span className="text-[10px] font-bold truncate uppercase tracking-wider">{language === 'EN' ? 'All Genre' : 'সব গান'}</span>
               </button>
+
               {ARTIST_CATEGORIES.map(cat => (
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`px-4 py-2 rounded-xl text-sm text-left font-medium transition-colors flex items-center justify-between gap-2 ${selectedCategory === cat.id ? 'bg-[#CB460C] text-white' : 'hover:bg-[#F7EAE5] text-[#4a3b33]'}`}
+                  className={`flex items-center gap-2 px-3 py-3 rounded-xl border transition-all ${selectedCategory === cat.id ? 'bg-[#CB460C] border-[#CB460C] text-white shadow-md' : 'bg-white border-[#e5d5cd] text-[#4a3b33] hover:bg-[#F7EAE5]'}`}
                 >
-                  <span>{language === 'EN' ? cat.en : cat.bn}</span>
-                  <span className={`text-xs rounded-full px-2 py-0.5 ${selectedCategory === cat.id ? 'bg-white/20' : 'bg-[#F7EAE5] text-[#CB460C]'}`}>
-                    {artists.filter(a => a.category === cat.id).length}
-                  </span>
+                  <div className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${selectedCategory === cat.id ? 'border-white' : 'border-[#CB460C]'}`}>
+                    {selectedCategory === cat.id && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                  </div>
+                  <span className="text-[10px] font-bold truncate uppercase tracking-wider">{language === 'EN' ? cat.en : cat.bn}</span>
                 </button>
               ))}
             </div>
           </div>
-
-          {/* Block filter */}
-          <div className="space-y-3">
-            <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#a89080]">
-              {t('artist.filter.all')}
-            </h3>
-            <div className="flex flex-wrap lg:flex-col gap-2 max-h-72 overflow-y-auto no-scrollbar">
-              <button
-                onClick={() => setSelectedBlock(null)}
-                className={`px-4 py-2 rounded-xl text-sm text-left font-medium transition-colors ${!selectedBlock ? 'bg-[#CB460C] text-white' : 'hover:bg-[#F7EAE5] text-[#4a3b33]'}`}
-              >
-                {language === 'EN' ? 'All Blocks' : 'সব ব্লক'}
-              </button>
-              {ARTIST_BLOCKS.map(block => (
-                <button
-                  key={block}
-                  onClick={() => setSelectedBlock(block)}
-                  className={`px-4 py-2 rounded-xl text-sm text-left font-medium transition-colors ${selectedBlock === block ? 'bg-[#CB460C] text-white' : 'hover:bg-[#F7EAE5] text-[#4a3b33]'}`}
-                >
-                  {block}
-                </button>
-              ))}
-            </div>
-          </div>
-
-
         </aside>
 
         {/* Artist grid */}
