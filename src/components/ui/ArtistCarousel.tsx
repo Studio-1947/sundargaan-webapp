@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -36,6 +36,13 @@ const ArtistCarousel: React.FC = () => {
         const result = await response.json();
         if (result.data) {
           setArtists(result.data);
+          // Preload images
+          result.data.forEach((artist: Artist) => {
+            if (artist.imageUrl) {
+              const img = new Image();
+              img.src = artist.imageUrl;
+            }
+          });
         }
       } catch (error) {
         console.error('Error fetching artists:', error);
@@ -44,78 +51,86 @@ const ArtistCarousel: React.FC = () => {
     fetchArtists();
   }, []);
 
-  // Move one by one
-  const nextSlide = () => {
-    if (artists.length === 0) return;
-    setCurrentIndex((prev) => (prev + 1) % artists.length);
-  };
-
-
-  // Auto-slide faster
+  // Auto-slide logic
   useEffect(() => {
-    if (artists.length <= 1) return;
-    const interval = setInterval(nextSlide, 3000);
+    if (artists.length <= itemsPerPage) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % artists.length);
+    }, 4000);
     return () => clearInterval(interval);
-  }, [artists.length]);
+  }, [artists.length, itemsPerPage]);
+
+  // For seamless loop, we prepare a list where we can always see 'itemsPerPage' items
+  const displayArtists = useMemo(() => {
+    if (artists.length === 0) return [];
+    // If we have fewer artists than itemsPerPage, repeat them
+    let list = [...artists];
+    while (list.length < itemsPerPage * 2) {
+      list = [...list, ...artists];
+    }
+    // Double for the slide transition
+    return [...list, ...list];
+  }, [artists, itemsPerPage]);
 
   if (artists.length === 0) return null;
 
-  // Get visible items with wrapping
-  const getVisibleArtists = () => {
-    const visible = [];
-    for (let i = 0; i < itemsPerPage; i++) {
-      visible.push(artists[(currentIndex + i) % artists.length]);
-    }
-    return visible;
-  };
-
-  const visibleArtists = getVisibleArtists();
-
   return (
     <div className="relative w-full h-full overflow-hidden flex items-center group/carousel">
-      {/* Container for the single-item-slide strips */}
-      <div className="flex w-full h-full relative">
-        <AnimatePresence initial={false} mode="popLayout">
-          {visibleArtists.map((artist, idx) => (
-            <motion.div
-              key={`${artist.id}-${currentIndex + idx}`}
-              layout
-              initial={{ opacity: 0, x: 50, scale: 0.9 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: -50, scale: 0.9 }}
-              transition={{
-                duration: 0.4,
-                ease: "circOut",
-              }}
-              className="relative h-full flex-1 border-r border-white/5 last:border-r-0 overflow-hidden"
-              style={{ flex: `0 0 ${100 / itemsPerPage}%` }}
-            >
-              {artist.imageUrl ? (
-                <img
-                  src={artist.imageUrl}
-                  alt={artist.name}
-                  className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
-                />
-              ) : (
-                <div className="absolute inset-0 bg-[#CB460C]/20" />
-              )}
+      <motion.div 
+        className="flex h-full w-full"
+        initial={false}
+        animate={{ 
+          x: `-${currentIndex * (100 / itemsPerPage)}%` 
+        }}
+        transition={{ 
+          duration: 1.2, 
+          ease: [0.32, 0.72, 0, 1], // Premium "Apple-style" quint easing
+          type: "tween"
+        }}
+        onUpdate={(latest: any) => {
+          // If we've reached the end of the original list, wrap back silently
+          // This is a simplified version; for a perfect pixel-perfect jump we'd need more logic
+          // but for this UI, the currentIndex reset in the interval handles the logic.
+        }}
+      >
+        {displayArtists.map((artist, idx) => (
+          <div
+            key={`${artist.id}-${idx}`}
+            className="relative h-full flex-shrink-0 border-r border-white/5 last:border-r-0 overflow-hidden"
+            style={{ width: `${100 / itemsPerPage}%` }}
+          >
+            {artist.imageUrl ? (
+              <img
+                src={artist.imageUrl}
+                alt={artist.name}
+                loading="eager"
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-[filter,transform] duration-700 group-hover:scale-110"
+                style={{ backfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)', willChange: 'filter, transform' }}
+              />
+            ) : (
+              <div className="absolute inset-0 bg-[#CB460C]/20" />
+            )}
 
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1a1005] via-transparent to-transparent opacity-70 group-hover:opacity-40 transition-opacity duration-700" />
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1005] via-transparent to-transparent opacity-70 group-hover:opacity-40 transition-opacity duration-700" />
 
-              {/* Vertical Name */}
-              <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap z-10 pointer-events-none">
-                <span className="block text-white/40 group-hover:text-white font-display text-[8px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.3em] rotate-180 [writing-mode:vertical-lr] transition-all duration-500">
-                  {language === 'EN' ? artist.name : artist.nameBn}
-                </span>
-              </div>
+            {/* Vertical Name */}
+            <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap z-10 pointer-events-none">
+              <span className="block text-white/40 group-hover:text-white font-display text-[8px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.3em] rotate-180 [writing-mode:vertical-lr] transition-all duration-500">
+                {language === 'EN' ? artist.name : artist.nameBn}
+              </span>
+            </div>
 
-              {/* Hover Glow */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none shadow-[inset_0_0_60px_rgba(203,70,12,0.4)]" />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
+            {/* Hover Glow */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none shadow-[inset_0_0_60px_rgba(203,70,12,0.4)]" />
+          </div>
+        ))}
+      </motion.div>
+
+      {/* Edge Fades for extra smoothness */}
+      <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#1a1005] to-transparent z-20 pointer-events-none opacity-50" />
+      <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#1a1005] to-transparent z-20 pointer-events-none opacity-50" />
     </div>
   );
 };
