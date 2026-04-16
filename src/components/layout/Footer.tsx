@@ -114,9 +114,22 @@ const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="border-t border-[#e5d5cd] pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="font-body text-xs text-[#a89080]">
-            © {currentYear} Sundargaan. {t('footer.rights')}
-          </p>
+          <div className="space-y-2 text-center md:text-left">
+            <p className="font-body text-xs text-[#a89080]">
+              © {currentYear} Sundargaan. {t('footer.rights')}
+            </p>
+            <p className="font-body text-[10px] text-[#a89080]/80 uppercase tracking-tight">
+              {t('footer.dev')}{' '}
+              <a 
+                href="https://1947.io" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-[#6b5b4f] hover:text-[#CB460C] transition-colors duration-300 font-medium"
+              >
+                Studio 1947
+              </a>
+            </p>
+          </div>
           <div className="flex gap-8">
             <Button 
               variant="outline"

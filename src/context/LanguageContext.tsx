@@ -98,7 +98,8 @@ const translations: Translations = {
   'footer.privacy': { EN: 'Privacy Policy', BN: 'গোপনীয়তা নীতি' },
   'footer.terms': { EN: 'Terms of Service', BN: 'পরিষেবার শর্তাবলী' },
   'footer.cookies': { EN: 'Cookie Policy', BN: 'কুকি নীতি' },
-  'footer.rights': { EN: 'All rights reserved. Built with love in Bengal.', BN: 'সর্বস্বত্ব সংরক্ষিত। বাংলায় ভালোবাসায় নির্মিত।' },
+  'footer.rights': { EN: 'All rights reserved.', BN: 'সর্বস্বত্ব সংরক্ষিত।' },
+  'footer.dev': { EN: 'Designed and Developed by', BN: 'পরিকল্পিত ও তৈরি করেছে' },
   'footer.top': { EN: 'Back to top', BN: 'উপরে ফিরে যান' },
 
   // Impact Page Detailed
