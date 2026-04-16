@@ -50,10 +50,6 @@ const ArtistCarousel: React.FC = () => {
     setCurrentIndex((prev) => (prev + 1) % artists.length);
   };
 
-  const prevSlide = () => {
-    if (artists.length === 0) return;
-    setCurrentIndex((prev) => (prev - 1 + artists.length) % artists.length);
-  };
 
   // Auto-slide faster
   useEffect(() => {
@@ -87,8 +83,8 @@ const ArtistCarousel: React.FC = () => {
               initial={{ opacity: 0, x: 50, scale: 0.9 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: -50, scale: 0.9 }}
-              transition={{ 
-                duration: 0.4, 
+              transition={{
+                duration: 0.4,
                 ease: "circOut",
               }}
               className="relative h-full flex-1 border-r border-white/5 last:border-r-0 overflow-hidden"
@@ -103,10 +99,10 @@ const ArtistCarousel: React.FC = () => {
               ) : (
                 <div className="absolute inset-0 bg-[#CB460C]/20" />
               )}
-              
+
               {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#1a1005] via-transparent to-transparent opacity-70 group-hover:opacity-40 transition-opacity duration-700" />
-              
+
               {/* Vertical Name */}
               <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap z-10 pointer-events-none">
                 <span className="block text-white/40 group-hover:text-white font-display text-[8px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.3em] rotate-180 [writing-mode:vertical-lr] transition-all duration-500">
