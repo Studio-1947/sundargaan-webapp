@@ -35,9 +35,9 @@ const translations: Translations = {
   'archive.cat1': { EN: 'Coming Soon', BN: 'শীঘ্রই আসছে' },
   'archive.cat2': { EN: 'Coming Soon', BN: 'শীঘ্রই আসছে' },
   'archive.cat3': { EN: 'Coming Soon', BN: 'শীঘ্রই আসছে' },
-  'archive.item1': { EN: 'Bishnupada', BN: 'বিষ্ণুপদ' },
-  'archive.item2': { EN: 'Savita', BN: 'সবিতা' },
-  'archive.item3': { EN: 'Atiyar', BN: 'আতিয়ার' },
+  'archive.item1': { EN: 'Bishnupada Sarkar', BN: 'বিষ্ণুপদ সরকার' },
+  'archive.item2': { EN: 'Sabita Baidya', BN: 'সবিতা বৈদ্য' },
+  'archive.item3': { EN: 'Atiyar Gazi', BN: 'আতিয়ার গাজী' },
 
   // Artists
   'artists.title': { EN: 'Voices of the Mud', BN: 'মাটির কণ্ঠস্বর' },
