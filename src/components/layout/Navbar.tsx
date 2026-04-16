@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
         }}
         className={`fixed top-0 left-0 right-0 transition-all duration-300 ${isMenuOpen ? 'z-[110]' : 'z-50'}`}
       >
-        <div className="max-w-screen-xl mx-auto px-6 md:px-10 h-20 md:h-24 flex items-center justify-between relative z-50">
+        <div className="max-w-screen-xl mx-auto px-6 md:px-10 h-24 md:h-32 flex items-center pt-8 md:pt-12 pb-2 md:pb-4 justify-between relative z-50">
 
           {/* Logo */}
           <Link to="/" className="flex-shrink-0 flex items-center" aria-label="Sundargaan Home">
