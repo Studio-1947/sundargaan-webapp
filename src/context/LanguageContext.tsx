@@ -40,10 +40,10 @@ const translations: Translations = {
   'archive.item3': { EN: 'Atiyar Gazi', BN: 'আতিয়ার গাজী' },
 
   // Artists
-  'artists.title': { EN: 'Voices of the Mud', BN: 'মাটির কণ্ঠস্বর' },
+  'artists.title': { EN: 'Voices of the Roots', BN: 'শিকড়ের কণ্ঠস্বর' },
   'artists.desc': {
-    EN: 'From the humble fishers to the wandering bauls, these are the artists who breathe life into our culture. Join us in celebrating their craft and ensuring their songs are heard by generations to come.',
-    BN: 'সাধারণ জেলে থেকে শুরু করে যাযাবর বাউল পর্যন্ত, এরা সেই শিল্পী যারা আমাদের সংস্কৃতিতে প্রাণ সঞ্চার করেন। আসুন আমরা তাদের শিল্প উদযাপন করি এবং নিশ্চিত করি যে তাদের গান আগামী প্রজন্মের কাছে পৌঁছায়।'
+    EN: 'From the quiet lives of fishers to the paths of wandering bauls, they are the keepers of our living culture. Stand with us in honoring their craft, and passing their songs into the future.',
+    BN: 'জেলেদের শান্ত জীবন থেকে শুরু করে যাযাবর বাউলদের পথ পর্যন্ত, তারা আমাদের জীবন্ত সংস্কৃতির রক্ষক। তাদের শিল্পকে সম্মান জানাতে এবং তাদের গানকে ভবিষ্যতের দিকে এগিয়ে নিয়ে যেতে আমাদের পাশে দাঁড়ান।'
   },
   'artists.btn': { EN: 'Meet the Artist', BN: 'শিল্পীদের সাথে আলাপ' },
   'artists.bg': { EN: 'ARTISTS', BN: 'শিল্পী' },
