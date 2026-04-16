@@ -71,14 +71,14 @@ const translations: Translations = {
 
   // Impact
   'impact.title': { EN: 'Documenting Change, Preserving Legacy.', BN: 'পরিবর্তন নথিবদ্ধ করা, ঐতিহ্য সংরক্ষণ।' },
-  'impact.stat1.val': { EN: '750+', BN: '৭৫০+' },
-  'impact.stat1.label': { EN: 'Songs Preserved', BN: 'সংরক্ষিত গান' },
-  'impact.stat2.val': { EN: '120+', BN: '১২০+' },
-  'impact.stat2.label': { EN: 'Artists Supported', BN: 'সমর্থিত শিল্পী' },
-  'impact.stat3.val': { EN: '24', BN: '২৪' },
-  'impact.stat3.label': { EN: 'Villages Documented', BN: 'নথিবদ্ধ গ্রাম' },
-  'impact.stat4.val': { EN: '1.2M', BN: '১.২ মিলিয়ন' },
-  'impact.stat4.label': { EN: 'Cultural Digital Grains', BN: 'সাংস্কৃতিক ডিজিটাল দানা' },
+  'impact.stat1.val': { EN: '100+', BN: '১০০+' },
+  'impact.stat1.label': { EN: 'Songs Recorded', BN: 'রেকর্ড করা গান' },
+  'impact.stat2.val': { EN: '500+', BN: '৫০০+' },
+  'impact.stat2.label': { EN: 'Artists Surveyed', BN: 'জরিপ করা শিল্পী' },
+  'impact.stat3.val': { EN: '9+', BN: '৯+' },
+  'impact.stat3.label': { EN: 'Blocks Covered', BN: 'ব্লক অন্তর্ভুক্ত' },
+  'impact.stat4.val': { EN: '5+', BN: '৫+' },
+  'impact.stat4.label': { EN: 'Genres', BN: 'ঘরানা' },
 
   // Media Grid
   'media.watch': { EN: 'Watch Story', BN: 'গল্পটি দেখুন' },
