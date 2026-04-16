@@ -73,19 +73,9 @@ const AboutPage: React.FC = () => {
 
   const missionLabel = isEN ? 'Our Mission' : 'আমাদের লক্ষ্য'
   const missionTitle = isEN ? 'What We Do' : 'আমরা কী করি'
-  const missionPoints = isEN
-    ? [
-      'Field documentation of endangered folk traditions across 24+ Sundarban villages',
-      'Digital archiving of songs, stories, and artefacts for future generations',
-      'Fair economic empowerment of over 120 local artists and artisans',
-      'Education programs that keep traditional knowledge alive through practice',
-    ]
-    : [
-      '২৪+ সুন্দরবন গ্রামে বিলুপ্তপ্রায় লোক ঐতিহ্যের ফিল্ড ডকুমেন্টেশন',
-      'ভবিষ্যৎ প্রজন্মের জন্য গান, গল্প ও নিদর্শনের ডিজিটাল আর্কাইভিং',
-      '১২০+ স্থানীয় শিল্পী ও কারিগরের ন্যায্য অর্থনৈতিক ক্ষমতায়ন',
-      'চর্চার মাধ্যমে ঐতিহ্যগত জ্ঞান জীবিত রাখে এমন শিক্ষা কর্মসূচি',
-    ]
+  const missionDescription = isEN
+    ? 'Our mission is to create a lasting digital sanctuary for the cultural heart of the Sundarbans. We are dedicated to the rigorous field documentation of endangered folk traditions across 24+ villages, building a comprehensive digital archive of songs, stories, and artefacts. Beyond preservation, we focus on the fair economic empowerment of over 120 local artists and artisans, while establishing education programs that ensure traditional knowledge is passed down through active community practice.'
+    : 'সুন্দরগানের লক্ষ্য হলো সুন্দরবনের সাংস্কৃতিক হৃদয়ের জন্য একটি স্থায়ী ডিজিটাল অভয়ারণ্য তৈরি করা। আমরা ২৪টিরও বেশি গ্রামে বিলুপ্তপ্রায় লোকজ ঐতিহ্যের নিবিড় তথ্যচিত্রায়নে নিবেদিত, যা পরবর্তী প্রজন্মের জন্য গান, গল্প এবং প্রত্নবস্তুর একটি সমৃদ্ধ ডিজিটাল আর্কাইভ তৈরি করছে। সংরক্ষণের পাশাপাশি, আমরা ১২০ জনেরও বেশি স্থানীয় শিল্পী ও কারিগরের ন্যায্য অর্থনৈতিক ক্ষমতায়নের ওপর গুরুত্ব দিই। একই সঙ্গে, আমরা এমন শিক্ষা কর্মসূচি গ্রহণ করি যা সক্রিয় চর্চার মাধ্যমে ঐতিহ্যগত জ্ঞানকে ভবিষ্যৎ প্রজন্মের কাছে পৌঁছে দেয়।'
 
   const partnersLabel = isEN ? 'Partners & Collaborators' : 'অংশীদার ও সহযোগী'
   const partnersTitle = isEN ? 'The Minds Behind the Mission' : 'মিশনের পেছনের মানুষেরা'
@@ -132,6 +122,16 @@ const AboutPage: React.FC = () => {
         ? 'Palash Mondal and Sundarbaan Unayan Bhavan form the critical bridge between Sundargaan\'s digital mission and the communities it serves on the ground. Their deep-rooted local presence and trust built over years make it possible to reach artists and villages that remain beyond conventional reach.'
         : 'পলাশ মণ্ডল এবং সুন্দরবান উন্নয়ন ভবন সুন্দরগানের ডিজিটাল লক্ষ্য এবং যে সম্প্রদায়গুলিকে এটি সেবা দেয় তাদের মধ্যে গুরুত্বপূর্ণ সেতু তৈরি করে। বছরের পর বছর ধরে গড়ে ওঠা তাঁদের গভীর স্থানীয় উপস্থিতি এবং আস্থা এমন শিল্পী ও গ্রামে পৌঁছানো সম্ভব করে যারা প্রচলিত নাগালের বাইরে থেকে যায়।',
       accentColor: '#4B3621',
+    },
+    {
+      initials: 'AC',
+      name: isEN ? 'Abir Chakroborty' : 'আবীর চক্রবর্তী',
+      role: isEN ? 'Advisor' : 'উপদেষ্টা',
+      org: isEN ? 'Cultural Heritage Specialist' : 'সাংস্কৃতিক ঐতিহ্য বিশেষজ্ঞ',
+      bio: isEN
+        ? 'Abir Chakroborty brings extensive experience in cultural advisory and strategic planning. His insights help Sundargaan navigate the complexities of heritage preservation while ensuring that the project remains deeply connected to its grassroots origins.'
+        : 'আবীর চক্রবর্তী সাংস্কৃতিক পরামর্শ এবং কৌশলগত পরিকল্পনায় ব্যাপক অভিজ্ঞতা নিয়ে এসেছেন। তাঁর মূল্যবান পরামর্শ সুন্দরগানকে ঐতিহ্যের সংরক্ষণে এবং তৃণমূল পর্যায়ের সাথে সংযোগ বজায় রাখতে সাহায্য করে।',
+      accentColor: '#6b5b4f',
     },
     // {
     //   initials: 'RI',
@@ -232,21 +232,15 @@ const AboutPage: React.FC = () => {
                 <SectionLabel>{missionLabel}</SectionLabel>
                 <h2 className="font-display text-4xl md:text-5xl text-[#1a1005] leading-tight">{missionTitle}</h2>
               </div>
-              <ul className="space-y-5">
-                {missionPoints.map((point, i) => (
-                  <motion.li
-                    key={i}
-                    initial={{ opacity: 0, x: -16 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 + i * 0.08 }}
-                    className="flex items-start gap-4"
-                  >
-                    <span className="flex-shrink-0 mt-1.5 w-2 h-2 rounded-full bg-[#CB460C]" />
-                    <span className="font-body text-[#6b5b4f] leading-relaxed">{point}</span>
-                  </motion.li>
-                ))}
-              </ul>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, duration: 0.8 }}
+                className="font-body text-[#6b5b4f] text-lg leading-relaxed"
+              >
+                {missionDescription}
+              </motion.p>
             </motion.div>
 
             {/* Right: stat cards */}
@@ -271,6 +265,32 @@ const AboutPage: React.FC = () => {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ——— Collaborative Organizations (Text-based) ——— */}
+      <section className="pt-24 pb-12 px-6">
+        <div className="max-w-screen-xl mx-auto">
+          <div className="text-center mb-12">
+            <SectionLabel>{isEN ? 'Rooted in Collaboration' : 'সহযোগিতায় যার ভিত্তি'}</SectionLabel>
+          </div>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 opacity-80">
+            <div className="text-center md:text-left">
+              <h3 className="font-display text-2xl md:text-3xl text-[#1a1005] mb-2">The Eco Logical Foundation</h3>
+              <p className="font-body text-[10px] md:text-xs uppercase tracking-[0.2em] text-[#CB460C]">{isEN ? 'Field Documentation' : 'ফিল্ড ডিজাইন ও ডকুমেন্টেশন'}</p>
+            </div>
+            <div className="hidden md:block w-px h-16 bg-[#e5d5cd]" />
+            <div className="text-center md:text-left">
+              <h3 className="font-display text-2xl md:text-3xl text-[#1a1005] mb-2">Studio 1947</h3>
+              <p className="font-body text-[10px] md:text-xs uppercase tracking-[0.2em] text-[#CB460C]">{isEN ? 'Digital Archiving' : 'ডিজিটাল আর্কাইভিং'}</p>
+            </div>
+            <div className="hidden md:block w-px h-16 bg-[#e5d5cd]" />
+            <div className="text-center md:text-left">
+              <h3 className="font-display text-2xl md:text-3xl text-[#1a1005] mb-2">Sundarbaan Unayan Bhavan</h3>
+              <p className="font-body text-[10px] md:text-xs uppercase tracking-[0.2em] text-[#CB460C]">{isEN ? 'Community Access' : 'কমিউনিটি এক্সেস'}</p>
+            </div>
+          </div>
+          <div className="mt-16 w-full h-px bg-gradient-to-r from-transparent via-[#e5d5cd] to-transparent" />
         </div>
       </section>
 
