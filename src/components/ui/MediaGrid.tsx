@@ -8,11 +8,12 @@ interface MediaTileProps {
   index?: number
   image?: string
   videoSrc?: string
+  artistName?: string
   onClick?: () => void
 }
 
 // One playable media tile with premium animations
-const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, image, videoSrc, onClick }) => {
+const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, image, videoSrc, artistName, onClick }) => {
   const { t } = useLanguage()
 
   return (
@@ -59,15 +60,15 @@ const MediaTile: React.FC<MediaTileProps> = ({ delay = 0, image, videoSrc, onCli
 
         {/* Bottom label hint */}
         <motion.div
-          className="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/60 to-transparent"
-          initial={{ opacity: 0, y: 10 }}
+          className="absolute bottom-0 left-0 right-0 px-5 py-4 bg-gradient-to-t from-black/80 to-transparent"
+          initial={{ opacity: 0.8, y: 0 }}
           variants={{
             hover: { opacity: 1, y: 0 }
           }}
           transition={{ duration: 0.3 }}
         >
-          <p className="text-[11px] font-body font-bold tracking-[0.2em] uppercase text-white">
-            {t('media.explore')}
+          <p className="text-[10px] md:text-[11px] font-body font-bold tracking-[0.2em] uppercase text-white drop-shadow-md">
+            {artistName || t('media.explore')}
           </p>
         </motion.div>
 
@@ -92,19 +93,23 @@ const MediaGrid: React.FC<MediaGridProps> = ({ onVideoClick }) => {
   const assets = [
     {
       img: "https://res.cloudinary.com/drgb8w8ak/image/upload/v1775564860/sundargaan/images/gughdsliizqlagvntjhl.jpg",
-      video: "https://res.cloudinary.com/drgb8w8ak/video/upload/hero_video_1_upf9ro.mp4"
+      video: "https://res.cloudinary.com/drgb8w8ak/video/upload/hero_video_1_upf9ro.mp4",
+      name: "Bishnupada Sarkar"
     },
     {
       img: thumb2,
-      video: "https://res.cloudinary.com/drgb8w8ak/video/upload/Hero_video_3_wwx3sy.mp4"
+      video: "https://res.cloudinary.com/drgb8w8ak/video/upload/Hero_video_3_wwx3sy.mp4",
+      name: "Rafikul Islam Gazi"
     },
     {
       img: landscapeThumb,
-      video: "https://res.cloudinary.com/drgb8w8ak/video/upload/Hero_video_4_sn34k5.mp4"
+      video: "https://res.cloudinary.com/drgb8w8ak/video/upload/Hero_video_4_sn34k5.mp4",
+      name: "Nabamita Mondal"
     },
     {
       img: "https://res.cloudinary.com/drgb8w8ak/image/upload/v1775566166/sundargaan/images/k6yqrrwy1kwmy1zloj3k.jpg",
-      video: "https://res.cloudinary.com/drgb8w8ak/video/upload/hero_video_2_axdq88.mp4"
+      video: "https://res.cloudinary.com/drgb8w8ak/video/upload/hero_video_2_axdq88.mp4",
+      name: "Sabita Baidya"
     },
   ]
 
@@ -113,20 +118,44 @@ const MediaGrid: React.FC<MediaGridProps> = ({ onVideoClick }) => {
       {/* Column 1 */}
       <div className="flex flex-col gap-4 h-full">
         <div className="flex-[1.4]">
-          <MediaTile delay={100} image={assets[0].img} videoSrc={assets[0].video} onClick={() => assets[0].video && onVideoClick?.(assets[0].video)} />
+          <MediaTile 
+            delay={100} 
+            image={assets[0].img} 
+            videoSrc={assets[0].video} 
+            artistName={assets[0].name}
+            onClick={() => assets[0].video && onVideoClick?.(assets[0].video)} 
+          />
         </div>
         <div className="flex-[1.1]">
-          <MediaTile delay={300} image={assets[2].img} videoSrc={assets[2].video} onClick={() => assets[2].video && onVideoClick?.(assets[2].video)} />
+          <MediaTile 
+            delay={300} 
+            image={assets[2].img} 
+            videoSrc={assets[2].video} 
+            artistName={assets[2].name}
+            onClick={() => assets[2].video && onVideoClick?.(assets[2].video)} 
+          />
         </div>
       </div>
 
       {/* Column 2 */}
       <div className="flex flex-col gap-4 h-full">
         <div className="flex-[1.1]">
-          <MediaTile delay={200} image={assets[1].img} videoSrc={assets[1].video} onClick={() => assets[1].video && onVideoClick?.(assets[1].video)} />
+          <MediaTile 
+            delay={200} 
+            image={assets[1].img} 
+            videoSrc={assets[1].video} 
+            artistName={assets[1].name}
+            onClick={() => assets[1].video && onVideoClick?.(assets[1].video)} 
+          />
         </div>
         <div className="flex-[1.4]">
-          <MediaTile delay={400} image={assets[3].img} videoSrc={assets[3].video} onClick={() => assets[3].video && onVideoClick?.(assets[3].video)} />
+          <MediaTile 
+            delay={400} 
+            image={assets[3].img} 
+            videoSrc={assets[3].video} 
+            artistName={assets[3].name}
+            onClick={() => assets[3].video && onVideoClick?.(assets[3].video)} 
+          />
         </div>
       </div>
     </div>
