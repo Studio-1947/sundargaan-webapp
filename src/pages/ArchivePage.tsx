@@ -4,8 +4,11 @@ import { ARCHIVE_CATEGORIES, MOCK_ARCHIVE_ITEMS, ArchiveItem } from '../data/arc
 import logoCol from '../assets/sundargaan_logo_col.svg';
 import { getArchiveItems, getArchiveFilters } from '../api/archive';
 
-const MALE_PLACEHOLDER = 'https://res.cloudinary.com/drgb8w8ak/image/upload/v1775627147/sundargaan/images/civdwpyjq7nfbbhfdzjd.jpg';
-const FEMALE_PLACEHOLDER = 'https://res.cloudinary.com/drgb8w8ak/image/upload/v1775627663/sundargaan/images/btkiflhui40kkn6p735b.jpg';
+import malePlaceholder from '../assets/thumbnails/Thumbnail_1_male.jpeg';
+import femalePlaceholder from '../assets/thumbnails/Thumbnail_2_female.jpeg';
+
+const MALE_PLACEHOLDER = malePlaceholder;
+const FEMALE_PLACEHOLDER = femalePlaceholder;
 
 const guessGender = (name: string): 'Male' | 'Female' => {
   const femaleNames = ['sneha', 'anushka', 'indrakshi', 'mallika', 'nibha', 'niva', 'ankita', 'ankana', 'putul', 'aparana', 'aparna', 'lakshmi', 'saraswati', 'reka', 'rekha', 'pinky', 'tumpa', 'rita', 'gita', 'mita'];
@@ -38,6 +41,9 @@ const ArchivePage: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<ArchiveItem | null>(null);
   const [archiveItems, setArchiveItems] = useState<ArchiveItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDashboardFullscreen, setIsDashboardFullscreen] = useState(false);
+  const [hasAutoTriggered, setHasAutoTriggered] = useState(false);
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 12; // 4-4-4 grid
@@ -110,6 +116,20 @@ const ArchivePage: React.FC = () => {
     return pages;
   };
 
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    if (!isDashboardFullscreen && !hasAutoTriggered && e.currentTarget.scrollTop > 350) {
+      setHasAutoTriggered(true);
+      setIsDashboardFullscreen(true);
+    }
+  };
+
+  const handleExitFullscreen = () => {
+    setIsDashboardFullscreen(false);
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
 
   return (
     <div className="min-h-screen bg-[#F7EAE5] text-[#1A1005] font-body overflow-x-hidden relative">
@@ -123,7 +143,7 @@ const ArchivePage: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full mx-auto min-h-screen text-ink overflow-hidden flex flex-col relative z-20"
+        className={`w-full mx-auto min-h-screen text-ink overflow-hidden flex flex-col relative ${isDashboardFullscreen ? 'z-[100]' : 'z-20'}`}
       >
         {/* Integrated Header */}
         <header className="px-6 sm:px-12 pt-28 pb-10 flex flex-col gap-8 sm:flex-row items-center justify-between bg-white relative z-30 border-b border-border/10">
@@ -146,7 +166,11 @@ const ArchivePage: React.FC = () => {
         </header>
 
         {/* Scrollable Container for Top Cards + Dashboard Split */}
-        <div className="flex-1 overflow-y-auto custom-scrollbar flex flex-col min-h-0">
+        <div 
+          ref={scrollContainerRef}
+          onScroll={handleScroll}
+          className="flex-1 overflow-y-auto custom-scrollbar flex flex-col min-h-0"
+        >
 
           {/* NEW: Top CTA Cards Row */}
           <div className="w-full px-8 sm:px-12 md:px-20 py-12 bg-white/40 border-b border-border/10 shrink-0 z-20 relative">
@@ -181,9 +205,9 @@ const ArchivePage: React.FC = () => {
           </div>
 
           {/* Content Body Wrapper */}
-          <div className="flex flex-1 flex-col md:flex-row min-h-0 bg-white/20 relative z-10">
+          <div className={`flex flex-col md:flex-row transition-all duration-500 ease-in-out ${isDashboardFullscreen ? 'fixed inset-0 z-[100] bg-[#F7EAE5] overflow-y-auto' : 'flex-1 min-h-0 bg-white/20 relative z-10'}`}>
             {/* Sticky Sidebar */}
-            <aside className="w-full md:w-80 border-b md:border-b-0 md:border-r border-border/10 bg-white/60 backdrop-blur-xl z-10 shrink-0 md:sticky md:top-0 md:self-start md:h-[calc(100vh-100px)]">
+            <aside className={`w-full md:w-80 border-b md:border-b-0 md:border-r border-border/10 bg-white/60 backdrop-blur-xl z-10 shrink-0 md:sticky md:top-0 md:self-start ${isDashboardFullscreen ? 'md:h-screen' : 'md:h-[calc(100vh-100px)]'}`}>
               <div className="p-8 sm:p-10 md:p-14 h-full flex flex-col overflow-y-auto no-scrollbar space-y-10">
                 {/* Clear Filters */}
                 {(activeLocation !== null || activeSubcategory !== null) && (
@@ -220,14 +244,14 @@ const ArchivePage: React.FC = () => {
                                 <IconChevronDown className="text-[#CB460C]" />
                               </div>
 
-                              <div className="absolute right-full top-1/2 -translate-y-1/2 mr-3 opacity-0 group-hover/arrow:opacity-100 transition-all duration-300 pointer-events-none z-50">
+                              <div className="absolute right-0 top-full mt-3 opacity-0 group-hover/arrow:opacity-100 transition-all duration-300 pointer-events-none z-50">
                                 <div className="bg-[#1a1005] text-white px-4 py-2.5 rounded-xl shadow-2xl border border-white/10 whitespace-nowrap flex items-center gap-2">
                                   <div className="w-1.5 h-1.5 rounded-full bg-[#CB460C] animate-pulse" />
                                   <span className="text-[10px] font-bold uppercase tracking-[0.1em]">
                                     Other blocks coming soon
                                   </span>
                                 </div>
-                                <div className="absolute top-1/2 -translate-y-1/2 left-full w-2 h-2 bg-[#1a1005] rotate-45 border-r border-t border-white/10 -ml-1" />
+                                <div className="absolute bottom-full right-3 w-2 h-2 bg-[#1a1005] rotate-45 border-t border-l border-white/10 -mb-1" />
                               </div>
                             </div>
                           </div>
@@ -308,13 +332,34 @@ const ArchivePage: React.FC = () => {
             {/* Grid Content Area */}
             <main className="flex-1 p-8 sm:p-12 md:p-20 bg-[#F7EAE5]/30">
 
-              <div className="flex items-center justify-between mb-12">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-12 gap-6">
                 <h2 className="text-2xl font-display font-medium text-ink flex items-center gap-4">
                   <span>Collections</span>
-                  <span className="h-[1px] w-20 bg-border/40" />
+                  <span className="h-[1px] w-12 sm:w-20 bg-border/40" />
                 </h2>
-                <div className="text-[10px] text-ink-subtle uppercase tracking-widest font-bold">
-                  Showing {filteredItems.length} Records
+                
+                <div className="flex items-center gap-4 sm:gap-6">
+                  <div className="text-[10px] text-ink-subtle uppercase tracking-widest font-bold hidden md:block">
+                    Showing {filteredItems.length} Records
+                  </div>
+                  
+                  {/* Fullscreen Mode Toggle */}
+                  <button
+                    onClick={isDashboardFullscreen ? handleExitFullscreen : () => setIsDashboardFullscreen(true)}
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#CB460C]/20 text-[#CB460C] hover:bg-[#CB460C] hover:text-white transition-all text-[10px] font-bold uppercase tracking-widest bg-white shadow-sm"
+                  >
+                    {isDashboardFullscreen ? (
+                      <>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>
+                        <span>Exit Full Screen</span>
+                      </>
+                    ) : (
+                      <>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+                        <span>Full Screen</span>
+                      </>
+                    )}
+                  </button>
                 </div>
               </div>
 
