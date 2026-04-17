@@ -392,45 +392,14 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onKnowMore, i
 
         </div>
 
-        {/* Featured Song / Famous Song Section */}
-        <div className="space-y-3">
-          {artist.sampleWorks.length > 0 ? (
-            <div
-              onClick={(e) => { e.stopPropagation(); onKnowMore(artist); }}
-              className="group/track flex items-center gap-3 p-3 rounded-2xl bg-[#F7EAE5] border border-[#CB460C]/10 hover:bg-[#F7EAE5]/80 transition-all font-body"
-            >
-              <div className="w-9 h-9 rounded-full bg-[#CB460C] flex items-center justify-center text-white shadow-md group-hover/track:scale-110 transition-transform shrink-0">
-                <div className="pl-1">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                    <polygon points="5 3 19 12 5 21 5 3" />
-                  </svg>
-                </div>
-              </div>
-              <div className="min-w-0">
-                <span className="block text-[10px] text-[#CB460C] font-bold uppercase tracking-wider mb-0.5 opacity-80">
-                  {language === 'EN' ? 'Featured Track' : 'সেরা গান'}
-                </span>
-                <span className="block text-sm font-semibold text-[#1a1005] truncate">
-                  {language === 'EN' ? artist.sampleWorks[0].title : artist.sampleWorks[0].titleBN}
-                </span>
-              </div>
-            </div>
-          ) : (
-            <div className="flex items-center gap-2 text-[#6b5b4f] px-3 py-2 rounded-xl bg-[#F7EAE5]/30 font-body">
-              <span className="text-[#CB460C] shrink-0"><IconMusic /></span>
-              <span className="text-xs font-medium italic truncate">
-                {language === 'EN' ? artist.famousSong : artist.famousSongBN}
-              </span>
-            </div>
-          )}
-
+        <div className="mt-auto">
           {/* Location details */}
           <div className="flex items-center gap-2 px-1 text-[11px] text-[#6b5b4f] font-body">
             <span className="text-[#CB460C] shrink-0"><IconPin /></span>
             <span className="truncate">
               {language === 'EN'
-                ? `Village: ${artist.village || ''}, Post: ${artist.post || ''}`
-                : `গ্রাম: ${artist.villageBN || ''}, পোস্ট: ${artist.postBN || ''}`
+                ? Array.from(new Set([artist.village, artist.post])).filter(Boolean).join(', ')
+                : Array.from(new Set([artist.villageBN, artist.postBN])).filter(Boolean).join(', ')
               }
             </span>
           </div>
@@ -930,8 +899,8 @@ const MeetTheArtistPage: React.FC = () => {
                   <p className="text-white/70 text-sm mt-1 flex items-center gap-1.5">
                     <IconPin />
                     {language === 'EN'
-                      ? `Village: ${selectedArtist.village || ''}, Post: ${selectedArtist.post || ''}`
-                      : `গ্রাম: ${selectedArtist.villageBN || ''}, পোস্ট: ${selectedArtist.postBN || ''}`
+                      ? Array.from(new Set([selectedArtist.village, selectedArtist.post])).filter(Boolean).join(', ')
+                      : Array.from(new Set([selectedArtist.villageBN, selectedArtist.postBN])).filter(Boolean).join(', ')
                     }
                   </p>
                 </div>
