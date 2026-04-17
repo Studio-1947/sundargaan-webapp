@@ -21,6 +21,8 @@ export function setupApp(app: INestApplication) {
     'http://localhost:5173',
     'http://localhost:3000',
     'https://sundargaan-webapp.vercel.app',
+    'https://www.sundargaan.in',
+    'https://sundargaan.in',
     ...(process.env.FRONTEND_URL
       ? process.env.FRONTEND_URL.split(',').map((u) => u.trim())
       : []),
@@ -30,8 +32,15 @@ export function setupApp(app: INestApplication) {
     origin: (origin, callback) => {
       // Allow requests with no origin (mobile apps, curl, Postman)
       if (!origin) return callback(null, true);
+      
+      // Check for exact origin matches
       if (allowedOrigins.includes(origin)) return callback(null, true);
-      callback(new Error(`CORS: origin ${origin} not allowed`));
+
+      // Check for preview deployments on vercel
+      if (origin.endsWith('.vercel.app')) return callback(null, true);
+      
+      // Instead of throwing a 500 error, return false to block via standard CORS mechanism
+      callback(null, false);
     },
     credentials: true,
   });
