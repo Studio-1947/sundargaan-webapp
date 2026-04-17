@@ -92,6 +92,24 @@ const ArchivePage: React.FC = () => {
 
   const filteredItems = archiveItems; // Filtering is done on server now
 
+  const getPaginationGroup = () => {
+    const pages = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      if (currentPage <= 4) {
+        pages.push(1, 2, 3, 4, 5, '...', totalPages);
+      } else if (currentPage >= totalPages - 3) {
+        pages.push(1, '...', totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+      } else {
+        pages.push(1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages);
+      }
+    }
+    return pages;
+  };
+
 
   return (
     <div className="min-h-screen bg-[#F7EAE5] text-[#1A1005] font-body overflow-x-hidden relative">
@@ -136,23 +154,24 @@ const ArchivePage: React.FC = () => {
               {ARCHIVE_CATEGORIES.map((cat) => (
                 <div
                   key={cat.id}
-                  className="w-full flex flex-col gap-6"
+                  className="group flex flex-col bg-white/60 backdrop-blur-sm rounded-[2.5rem] border border-border/20 shadow-sm hover:shadow-xl hover:bg-white hover:-translate-y-1 transition-all duration-500 cursor-pointer overflow-hidden"
                 >
                   {/* Artwork */}
-                  <div className="w-full aspect-video rounded-[2.5rem] overflow-hidden border border-border/20 shadow-sm bg-surface-warm shrink-0">
+                  <div className="w-full aspect-video overflow-hidden relative shrink-0">
                     <img
                       src={cat.image}
                       alt={cat.label}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                   
                   {/* Text & About */}
-                  <div className="flex flex-col gap-3 px-2">
-                    <h3 className="text-ink font-display text-2xl xl:text-3xl font-medium tracking-tight">
+                  <div className="flex flex-col gap-3 p-8 sm:p-10 grow">
+                    <h3 className="text-ink font-display text-2xl xl:text-3xl font-medium tracking-tight group-hover:text-brand-primary transition-colors">
                       {cat.label}
                     </h3>
-                    <p className="text-ink/60 text-sm font-body leading-relaxed pr-4">
+                    <p className="text-ink/60 text-sm font-body leading-relaxed">
                       {CATEGORY_DESCRIPTIONS[cat.id]}
                     </p>
                   </div>
@@ -354,16 +373,25 @@ const ArchivePage: React.FC = () => {
                     Prev
                   </button>
 
-                  <div className="flex items-center gap-3">
-                    {[...Array(totalPages)].map((_, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setCurrentPage(i + 1)}
-                        className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold transition-all ${currentPage === i + 1 ? 'bg-brand-primary text-white' : 'hover:bg-white border border-transparent hover:border-border/40'}`}
-                      >
-                        {i + 1}
-                      </button>
-                    ))}
+                  <div className="flex items-center gap-1 sm:gap-2 flex-wrap justify-center">
+                    {getPaginationGroup().map((page, i) => {
+                      if (page === '...') {
+                        return (
+                          <span key={`ellipsis-${i}`} className="w-8 h-8 flex items-center justify-center text-ink-subtle/50 text-xs font-bold font-display">
+                            ...
+                          </span>
+                        );
+                      }
+                      return (
+                        <button
+                          key={i}
+                          onClick={() => setCurrentPage(page as number)}
+                          className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold transition-all ${currentPage === page ? 'bg-[#CB460C] text-white shadow-md' : 'text-[#6b5b4f] hover:bg-white border border-transparent hover:border-[#CB460C]/20 hover:text-[#CB460C]'}`}
+                        >
+                          {page}
+                        </button>
+                      );
+                    })}
                   </div>
 
                   <button
