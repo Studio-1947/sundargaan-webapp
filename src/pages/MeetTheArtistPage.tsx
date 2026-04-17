@@ -683,16 +683,38 @@ const MeetTheArtistPage: React.FC = () => {
 
                 return (
                   <div key={block} className="space-y-3">
-                    <button
-                      onClick={() => setSelectedBlock(isActive ? null : block)}
-                      className={`w-full flex items-center justify-between px-5 py-3 rounded-2xl border transition-all ${isActive ? 'bg-[#F7EAE5] border-[#CB460C]/20 text-[#CB460C]' : 'bg-white border-[#e5d5cd] text-[#4a3b33] hover:bg-[#F7EAE5]/50'}`}
+                    {/* Block Header / Dropdown Trigger */}
+                    <div
+                      className="w-full flex items-center justify-between px-5 py-3 rounded-2xl border bg-[#F7EAE5] border-[#CB460C]/20 text-[#CB460C] shadow-sm relative group/block"
                     >
-                      <span className="font-bold text-sm">{block}</span>
-                      <IconChevronDown className={`transition-transform duration-300 ${isActive ? 'rotate-180' : ''}`} />
-                    </button>
+                      <span className="font-bold text-sm tracking-wide">{block}</span>
+                      
+                      {/* The Dropdown Arrow with Coming Soon interaction */}
+                      <div className="relative flex items-center group/arrow">
+                        <button 
+                          className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#CB460C]/10 transition-colors cursor-pointer group-hover/block:rotate-180 duration-500"
+                          onClick={() => {}} // Static for now as requested
+                        >
+                          <IconChevronDown className="text-[#CB460C]" />
+                        </button>
+                        
+                        {/* Coming Soon "Modal" Overlay on Hover/Click arrow */}
+                        <div className="absolute right-full top-1/2 -translate-y-1/2 mr-3 opacity-0 group-hover/arrow:opacity-100 transition-all duration-300 pointer-events-none z-50">
+                          <div className="bg-[#1a1005] text-white px-4 py-2.5 rounded-xl shadow-2xl border border-white/10 whitespace-nowrap flex items-center gap-2">
+                             <div className="w-1.5 h-1.5 rounded-full bg-[#CB460C] animate-pulse" />
+                             <span className="text-[10px] font-bold uppercase tracking-[0.1em]">
+                               {language === 'EN' ? 'Other blocks coming soon' : 'অন্যান্য ব্লক শীঘ্রই আসছে'}
+                             </span>
+                          </div>
+                          {/* Triangle pointer */}
+                          <div className="absolute top-1/2 -translate-y-1/2 left-full w-2 h-2 bg-[#1a1005] rotate-45 border-r border-t border-white/10 -ml-1" />
+                        </div>
+                      </div>
+                    </div>
 
+                    {/* Villages List (Always show for the active block) */}
                     {isActive && villages.length > 0 && (
-                      <div className="pl-6 space-y-1 relative">
+                      <div className="pl-6 space-y-1 relative mt-3">
                         <div className="absolute left-[35.5px] top-4 bottom-4 w-px bg-[#CB460C]/20" />
                         {villages.map((v, i) => (
                           <button
