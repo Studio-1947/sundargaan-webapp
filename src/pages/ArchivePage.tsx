@@ -16,9 +16,16 @@ const guessGender = (name: string): 'Male' | 'Female' => {
   return 'Male';
 };
 
+const IconChevronDown = ({ className }: { className?: string }) => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <polyline points="6 9 12 15 18 9" />
+  </svg>
+);
+
 const ArchivePage: React.FC = () => {
   const [activeCategory] = useState<string | null>('artists');
   const [activeSubcategory, setActiveSubcategory] = useState<string | null>(null);
+  const [activeBlock, setActiveBlock] = useState<string | null>('Hingalganj');
   const [activeLocation, setActiveLocation] = useState<string | null>(null);
   const [locations, setLocations] = useState<string[]>([]);
   const [subcategories, setSubcategories] = useState<string[]>([]);
@@ -167,31 +174,63 @@ const ArchivePage: React.FC = () => {
                 {/* Location Filter */}
                 <div className="space-y-4">
                   <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#a89080] px-2 mb-2">
-                    Filter by Region
+                    Location
                   </h3>
-                  <div className="space-y-4">
-                    <div
-                      onClick={() => setActiveLocation(null)}
-                      className={`w-full flex items-center justify-between px-5 py-3 rounded-2xl border transition-all cursor-pointer ${activeLocation === null
-                        ? 'bg-[#F7EAE5] border-[#CB460C]/40 text-[#CB460C] shadow-sm font-bold'
-                        : 'bg-white border-[#e5d5cd] text-[#4a3b33] hover:bg-[#F7EAE5]'
-                        }`}
-                    >
-                      <span className="text-sm tracking-wide">All Locations</span>
-                    </div>
+                  <div className="space-y-6">
+                    {['Hingalganj'].map(block => {
+                      const isActive = activeBlock === block;
 
-                    {locations.map((loc: string) => (
-                      <div
-                        key={loc}
-                        onClick={() => setActiveLocation(loc)}
-                        className={`w-full flex items-center justify-between px-5 py-3 rounded-2xl border transition-all cursor-pointer ${activeLocation === loc
-                          ? 'bg-[#F7EAE5] border-[#CB460C]/40 text-[#CB460C] shadow-sm font-bold'
-                          : 'bg-white border-[#e5d5cd] text-[#4a3b33] hover:bg-[#F7EAE5]'
-                          }`}
-                      >
-                        <span className="text-sm tracking-wide">{loc}</span>
-                      </div>
-                    ))}
+                      return (
+                        <div key={block} className="space-y-3">
+                          {/* Block Header / Dropdown Trigger */}
+                          <div
+                            onClick={() => setActiveBlock(isActive ? null : block)}
+                            className="w-full flex items-center justify-between px-5 py-3 rounded-2xl border bg-[#F7EAE5] border-[#CB460C]/20 text-[#CB460C] shadow-sm relative group/block cursor-pointer hover:bg-[#F7EAE5]/80 transition-all"
+                          >
+                            <span className="font-bold text-sm tracking-wide">{block}</span>
+
+                            <div className="relative flex items-center group/arrow">
+                              <div
+                                className={`w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#CB460C]/10 transition-all duration-300 ${isActive ? 'rotate-180' : ''}`}
+                              >
+                                <IconChevronDown className="text-[#CB460C]" />
+                              </div>
+
+                              <div className="absolute right-full top-1/2 -translate-y-1/2 mr-3 opacity-0 group-hover/arrow:opacity-100 transition-all duration-300 pointer-events-none z-50">
+                                <div className="bg-[#1a1005] text-white px-4 py-2.5 rounded-xl shadow-2xl border border-white/10 whitespace-nowrap flex items-center gap-2">
+                                  <div className="w-1.5 h-1.5 rounded-full bg-[#CB460C] animate-pulse" />
+                                  <span className="text-[10px] font-bold uppercase tracking-[0.1em]">
+                                    Other blocks coming soon
+                                  </span>
+                                </div>
+                                <div className="absolute top-1/2 -translate-y-1/2 left-full w-2 h-2 bg-[#1a1005] rotate-45 border-r border-t border-white/10 -ml-1" />
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Locations List (Always show for the active block) */}
+                          {isActive && locations.length > 0 && (
+                            <div className="pl-6 space-y-1 relative mt-3">
+                              <div className="absolute left-[35.5px] top-4 bottom-4 w-px bg-[#CB460C]/20" />
+                              {locations.map((loc, i) => (
+                                <button
+                                  key={i}
+                                  onClick={() => setActiveLocation(activeLocation === loc ? null : loc)}
+                                  className="group flex items-center gap-4 py-2 text-left w-full focus:outline-none"
+                                >
+                                  <div className={`w-6 h-6 rounded-full flex items-center justify-center z-10 border transition-all ${activeLocation === loc ? 'bg-[#CB460C] border-[#CB460C]' : 'bg-[#F7EAE5] border-[#CB460C]/20 group-hover:bg-[#CB460C]/10'}`}>
+                                    <div className={`w-2 h-2 rounded-full ${activeLocation === loc ? 'bg-white' : 'bg-[#CB460C]'}`} />
+                                  </div>
+                                  <span className={`text-sm tracking-wide transition-colors ${activeLocation === loc ? 'text-[#CB460C] font-semibold' : 'text-[#a89080] group-hover:text-[#6b5b4f]'}`}>
+                                    {loc}
+                                  </span>
+                                </button>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
 
