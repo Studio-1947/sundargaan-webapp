@@ -507,7 +507,7 @@ const MeetTheArtistPage: React.FC = () => {
   const { t, language } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedBlock, setSelectedBlock] = useState<string | null>('Hingalganj');
-  const [selectedVillage, setSelectedVillage] = useState<string | null>(null);
+  const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
 
@@ -538,25 +538,25 @@ const MeetTheArtistPage: React.FC = () => {
         artist.famousSongBN.includes(searchTerm) ||
         artist.address.toLowerCase().includes(q);
       const matchesBlock = selectedBlock ? artist.block === selectedBlock : true;
-      const matchesVillage = selectedVillage ? artist.village === selectedVillage : true;
+      const matchesAddress = selectedAddress ? artist.address === selectedAddress : true;
       const matchesCategory = selectedCategory ? artist.category === selectedCategory : true;
-      return matchesSearch && matchesBlock && matchesVillage && matchesCategory;
+      return matchesSearch && matchesBlock && matchesAddress && matchesCategory;
     });
-  }, [artists, searchTerm, selectedBlock, selectedVillage, selectedCategory]);
+  }, [artists, searchTerm, selectedBlock, selectedAddress, selectedCategory]);
 
-  const villagesInBlock = useMemo(() => {
+  const addressesInBlock = useMemo(() => {
     if (!selectedBlock) return [];
-    // Get unique villages for the selected block and count artists in each
-    const villageMap = new Map<string, number>();
+    // Get unique addresses for the selected block and count artists in each
+    const addressMap = new Map<string, number>();
     artists.filter(a => a.block === selectedBlock).forEach(a => {
-      const v = a.village || 'Unknown';
-      villageMap.set(v, (villageMap.get(v) || 0) + 1);
+      const v = a.address || 'Unknown';
+      addressMap.set(v, (addressMap.get(v) || 0) + 1);
     });
-    return Array.from(villageMap.entries()).map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count);
+    return Array.from(addressMap.entries()).map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count);
   }, [artists, selectedBlock]);
 
   // Reset to page 1 whenever filters change
-  useEffect(() => { setCurrentPage(1); }, [searchTerm, selectedBlock, selectedVillage, selectedCategory]);
+  useEffect(() => { setCurrentPage(1); }, [searchTerm, selectedBlock, selectedAddress, selectedCategory]);
 
   const totalPages = Math.ceil(filteredArtists.length / PAGE_SIZE);
   const pagedArtists = filteredArtists.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
@@ -572,7 +572,7 @@ const MeetTheArtistPage: React.FC = () => {
 
   const handleClearFilters = () => {
     setSelectedBlock('Hingalganj');
-    setSelectedVillage(null);
+    setSelectedAddress(null);
     setSelectedCategory(null);
     setSearchTerm('');
 
@@ -660,7 +660,7 @@ const MeetTheArtistPage: React.FC = () => {
         {/* Sidebar filters */}
         <aside className="lg:w-64 shrink-0 space-y-8 lg:sticky lg:top-28 lg:self-start">
           {/* Clear filters moved to top */}
-          {(selectedBlock !== 'Hingalganj' || selectedCategory || searchTerm || selectedVillage) && (
+          {(selectedBlock !== 'Hingalganj' || selectedCategory || searchTerm || selectedAddress) && (
             <button
               onClick={handleClearFilters}
               className="w-full text-center text-xs text-[#CB460C] font-bold uppercase tracking-widest py-3 border border-[#CB460C]/30 rounded-full hover:bg-[#CB460C] hover:text-white transition-all shadow-sm"
@@ -679,7 +679,7 @@ const MeetTheArtistPage: React.FC = () => {
             <div className="space-y-6">
               {ARTIST_BLOCKS.map(block => {
                 const isActive = selectedBlock === block;
-                const villages = isActive ? villagesInBlock : [];
+                const addresses = isActive ? addressesInBlock : [];
 
                 return (
                   <div key={block} className="space-y-3">
@@ -689,22 +689,22 @@ const MeetTheArtistPage: React.FC = () => {
                       className="w-full flex items-center justify-between px-5 py-3 rounded-2xl border bg-[#F7EAE5] border-[#CB460C]/20 text-[#CB460C] shadow-sm relative group/block cursor-pointer hover:bg-[#F7EAE5]/80 transition-all"
                     >
                       <span className="font-bold text-sm tracking-wide">{block}</span>
-                      
+
                       {/* The Dropdown Arrow with Coming Soon interaction */}
                       <div className="relative flex items-center group/arrow">
-                        <div 
+                        <div
                           className={`w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#CB460C]/10 transition-all duration-300 ${isActive ? 'rotate-180' : ''}`}
                         >
                           <IconChevronDown className="text-[#CB460C]" />
                         </div>
-                        
+
                         {/* Coming Soon "Modal" Overlay on Hover arrow */}
                         <div className="absolute right-full top-1/2 -translate-y-1/2 mr-3 opacity-0 group-hover/arrow:opacity-100 transition-all duration-300 pointer-events-none z-50">
                           <div className="bg-[#1a1005] text-white px-4 py-2.5 rounded-xl shadow-2xl border border-white/10 whitespace-nowrap flex items-center gap-2">
-                             <div className="w-1.5 h-1.5 rounded-full bg-[#CB460C] animate-pulse" />
-                             <span className="text-[10px] font-bold uppercase tracking-[0.1em]">
-                               {language === 'EN' ? 'Other blocks coming soon' : 'অন্যান্য ব্লক শীঘ্রই আসছে'}
-                             </span>
+                            <div className="w-1.5 h-1.5 rounded-full bg-[#CB460C] animate-pulse" />
+                            <span className="text-[10px] font-bold uppercase tracking-[0.1em]">
+                              {language === 'EN' ? 'Other blocks coming soon' : 'অন্যান্য ব্লক শীঘ্রই আসছে'}
+                            </span>
                           </div>
                           {/* Triangle pointer */}
                           <div className="absolute top-1/2 -translate-y-1/2 left-full w-2 h-2 bg-[#1a1005] rotate-45 border-r border-t border-white/10 -ml-1" />
@@ -712,20 +712,20 @@ const MeetTheArtistPage: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Villages List (Always show for the active block) */}
-                    {isActive && villages.length > 0 && (
+                    {/* Addresses List (Always show for the active block) */}
+                    {isActive && addresses.length > 0 && (
                       <div className="pl-6 space-y-1 relative mt-3">
                         <div className="absolute left-[35.5px] top-4 bottom-4 w-px bg-[#CB460C]/20" />
-                        {villages.map((v, i) => (
+                        {addresses.map((v, i) => (
                           <button
                             key={i}
-                            onClick={() => setSelectedVillage(selectedVillage === v.name ? null : v.name)}
+                            onClick={() => setSelectedAddress(selectedAddress === v.name ? null : v.name)}
                             className="group flex items-center gap-4 py-2 text-left w-full focus:outline-none"
                           >
-                            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold z-10 border transition-all ${selectedVillage === v.name ? 'bg-[#CB460C] text-white border-[#CB460C]' : 'bg-[#F7EAE5] text-[#CB460C] border-[#CB460C]/20 group-hover:bg-[#CB460C]/10'}`}>
+                            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold z-10 border transition-all ${selectedAddress === v.name ? 'bg-[#CB460C] text-white border-[#CB460C]' : 'bg-[#F7EAE5] text-[#CB460C] border-[#CB460C]/20 group-hover:bg-[#CB460C]/10'}`}>
                               {v.count}
                             </div>
-                            <span className={`text-sm tracking-wide transition-colors ${selectedVillage === v.name ? 'text-[#CB460C] font-semibold' : 'text-[#a89080] group-hover:text-[#6b5b4f]'}`}>
+                            <span className={`text-sm tracking-wide transition-colors ${selectedAddress === v.name ? 'text-[#CB460C] font-semibold' : 'text-[#a89080] group-hover:text-[#6b5b4f]'}`}>
                               {v.name}
                             </span>
                           </button>
