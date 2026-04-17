@@ -390,21 +390,22 @@ const ArchivePage: React.FC = () => {
 
               {/* Pagination Controls */}
               {!isLoading && totalPages > 1 && (
-                <div className="mt-16 pt-8 border-t border-border/20 flex items-center justify-center gap-8">
+                <div className="mt-16 pt-8 border-t border-border/20 flex items-center justify-center gap-2 sm:gap-8">
                   <button
                     onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                     disabled={currentPage === 1}
-                    className="px-6 py-2 rounded-full border border-border/40 hover:bg-white text-[10px] font-bold uppercase tracking-widest disabled:opacity-20 transition-all flex items-center gap-2 group"
+                    className="p-2 sm:px-6 sm:py-2 rounded-full border border-border/40 hover:bg-white text-[10px] font-bold uppercase tracking-widest disabled:opacity-20 transition-all flex items-center gap-2 group"
+                    aria-label="Previous page"
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                    Prev
+                    <span className="hidden sm:inline">Prev</span>
                   </button>
 
-                  <div className="flex items-center gap-1 sm:gap-2 flex-wrap justify-center">
+                  <div className="flex items-center gap-1 sm:gap-2 justify-center">
                     {getPaginationGroup().map((page, i) => {
                       if (page === '...') {
                         return (
-                          <span key={`ellipsis-${i}`} className="w-8 h-8 flex items-center justify-center text-ink-subtle/50 text-xs font-bold font-display">
+                          <span key={`ellipsis-${i}`} className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-ink-subtle/50 text-[10px] font-bold font-display">
                             ...
                           </span>
                         );
@@ -413,7 +414,7 @@ const ArchivePage: React.FC = () => {
                         <button
                           key={i}
                           onClick={() => setCurrentPage(page as number)}
-                          className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold transition-all ${currentPage === page ? 'bg-[#CB460C] text-white shadow-md' : 'text-[#6b5b4f] hover:bg-white border border-transparent hover:border-[#CB460C]/20 hover:text-[#CB460C]'}`}
+                          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[10px] font-bold transition-all ${currentPage === page ? 'bg-[#CB460C] text-white shadow-md' : 'text-[#6b5b4f] hover:bg-white border border-transparent hover:border-[#CB460C]/20 hover:text-[#CB460C]'}`}
                         >
                           {page}
                         </button>
@@ -424,9 +425,10 @@ const ArchivePage: React.FC = () => {
                   <button
                     onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
                     disabled={currentPage === totalPages}
-                    className="px-6 py-2 rounded-full border border-border/40 hover:bg-white text-[10px] font-bold uppercase tracking-widest disabled:opacity-20 transition-all flex items-center gap-2 group"
+                    className="p-2 sm:px-6 sm:py-2 rounded-full border border-border/40 hover:bg-white text-[10px] font-bold uppercase tracking-widest disabled:opacity-20 transition-all flex items-center gap-2 group"
+                    aria-label="Next page"
                   >
-                    Next
+                    <span className="hidden sm:inline">Next</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                   </button>
                 </div>
