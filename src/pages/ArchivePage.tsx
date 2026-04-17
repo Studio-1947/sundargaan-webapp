@@ -116,18 +116,26 @@ const ArchivePage: React.FC = () => {
     return pages;
   };
 
-  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    if (!isDashboardFullscreen && !hasAutoTriggered && e.currentTarget.scrollTop > 350) {
-      setHasAutoTriggered(true);
-      setIsDashboardFullscreen(true);
-    }
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      // Trigger fullscreen when scrolling down past 350px
+      if (!isDashboardFullscreen && !hasAutoTriggered && window.scrollY > 350) {
+        setHasAutoTriggered(true);
+        setIsDashboardFullscreen(true);
+      } 
+      // Re-arm trigger when successfully scrolled back to the absolute top
+      else if (hasAutoTriggered && window.scrollY < 200) {
+        setHasAutoTriggered(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isDashboardFullscreen, hasAutoTriggered]);
 
   const handleExitFullscreen = () => {
     setIsDashboardFullscreen(false);
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    // Smoothly scroll the master window back to top since we are using native scrolling
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
 
@@ -143,7 +151,7 @@ const ArchivePage: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`w-full mx-auto min-h-screen text-ink overflow-hidden flex flex-col relative ${isDashboardFullscreen ? 'z-[100]' : 'z-20'}`}
+        className={`w-full mx-auto min-h-screen text-ink flex flex-col relative ${isDashboardFullscreen ? 'z-[100]' : 'z-20'}`}
       >
         {/* Integrated Header */}
         <header className="px-6 sm:px-12 pt-28 pb-10 flex flex-col gap-8 sm:flex-row items-center justify-between bg-white relative z-30 border-b border-border/10">
@@ -165,11 +173,10 @@ const ArchivePage: React.FC = () => {
           </div>
         </header>
 
-        {/* Scrollable Container for Top Cards + Dashboard Split */}
+        {/* Main Page Flow Container (Native Scroll) */}
         <div 
           ref={scrollContainerRef}
-          onScroll={handleScroll}
-          className="flex-1 overflow-y-auto custom-scrollbar flex flex-col min-h-0"
+          className="flex-1 flex flex-col"
         >
 
           {/* NEW: Top CTA Cards Row */}
@@ -206,9 +213,11 @@ const ArchivePage: React.FC = () => {
 
           {/* Content Body Wrapper */}
           <div className={`flex flex-col md:flex-row transition-all duration-500 ease-in-out ${isDashboardFullscreen ? 'fixed inset-0 z-[100] bg-[#F7EAE5] overflow-y-auto' : 'flex-1 min-h-0 bg-white/20 relative z-10'}`}>
-            {/* Sticky Sidebar */}
-            <aside className={`w-full md:w-80 border-b md:border-b-0 md:border-r border-border/10 bg-white/60 backdrop-blur-xl z-10 shrink-0 md:sticky md:top-0 md:self-start ${isDashboardFullscreen ? 'md:h-screen' : 'md:h-[calc(100vh-100px)]'}`}>
-              <div className="p-8 sm:p-10 md:p-14 h-full flex flex-col overflow-y-auto no-scrollbar space-y-10">
+            {/* Sidebar Wrapper (Full Height Styling) */}
+            <div className="w-full md:w-80 border-b md:border-b-0 md:border-r border-border/10 bg-white/60 backdrop-blur-xl z-20 shrink-0 transition-all">
+              {/* Sticky Content Area */}
+              <aside className={`w-full h-full md:sticky md:self-start transition-all ${isDashboardFullscreen ? 'md:top-0 md:h-screen' : 'md:top-32 md:h-[calc(100vh-8rem)]'}`}>
+                <div className="p-8 sm:p-10 md:p-14 h-full flex flex-col overflow-y-auto no-scrollbar space-y-10">
                 {/* Clear Filters */}
                 {(activeLocation !== null || activeSubcategory !== null) && (
                   <button
@@ -328,6 +337,7 @@ const ArchivePage: React.FC = () => {
                 </div>
               </div>
             </aside>
+          </div>
 
             {/* Grid Content Area */}
             <main className="flex-1 p-8 sm:p-12 md:p-20 bg-[#F7EAE5]/30">
