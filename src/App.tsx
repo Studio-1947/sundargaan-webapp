@@ -8,6 +8,7 @@ import MeetTheArtistPage from './pages/MeetTheArtistPage'
 import AboutPage from './pages/AboutPage'
 import AdminUploadsPage from './pages/AdminUploadsPage'
 import { LanguageProvider } from './context/LanguageContext'
+import ScrollToTop from './components/layout/ScrollToTop'
 
 function SiteLayout() {
   return (
@@ -39,6 +40,7 @@ function App() {
   return (
     <LanguageProvider>
       <Router>
+        <ScrollToTop />
         <AppRoutes />
       </Router>
     </LanguageProvider>
