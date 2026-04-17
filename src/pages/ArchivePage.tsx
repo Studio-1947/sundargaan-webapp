@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ARCHIVE_CATEGORIES, MOCK_ARCHIVE_ITEMS, ArchiveItem } from '../data/archiveData';
+import { ARTIST_CATEGORIES } from '../data/artistData';
 import logoCol from '../assets/sundargaan_logo_col.svg';
 import { getArchiveItems, getArchiveFilters } from '../api/archive';
 
@@ -37,7 +38,6 @@ const ArchivePage: React.FC = () => {
   const [activeBlock, setActiveBlock] = useState<string | null>('Hingalganj');
   const [activeLocation, setActiveLocation] = useState<string | null>(null);
   const [locations, setLocations] = useState<string[]>([]);
-  const [subcategories, setSubcategories] = useState<string[]>([]);
   const [selectedItem, setSelectedItem] = useState<ArchiveItem | null>(null);
   const [archiveItems, setArchiveItems] = useState<ArchiveItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,7 +53,7 @@ const ArchivePage: React.FC = () => {
     getArchiveFilters('artists')
       .then(res => {
         setLocations(res.locations);
-        setSubcategories(res.subcategories);
+        // setSubcategories(res.subcategories);
       })
       .catch(err => console.error('Failed to fetch filters:', err));
   }, [activeCategory]);
@@ -150,7 +150,7 @@ const ArchivePage: React.FC = () => {
         </header>
 
         {/* Main Page Flow Container (Native Scroll) */}
-        <div 
+        <div
           ref={scrollContainerRef}
           className="flex-1 flex flex-col"
         >
@@ -172,7 +172,7 @@ const ArchivePage: React.FC = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
-                  
+
                   {/* Text & About */}
                   <div className="flex flex-col gap-3 p-8 sm:p-10 grow">
                     <h3 className="text-ink font-display text-2xl xl:text-3xl font-medium tracking-tight group-hover:text-brand-primary transition-colors">
@@ -194,126 +194,126 @@ const ArchivePage: React.FC = () => {
               {/* Sticky Content Area */}
               <aside className={`w-full h-full md:sticky md:self-start transition-all ${isDashboardFullscreen ? 'md:top-0 md:h-screen' : 'md:top-32 md:h-[calc(100vh-8rem)]'}`}>
                 <div className="p-8 sm:p-10 md:p-14 h-full flex flex-col overflow-y-auto no-scrollbar space-y-10">
-                {/* Clear Filters */}
-                {(activeLocation !== null || activeSubcategory !== null) && (
-                  <button
-                    onClick={() => { setActiveLocation(null); setActiveSubcategory(null); }}
-                    className="w-full text-center text-xs text-[#CB460C] font-bold uppercase tracking-widest py-3 border border-[#CB460C]/30 rounded-full hover:bg-[#CB460C] hover:text-white transition-all shadow-sm"
-                  >
-                    Clear all filters
-                  </button>
-                )}
-
-                {/* Location Filter */}
-                <div className="space-y-4">
-                  <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#a89080] px-2 mb-2">
-                    Location
-                  </h3>
-                  <div className="space-y-6">
-                    {['Hingalganj'].map(block => {
-                      const isActive = activeBlock === block;
-
-                      return (
-                        <div key={block} className="space-y-3">
-                          {/* Block Header / Dropdown Trigger */}
-                          <div
-                            onClick={() => setActiveBlock(isActive ? null : block)}
-                            className="w-full flex items-center justify-between px-5 py-3 rounded-2xl border bg-[#F7EAE5] border-[#CB460C]/20 text-[#CB460C] shadow-sm relative group/block cursor-pointer hover:bg-[#F7EAE5]/80 transition-all"
-                          >
-                            <span className="font-bold text-sm tracking-wide">{block}</span>
-
-                            <div className="relative flex items-center group/arrow">
-                              <div
-                                className={`w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#CB460C]/10 transition-all duration-300 ${isActive ? 'rotate-180' : ''}`}
-                              >
-                                <IconChevronDown className="text-[#CB460C]" />
-                              </div>
-
-                              <div className="absolute right-0 top-full mt-3 opacity-0 group-hover/arrow:opacity-100 transition-all duration-300 pointer-events-none z-50">
-                                <div className="bg-[#1a1005] text-white px-4 py-2.5 rounded-xl shadow-2xl border border-white/10 whitespace-nowrap flex items-center gap-2">
-                                  <div className="w-1.5 h-1.5 rounded-full bg-[#CB460C] animate-pulse" />
-                                  <span className="text-[10px] font-bold uppercase tracking-[0.1em]">
-                                    Other blocks coming soon
-                                  </span>
-                                </div>
-                                <div className="absolute bottom-full right-3 w-2 h-2 bg-[#1a1005] rotate-45 border-t border-l border-white/10 -mb-1" />
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Locations List (Always show for the active block) */}
-                          {isActive && locations.length > 0 && (
-                            <div className="pl-6 space-y-1 relative mt-3">
-                              <div className="absolute left-[35.5px] top-4 bottom-4 w-px bg-[#CB460C]/20" />
-                              {locations.map((loc, i) => (
-                                <button
-                                  key={i}
-                                  onClick={() => setActiveLocation(activeLocation === loc ? null : loc)}
-                                  className="group flex items-center gap-4 py-2 text-left w-full focus:outline-none"
-                                >
-                                  <div className={`w-6 h-6 rounded-full flex items-center justify-center z-10 border transition-all ${activeLocation === loc ? 'bg-[#CB460C] border-[#CB460C]' : 'bg-[#F7EAE5] border-[#CB460C]/20 group-hover:bg-[#CB460C]/10'}`}>
-                                    <div className={`w-2 h-2 rounded-full ${activeLocation === loc ? 'bg-white' : 'bg-[#CB460C]'}`} />
-                                  </div>
-                                  <span className={`text-sm tracking-wide transition-colors ${activeLocation === loc ? 'text-[#CB460C] font-semibold' : 'text-[#a89080] group-hover:text-[#6b5b4f]'}`}>
-                                    {loc}
-                                  </span>
-                                </button>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Genre Filter */}
-                <div className="space-y-4">
-                  <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#a89080] px-2 mb-2">
-                    Select Genre
-                  </h3>
-                  <div className="grid grid-cols-2 gap-2">
+                  {/* Clear Filters */}
+                  {(activeLocation !== null || activeSubcategory !== null) && (
                     <button
-                      onClick={() => setActiveSubcategory(null)}
-                      className={`flex items-center gap-2 px-3 py-3 rounded-xl border transition-all ${activeSubcategory === null
-                        ? 'bg-[#CB460C] border-[#CB460C] text-white shadow-md'
-                        : 'bg-white border-[#e5d5cd] text-[#4a3b33] hover:bg-[#F7EAE5]'
-                        }`}
+                      onClick={() => { setActiveLocation(null); setActiveSubcategory(null); }}
+                      className="w-full text-center text-xs text-[#CB460C] font-bold uppercase tracking-widest py-3 border border-[#CB460C]/30 rounded-full hover:bg-[#CB460C] hover:text-white transition-all shadow-sm"
                     >
-                      <div className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${activeSubcategory === null ? 'border-white' : 'border-[#CB460C]'}`}>
-                        {activeSubcategory === null && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
-                      </div>
-                      <span className="text-[10px] font-bold truncate uppercase tracking-wider">All Genres</span>
+                      Clear all filters
                     </button>
+                  )}
 
-                    {subcategories.map(sub => (
+                  {/* Location Filter */}
+                  <div className="space-y-4">
+                    <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#a89080] px-2 mb-2">
+                      Location
+                    </h3>
+                    <div className="space-y-6">
+                      {['Hingalganj'].map(block => {
+                        const isActive = activeBlock === block;
+
+                        return (
+                          <div key={block} className="space-y-3">
+                            {/* Block Header / Dropdown Trigger */}
+                            <div
+                              onClick={() => setActiveBlock(isActive ? null : block)}
+                              className="w-full flex items-center justify-between px-5 py-3 rounded-2xl border bg-[#F7EAE5] border-[#CB460C]/20 text-[#CB460C] shadow-sm relative group/block cursor-pointer hover:bg-[#F7EAE5]/80 transition-all"
+                            >
+                              <span className="font-bold text-sm tracking-wide">{block}</span>
+
+                              <div className="relative flex items-center group/arrow">
+                                <div
+                                  className={`w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#CB460C]/10 transition-all duration-300 ${isActive ? 'rotate-180' : ''}`}
+                                >
+                                  <IconChevronDown className="text-[#CB460C]" />
+                                </div>
+
+                                <div className="absolute right-0 top-full mt-3 opacity-0 group-hover/arrow:opacity-100 transition-all duration-300 pointer-events-none z-50">
+                                  <div className="bg-[#1a1005] text-white px-4 py-2.5 rounded-xl shadow-2xl border border-white/10 whitespace-nowrap flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[#CB460C] animate-pulse" />
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.1em]">
+                                      Other blocks coming soon
+                                    </span>
+                                  </div>
+                                  <div className="absolute bottom-full right-3 w-2 h-2 bg-[#1a1005] rotate-45 border-t border-l border-white/10 -mb-1" />
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Locations List (Always show for the active block) */}
+                            {isActive && locations.length > 0 && (
+                              <div className="pl-6 space-y-1 relative mt-3">
+                                <div className="absolute left-[35.5px] top-4 bottom-4 w-px bg-[#CB460C]/20" />
+                                {locations.map((loc, i) => (
+                                  <button
+                                    key={i}
+                                    onClick={() => setActiveLocation(activeLocation === loc ? null : loc)}
+                                    className="group flex items-center gap-4 py-2 text-left w-full focus:outline-none"
+                                  >
+                                    <div className={`w-6 h-6 rounded-full flex items-center justify-center z-10 border transition-all ${activeLocation === loc ? 'bg-[#CB460C] border-[#CB460C]' : 'bg-[#F7EAE5] border-[#CB460C]/20 group-hover:bg-[#CB460C]/10'}`}>
+                                      <div className={`w-2 h-2 rounded-full ${activeLocation === loc ? 'bg-white' : 'bg-[#CB460C]'}`} />
+                                    </div>
+                                    <span className={`text-sm tracking-wide transition-colors ${activeLocation === loc ? 'text-[#CB460C] font-semibold' : 'text-[#a89080] group-hover:text-[#6b5b4f]'}`}>
+                                      {loc}
+                                    </span>
+                                  </button>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Genre Filter */}
+                  <div className="space-y-4">
+                    <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#a89080] px-2 mb-2">
+                      Select Genre
+                    </h3>
+                    <div className="grid grid-cols-2 gap-2">
                       <button
-                        key={sub}
-                        onClick={() => setActiveSubcategory(sub)}
-                        className={`flex items-center gap-2 px-3 py-3 rounded-xl border transition-all ${activeSubcategory === sub
+                        onClick={() => setActiveSubcategory(null)}
+                        className={`flex items-center gap-2 px-3 py-3 rounded-xl border transition-all ${activeSubcategory === null
                           ? 'bg-[#CB460C] border-[#CB460C] text-white shadow-md'
                           : 'bg-white border-[#e5d5cd] text-[#4a3b33] hover:bg-[#F7EAE5]'
                           }`}
                       >
-                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${activeSubcategory === sub ? 'border-white' : 'border-[#CB460C]'}`}>
-                          {activeSubcategory === sub && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${activeSubcategory === null ? 'border-white' : 'border-[#CB460C]'}`}>
+                          {activeSubcategory === null && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
                         </div>
-                        <span className="text-[10px] font-bold truncate uppercase tracking-wider">{sub}</span>
+                        <span className="text-[10px] font-bold truncate uppercase tracking-wider">All Genres</span>
                       </button>
-                    ))}
-                  </div>
-                </div>
 
-                <div className="mt-auto pt-10 hidden md:block">
-                  <div className="p-8 rounded-[2.5rem] bg-brand-primary/5 border border-brand-primary/10">
-                    <p className="text-[10px] text-brand-primary font-bold uppercase tracking-[0.2em] mb-4">Support the Archive</p>
-                    <p className="text-xs text-ink/60 leading-relaxed mb-6">Your contributions help us document and preserve the vanishing heritage of the delta.</p>
-                    <button className="w-full py-3 bg-brand-primary text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-brand-secondary transition-colors">Donate Now</button>
+                      {ARTIST_CATEGORIES.map(cat => (
+                        <button
+                          key={cat.id}
+                          onClick={() => setActiveSubcategory(cat.id)}
+                          className={`flex items-center gap-2 px-3 py-3 rounded-xl border transition-all ${activeSubcategory === cat.id
+                            ? 'bg-[#CB460C] border-[#CB460C] text-white shadow-md'
+                            : 'bg-white border-[#e5d5cd] text-[#4a3b33] hover:bg-[#F7EAE5]'
+                            }`}
+                        >
+                          <div className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${activeSubcategory === cat.id ? 'border-white' : 'border-[#CB460C]'}`}>
+                            {activeSubcategory === cat.id && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                          </div>
+                          <span className="text-[10px] font-bold truncate uppercase tracking-wider">{cat.en}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-auto pt-10 hidden md:block">
+                    <div className="p-8 rounded-[2.5rem] bg-brand-primary/5 border border-brand-primary/10">
+                      <p className="text-[10px] text-brand-primary font-bold uppercase tracking-[0.2em] mb-4">Support the Archive</p>
+                      <p className="text-xs text-ink/60 leading-relaxed mb-6">Your contributions help us document and preserve the vanishing heritage of the delta.</p>
+                      <button className="w-full py-3 bg-brand-primary text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-brand-secondary transition-colors">Donate Now</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </aside>
-          </div>
+              </aside>
+            </div>
 
             {/* Grid Content Area */}
             <main className="flex-1 p-8 sm:p-12 md:p-20 bg-[#F7EAE5]/30">
@@ -323,12 +323,12 @@ const ArchivePage: React.FC = () => {
                   <span>Collections</span>
                   <span className="h-[1px] w-12 sm:w-20 bg-border/40" />
                 </h2>
-                
+
                 <div className="flex items-center gap-4 sm:gap-6">
                   <div className="text-[10px] text-ink-subtle uppercase tracking-widest font-bold hidden md:block">
                     Showing {filteredItems.length} Records
                   </div>
-                  
+
                   {/* Fullscreen Mode Toggle */}
                   <button
                     onClick={() => setIsDashboardFullscreen(!isDashboardFullscreen)}
@@ -540,3 +540,5 @@ const ArchivePage: React.FC = () => {
 };
 
 export default ArchivePage;
+
+
