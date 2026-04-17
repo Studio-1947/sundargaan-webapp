@@ -546,28 +546,7 @@ const ArchivePage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Bottom Row: Contextual Images */}
-                  <div className="space-y-8 pt-12 border-t border-border/10">
-                    <div className="flex items-center justify-between">
-                      <h5 className="text-[12px] text-ink-subtle uppercase tracking-[0.3em] font-bold">Contextual Documentation</h5>
-                      <div className="h-[1px] flex-1 bg-border/20 mx-8 hidden sm:block" />
-                    </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-10">
-                      {[...Array(4)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          whileHover={{ scale: 1.02 }}
-                          className="aspect-[4/3] bg-surface-warm rounded-[2rem] overflow-hidden group border border-border/10 cursor-zoom-in"
-                        >
-                          <img
-                            src={`https://picsum.photos/seed/${selectedItem.id}-${i}/600`}
-                            alt="related documentation"
-                            className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"
-                          />
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
+
                 </div>
               </div>
             </motion.div>
