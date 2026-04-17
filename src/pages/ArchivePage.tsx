@@ -16,6 +16,12 @@ const guessGender = (name: string): 'Male' | 'Female' => {
   return 'Male';
 };
 
+const CATEGORY_DESCRIPTIONS: Record<string, string> = {
+  'artefacts': 'Explore physical objects, instruments, and traditional tools from the delta.',
+  'artists': 'Discover the master craftsmen, performers, and bearers of our traditions.',
+  'art-forms': 'Dive into the sacred music, dance, and rituals that define the culture.'
+};
+
 const IconChevronDown = ({ className }: { className?: string }) => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <polyline points="6 9 12 15 18 9" />
@@ -130,25 +136,24 @@ const ArchivePage: React.FC = () => {
               {ARCHIVE_CATEGORIES.map((cat) => (
                 <div
                   key={cat.id}
-                  className="group relative h-48 sm:h-56 xl:h-64 rounded-[3rem] overflow-hidden border border-white bg-white/40 shadow-xl transition-all duration-700 hover:shadow-2xl hover:border-white/80"
+                  className="w-full flex flex-col gap-6"
                 >
-                  <div className="absolute inset-0">
+                  {/* Artwork */}
+                  <div className="w-full aspect-video rounded-[2.5rem] overflow-hidden border border-border/20 shadow-sm bg-surface-warm shrink-0">
                     <img
                       src={cat.image}
                       alt={cat.label}
-                      className="w-full h-full object-cover grayscale opacity-40 transition-all duration-1000 group-hover:scale-105"
+                      className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-white via-white/50 to-transparent" />
                   </div>
-                  <div className="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end">
-                    <span className="text-brand-primary text-[9px] font-bold uppercase tracking-[0.4em] mb-2 opacity-70">
-                      Archive Category
-                    </span>
-                    <h3 className="text-ink font-display text-2xl xl:text-3xl leading-tight font-medium">
+                  
+                  {/* Text & About */}
+                  <div className="flex flex-col gap-3 px-2">
+                    <h3 className="text-ink font-display text-2xl xl:text-3xl font-medium tracking-tight">
                       {cat.label}
                     </h3>
-                    <p className="text-ink/40 text-[9px] font-bold uppercase tracking-[0.2em] mt-2">
-                      {cat.id === 'artists' ? 'Active Collection' : 'Coming Soon'}
+                    <p className="text-ink/60 text-sm font-body leading-relaxed pr-4">
+                      {CATEGORY_DESCRIPTIONS[cat.id]}
                     </p>
                   </div>
                 </div>

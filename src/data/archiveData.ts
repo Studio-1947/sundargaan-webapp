@@ -24,19 +24,19 @@ export interface ArchiveItem {
 export const ARCHIVE_CATEGORIES = [
   {
     id: 'artefacts',
-    label: 'Cultural Artefacts',
+    label: 'Artifacts',
     subcategories: ['Basi', 'Dotara', 'Traditional Tools', 'Handicrafts'],
     image: artefactsHero
   },
   {
     id: 'artists',
-    label: "Local Artists",
+    label: 'Artists',
     subcategories: ['Kalitala', 'Jogeshganj', 'Gobindakati', 'Sandelerbil', 'Sahebkhali', 'Durgamandap'],
     image: artistsHero
   },
   {
     id: 'art-forms',
-    label: 'Sacred Art Forms',
+    label: 'Genre',
     subcategories: ['Bhatiyali', 'Baul', 'Palagan', 'Jhumur', 'Tusu', 'Folk Song'],
     image: artFormsHero
   }
