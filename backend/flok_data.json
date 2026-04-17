@@ -1,26 +1,26 @@
 {
-  "total": 243,
+  "total": 490,
   "artists": [
     {
       "id": 1,
       "name": "Probir Mondal",
       "gram_panchayat": "Kalitala",
       "age": 51,
-      "category": "Bhatiyati"
+      "category": "Bhatiyali"
     },
     {
       "id": 2,
       "name": "Palas Mondal",
       "gram_panchayat": "Kalitala",
       "age": 57,
-      "category": "Bhatiyati"
+      "category": "Bhatiyali"
     },
     {
       "id": 3,
       "name": "Nibha Mondal",
       "gram_panchayat": "Kalitala",
       "age": 47,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 4,
@@ -132,7 +132,7 @@
       "name": "Sneha Mondal",
       "gram_panchayat": "Kalitala",
       "age": 12,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 20,
@@ -153,7 +153,7 @@
       "name": "Pinki Mondal",
       "gram_panchayat": "Kalitala",
       "age": 20,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 23,
@@ -188,14 +188,14 @@
       "name": "Arati Singh",
       "gram_panchayat": "Jogeshganj",
       "age": 55,
-      "category": "Tushar"
+      "category": "Tusu"
     },
     {
       "id": 28,
       "name": "Tapas Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 44,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 29,
@@ -209,14 +209,14 @@
       "name": "Rabindranath Baulia",
       "gram_panchayat": "Kalitala",
       "age": 53,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 31,
       "name": "Kanika Bauliya",
       "gram_panchayat": "Kalitala",
       "age": 43,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 32,
@@ -237,7 +237,7 @@
       "name": "Durbarani Mondal",
       "gram_panchayat": "Gobindakati",
       "age": 50,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 35,
@@ -398,7 +398,7 @@
       "name": "Bikash Munda",
       "gram_panchayat": "Gobindakati",
       "age": 50,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 58,
@@ -412,7 +412,7 @@
       "name": "Karthik Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 41,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 60,
@@ -433,35 +433,35 @@
       "name": "Shibapada Mondal",
       "gram_panchayat": "Kalitala",
       "age": 45,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 63,
       "name": "Rupali Sarkar",
       "gram_panchayat": "Jogeshganj",
       "age": 35,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 64,
       "name": "Prasanta Mondal",
       "gram_panchayat": "Kalitala",
       "age": 45,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 65,
       "name": "Sulata Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 37,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 66,
       "name": "Nirapada Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 45,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 67,
@@ -489,7 +489,7 @@
       "name": "Swapan Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 47,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 71,
@@ -559,7 +559,7 @@
       "name": "Anima Munda",
       "gram_panchayat": "Gobindakati",
       "age": 54,
-      "category": "Jhumur/Tushu"
+      "category": "Jhumur/Tusu"
     },
     {
       "id": 81,
@@ -594,14 +594,14 @@
       "name": "Meghnath Barman",
       "gram_panchayat": "Gobindakati",
       "age": 57,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 86,
       "name": "Kalpana Barman",
       "gram_panchayat": "Gobindakati",
       "age": 52,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 87,
@@ -615,56 +615,56 @@
       "name": "Suvash Baidya",
       "gram_panchayat": "Kalitala",
       "age": 52,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 89,
       "name": "Debi Bir",
       "gram_panchayat": "Kalitala",
       "age": 37,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 90,
       "name": "Braja Mondal",
       "gram_panchayat": "Kalitala",
       "age": 50,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 91,
       "name": "Kalipada Bir",
       "gram_panchayat": "Kalitala",
       "age": 40,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 92,
       "name": "Pramila Mondal",
       "gram_panchayat": "Kalitala",
       "age": 55,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 93,
       "name": "Jayanti Munda",
       "gram_panchayat": "Gobindakati",
       "age": 26,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 94,
       "name": "Kabita Munda",
       "gram_panchayat": "Gobindakati",
       "age": 28,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 95,
       "name": "Uma Munda",
       "gram_panchayat": "Gobindakati",
       "age": 19,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 96,
@@ -720,77 +720,77 @@
       "name": "Gouranga Mondal",
       "gram_panchayat": "Kalitala",
       "age": 46,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 104,
       "name": "Kamalesh Mondal",
       "gram_panchayat": "Kalitala",
       "age": 77,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 105,
       "name": "Dinobandhu Baidya",
       "gram_panchayat": "Kalitala",
       "age": 70,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 106,
       "name": "Krishnapada Mondal",
       "gram_panchayat": "Kalitala",
       "age": 78,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 107,
       "name": "Kanika Mondal",
       "gram_panchayat": "Kalitala",
       "age": 31,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 108,
       "name": "Sandip Baidya",
       "gram_panchayat": "Kalitala",
       "age": 59,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 109,
       "name": "Sagar Bir",
       "gram_panchayat": "Kalitala",
       "age": 14,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 110,
       "name": "Pintu Joddar",
       "gram_panchayat": "Kalitala",
       "age": 45,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 111,
       "name": "Subal Mondal",
       "gram_panchayat": "Kalitala",
       "age": 68,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 112,
       "name": "Prithika Munda",
       "gram_panchayat": "Gobindakati",
       "age": 34,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 113,
       "name": "Pravati Munda",
       "gram_panchayat": "Gobindakati",
       "age": 39,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 114,
@@ -811,91 +811,91 @@
       "name": "Ratan Mondal",
       "gram_panchayat": "Kalitala",
       "age": 44,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 117,
       "name": "Swapan Mistri",
       "gram_panchayat": "Kalitala",
       "age": 34,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 118,
       "name": "Lalita Gantidar",
       "gram_panchayat": "Kalitala",
       "age": 36,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 119,
       "name": "Subrata Mondal",
       "gram_panchayat": "Kalitala",
       "age": 21,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 120,
       "name": "Bankim Mondal",
       "gram_panchayat": "Kalitala",
       "age": 51,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 121,
       "name": "Rampada Mistri",
       "gram_panchayat": "Kalitala",
       "age": 55,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 122,
       "name": "Protiva Mondal",
       "gram_panchayat": "Kalitala",
       "age": 40,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 123,
       "name": "Gobinda Mondal",
       "gram_panchayat": "Kalitala",
       "age": 42,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 124,
       "name": "Tarunkanti Gayen",
       "gram_panchayat": "Kalitala",
       "age": 42,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 125,
       "name": "Gour Chandra Mondal",
       "gram_panchayat": "Kalitala",
       "age": 46,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 126,
       "name": "Kalipada Mondal",
       "gram_panchayat": "Kalitala",
       "age": 77,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 127,
       "name": "Binodini Mondal",
       "gram_panchayat": "Kalitala",
       "age": 34,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 128,
       "name": "Sachhidananda Gayen",
       "gram_panchayat": "Kalitala",
       "age": 31,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 129,
@@ -909,35 +909,35 @@
       "name": "Pijush Gayen",
       "gram_panchayat": "Jogeshganj",
       "age": 48,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 131,
       "name": "Jayanti Das",
       "gram_panchayat": "Jogeshganj",
       "age": 38,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 132,
       "name": "Sachim Singh",
       "gram_panchayat": "Kalitala",
       "age": 58,
-      "category": "Tusugan"
+      "category": "Tusu"
     },
     {
       "id": 133,
       "name": "Nilima Singh",
       "gram_panchayat": "Kalitala",
       "age": 18,
-      "category": "Tusugan"
+      "category": "Tusu"
     },
     {
       "id": 134,
       "name": "Harandra Singh",
       "gram_panchayat": "Kalitala",
       "age": 60,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 135,
@@ -951,21 +951,21 @@
       "name": "Kamala Sing",
       "gram_panchayat": "Kalitala",
       "age": 57,
-      "category": "Tusugan"
+      "category": "Tusu"
     },
     {
       "id": 137,
-      "name": "Baren Singh",
+      "name": "Bren Singh",
       "gram_panchayat": "Kalitala",
       "age": 55,
-      "category": "Tusugan"
+      "category": "Tusu"
     },
     {
       "id": 138,
       "name": "Rina Munda",
       "gram_panchayat": "Kalitala",
       "age": 33,
-      "category": "Tusugan"
+      "category": "Tusu"
     },
     {
       "id": 139,
@@ -993,14 +993,14 @@
       "name": "Durgapada Sardar",
       "gram_panchayat": "Kalitala",
       "age": 75,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 143,
-      "name": "Nitynanda Mandal",
+      "name": "Nitynanda Mondal",
       "gram_panchayat": "Kalitala",
       "age": 38,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 144,
@@ -1011,7 +1011,7 @@
     },
     {
       "id": 145,
-      "name": "Sukumar Mandal",
+      "name": "Sukumar Mondal",
       "gram_panchayat": "Gobindakati",
       "age": 50,
       "category": "Bhatiyali"
@@ -1025,14 +1025,14 @@
     },
     {
       "id": 147,
-      "name": "Tuhina Mandal",
+      "name": "Tuhina Mondal",
       "gram_panchayat": "Gobindakati",
       "age": 23,
       "category": "Bhatiyali"
     },
     {
       "id": 148,
-      "name": "Krishna Mandal",
+      "name": "Krishna Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 17,
       "category": "Bhatiyali"
@@ -1046,14 +1046,14 @@
     },
     {
       "id": 150,
-      "name": "Provash Mandal",
+      "name": "Provash Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 52,
       "category": "Baul"
     },
     {
       "id": 151,
-      "name": "Murari Mandal",
+      "name": "Murari Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 51,
       "category": "Bhatiyali"
@@ -1070,7 +1070,7 @@
       "name": "Saptami Sing",
       "gram_panchayat": "Jogeshganj",
       "age": 13,
-      "category": "Folk Dancer"
+      "category": "Folk Dance"
     },
     {
       "id": 154,
@@ -1081,7 +1081,7 @@
     },
     {
       "id": 155,
-      "name": "Bhujanga Mandal",
+      "name": "Bhujanga Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 51,
       "category": "Baul"
@@ -1098,60 +1098,60 @@
       "name": "Tithi Sing",
       "gram_panchayat": "Jogeshganj",
       "age": 10,
-      "category": "Jhumur Dance"
+      "category": "JhumurDance"
     },
     {
       "id": 158,
       "name": "Priyanka Sing",
       "gram_panchayat": "Jogeshganj",
       "age": 19,
-      "category": "Jhumur Dance"
+      "category": "JhumurDance"
     },
     {
       "id": 159,
       "name": "Surajit Sing",
       "gram_panchayat": "Jogeshganj",
       "age": 21,
-      "category": "Jhumur Dance"
+      "category": "JhumurDance"
     },
     {
       "id": 160,
       "name": "Sumitra Sing",
       "gram_panchayat": "Jogeshganj",
       "age": 57,
-      "category": "Jhumur Dance"
+      "category": "JhumurDance"
     },
     {
       "id": 161,
-      "name": "Jitendra Mandal",
+      "name": "Jitendra Mondal",
       "gram_panchayat": "Gobindakati",
       "age": 51,
       "category": "Bhatiyali"
     },
     {
       "id": 162,
-      "name": "Rabindranath Mandal",
+      "name": "Rabindranath Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 42,
       "category": "Musician"
     },
     {
       "id": 163,
-      "name": "Pulin Mandal",
+      "name": "Pulin Mondal",
       "gram_panchayat": "Kalitala",
       "age": 60,
       "category": "Musician"
     },
     {
       "id": 164,
-      "name": "Suvash mandal",
+      "name": "Suvash Mondal",
       "gram_panchayat": "Kalitala",
       "age": 44,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 165,
-      "name": "Krishnapada Mandal",
+      "name": "Krishnapada Mondal",
       "gram_panchayat": "Kalitala",
       "age": 68,
       "category": "Musician"
@@ -1161,25 +1161,25 @@
       "name": "Madhumita Ghosh",
       "gram_panchayat": "Kalitala",
       "age": 43,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 167,
       "name": "Sujay Paramanya",
       "gram_panchayat": "Jogeshganj",
       "age": 24,
-      "category": "Folk Song"
+      "category": "Folk"
     },
     {
       "id": 168,
       "name": "Dibash Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 42,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 169,
-      "name": "Bablu Mandal",
+      "name": "Bablu Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 47,
       "category": "Musician"
@@ -1203,7 +1203,7 @@
       "name": "Debprasad Gayan",
       "gram_panchayat": "Jogeshganj",
       "age": 46,
-      "category": "Palagan/Bhatiyali"
+      "category": "Palagaan/Bhatiyali"
     },
     {
       "id": 173,
@@ -1217,35 +1217,35 @@
       "name": "Tapan Gayan",
       "gram_panchayat": "Jogeshganj",
       "age": 39,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 175,
       "name": "Chandana Gayan",
       "gram_panchayat": "Jogeshganj",
       "age": 36,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 176,
-      "name": "Sarajit Mandal",
+      "name": "Sarajit Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 43,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 177,
-      "name": "Rabindranath Mandal",
-      "gram_panchayat": "SahebKhali",
+      "name": "Rabindranath Mondal",
+      "gram_panchayat": "Sahebkhali",
       "age": 56,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 178,
-      "name": "Tushar Mandal",
+      "name": "Tusu Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 51,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 179,
@@ -1259,25 +1259,25 @@
       "name": "Aparna Gayan",
       "gram_panchayat": "Jogeshganj",
       "age": 36,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 181,
       "name": "Mobarek Gazi",
       "gram_panchayat": "Jogeshganj",
       "age": 50,
-      "category": "Folk Singer"
+      "category": "Folk"
     },
     {
       "id": 182,
-      "name": "Samiran Mandal",
+      "name": "Samiran Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 49,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 183,
-      "name": "Mithun Mandal",
+      "name": "Mithun Mondal",
       "gram_panchayat": "Durgamandap",
       "age": 35,
       "category": "Musician"
@@ -1291,7 +1291,7 @@
     },
     {
       "id": 185,
-      "name": "Manalisha Mandal",
+      "name": "Manalisha Mondal",
       "gram_panchayat": "Gobindakati",
       "age": 18,
       "category": "Bhatiyali"
@@ -1301,14 +1301,14 @@
       "name": "Chhafer Gari",
       "gram_panchayat": "Gobindakati",
       "age": 71,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 187,
       "name": "Ashok Gayan",
       "gram_panchayat": "Gobindakati",
       "age": 60,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 188,
@@ -1319,21 +1319,21 @@
     },
     {
       "id": 189,
-      "name": "Akshay Mandal",
+      "name": "Akshay Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 24,
       "category": "Musician"
     },
     {
       "id": 190,
-      "name": "Nilima Mandal",
+      "name": "Nilima Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 39,
       "category": "Bhatiyali"
     },
     {
       "id": 191,
-      "name": "Pabitra Mandal",
+      "name": "Pabitra Mondal",
       "gram_panchayat": "Jogeshganj",
       "age": 27,
       "category": "Bhatiyali"
@@ -1341,7 +1341,7 @@
     {
       "id": 192,
       "name": "Gourhari Mistry",
-      "gram_panchayat": "SahebKhali",
+      "gram_panchayat": "Sahebkhali",
       "age": 60,
       "category": "Bhatiyali"
     },
@@ -1364,63 +1364,63 @@
       "name": "Gopal Mondal",
       "gram_panchayat": "Kalitala",
       "age": 28,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 196,
       "name": "Proshanta Mondal",
       "gram_panchayat": "Kalitala",
       "age": 55,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 197,
       "name": "Shyamapada Mistri",
       "gram_panchayat": "Kalitala",
       "age": 46,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 198,
       "name": "Jagadish Gayan",
       "gram_panchayat": "Kalitala",
       "age": 62,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 199,
       "name": "Sujit Kr Mondal",
       "gram_panchayat": "Kalitala",
       "age": 36,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 200,
       "name": "Binde Mondal",
       "gram_panchayat": "Kalitala",
       "age": 46,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 201,
       "name": "Asim Mondal",
       "gram_panchayat": "Kalitala",
       "age": 56,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 202,
       "name": "Nikhil Mondal",
       "gram_panchayat": "Kalitala",
       "age": 35,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 203,
       "name": "Jalil Barkandaj",
       "gram_panchayat": "Kalitala",
       "age": 62,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 204,
@@ -1439,56 +1439,56 @@
     {
       "id": 206,
       "name": "Bimal Biswas",
-      "gram_panchayat": "SahebKhali",
+      "gram_panchayat": "Sahebkhali",
       "age": 49,
       "category": "Bhatiyali"
     },
     {
       "id": 207,
       "name": "Hirulal Biswas",
-      "gram_panchayat": "SahebKhali",
+      "gram_panchayat": "Sahebkhali",
       "age": 28,
       "category": "Musician"
     },
     {
       "id": 208,
       "name": "Bishrupada Biswas",
-      "gram_panchayat": "SahebKhali",
+      "gram_panchayat": "Sahebkhali",
       "age": 47,
       "category": "Musician"
     },
     {
       "id": 209,
       "name": "Ashutosh Biswas",
-      "gram_panchayat": "SahebKhali",
+      "gram_panchayat": "Sahebkhali",
       "age": 26,
       "category": "Musician"
     },
     {
       "id": 210,
       "name": "Provash Ch. Biswas",
-      "gram_panchayat": "SahebKhali",
+      "gram_panchayat": "Sahebkhali",
       "age": 47,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 211,
       "name": "Ranjit Mondal",
-      "gram_panchayat": "SahebKhali",
+      "gram_panchayat": "Sahebkhali",
       "age": 38,
       "category": "Musician"
     },
     {
       "id": 212,
       "name": "Sanjit Mondal",
-      "gram_panchayat": "SahebKhali",
+      "gram_panchayat": "Sahebkhali",
       "age": 50,
       "category": "Musician"
     },
     {
       "id": 213,
       "name": "Khokan Mondal",
-      "gram_panchayat": "SahebKhali",
+      "gram_panchayat": "Sahebkhali",
       "age": 52,
       "category": "Bhatiyali"
     },
@@ -1504,7 +1504,7 @@
       "name": "Amal Mali",
       "gram_panchayat": "Kalitala",
       "age": 52,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 216,
@@ -1539,98 +1539,98 @@
       "name": "Dinobandhu Gayen",
       "gram_panchayat": "Kalitala",
       "age": 59,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 221,
       "name": "Abinash Gayen",
       "gram_panchayat": "Kalitala",
       "age": 66,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 222,
       "name": "Shefali Gayen",
       "gram_panchayat": "Kalitala",
       "age": 52,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 223,
       "name": "Proshanta Mondal",
       "gram_panchayat": "Kalitala",
       "age": 50,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 224,
       "name": "Brojen Mondal",
       "gram_panchayat": "Kalitala",
       "age": 48,
-      "category": "Palagan"
+      "category": "Palagaan"
     },
     {
       "id": 225,
       "name": "Gita Singh",
       "gram_panchayat": "Jogeshganj",
       "age": 50,
-      "category": "Jhumur Dance"
+      "category": "JhumurDance"
     },
     {
       "id": 226,
       "name": "Kalpana Singh",
       "gram_panchayat": "Jogeshganj",
       "age": 42,
-      "category": "Jhumur Dance"
+      "category": "JhumurDance"
     },
     {
       "id": 227,
       "name": "Tithi Singh",
       "gram_panchayat": "Jogeshganj",
       "age": 10,
-      "category": "Jhumur Dance"
+      "category": "JhumurDance"
     },
     {
       "id": 228,
       "name": "Kachi Singh",
       "gram_panchayat": "Jogeshganj",
       "age": 69,
-      "category": "Jhumur Dance"
+      "category": "JhumurDance"
     },
     {
       "id": 229,
       "name": "Kalpana Singh",
       "gram_panchayat": "Jogeshganj",
       "age": 11,
-      "category": "Jhumur Dance"
+      "category": "JhumurDance"
     },
     {
       "id": 230,
       "name": "Pampa Singh",
       "gram_panchayat": "Jogeshganj",
       "age": 12,
-      "category": "Jhumur Dance"
+      "category": "JhumurDance"
     },
     {
       "id": 231,
       "name": "Binay Singh",
       "gram_panchayat": "Jogeshganj",
       "age": 9,
-      "category": "Jhumur Dance"
+      "category": "JhumurDance"
     },
     {
       "id": 232,
       "name": "Debdulal Singh",
       "gram_panchayat": "Jogeshganj",
       "age": 13,
-      "category": "Jhumur Dance"
+      "category": "JhumurDance"
     },
     {
       "id": 233,
       "name": "Amit Singh",
       "gram_panchayat": "Jogeshganj",
       "age": 10,
-      "category": "Jhumur Dance"
+      "category": "JhumurDance"
     },
     {
       "id": 234,
@@ -1648,7 +1648,7 @@
     },
     {
       "id": 236,
-      "name": "Swapna Mandal",
+      "name": "Swapna Mondal",
       "gram_panchayat": "Kalitala",
       "age": 49,
       "category": "Bhatiyali"
@@ -1701,6 +1701,1735 @@
       "gram_panchayat": "Kalitala",
       "age": 61,
       "category": "Musician"
+    },
+    {
+      "id": 244,
+      "name": "Gour Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 46,
+      "category": "Palagaan"
+    },
+    {
+      "id": 245,
+      "name": "Gour Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 62,
+      "category": "Baul"
+    },
+    {
+      "id": 246,
+      "name": "Dibakar Gayan",
+      "gram_panchayat": "Gobindakati",
+      "age": 33,
+      "category": "Baul"
+    },
+    {
+      "id": 247,
+      "name": "Debananda Gayen",
+      "gram_panchayat": "Gobindakati",
+      "age": 32,
+      "category": "Musician"
+    },
+    {
+      "id": 248,
+      "name": "Ranjan Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 49,
+      "category": "Musician"
+    },
+    {
+      "id": 249,
+      "name": "Sunita Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 42,
+      "category": "Folk"
+    },
+    {
+      "id": 250,
+      "name": "Manabi Gayen",
+      "gram_panchayat": "Gobindakati",
+      "age": 50,
+      "category": "Palagaan"
+    },
+    {
+      "id": 251,
+      "name": "Arati Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 50,
+      "category": "Palagaan"
+    },
+    {
+      "id": 252,
+      "name": "Gobinda Prasad Mondal",
+      "gram_panchayat": "Sahebkhali",
+      "age": 57,
+      "category": "Palagaan"
+    },
+    {
+      "id": 253,
+      "name": "Mayarani Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 38,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 254,
+      "name": "Amala Mondal Gayen",
+      "gram_panchayat": "Gobindakati",
+      "age": 53,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 255,
+      "name": "Mithun Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 29,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 256,
+      "name": "Sunil Gayen",
+      "gram_panchayat": "Gobindakati",
+      "age": 57,
+      "category": "Musician"
+    },
+    {
+      "id": 257,
+      "name": "Asit Sardar",
+      "gram_panchayat": "Sahebkhali",
+      "age": 44,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 258,
+      "name": "Namita Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 46,
+      "category": "JhumurDance"
+    },
+    {
+      "id": 259,
+      "name": "Sikha Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 12,
+      "category": "JhumurDance"
+    },
+    {
+      "id": 260,
+      "name": "Renuka Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 33,
+      "category": "JhumurDance"
+    },
+    {
+      "id": 261,
+      "name": "Sushama Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 17,
+      "category": "JhumurDance"
+    },
+    {
+      "id": 262,
+      "name": "Malina Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 39,
+      "category": "JhumurDance"
+    },
+    {
+      "id": 263,
+      "name": "Baishakhi Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 15,
+      "category": "JhumurDance"
+    },
+    {
+      "id": 264,
+      "name": "Sambari Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 47,
+      "category": "JhumurDance"
+    },
+    {
+      "id": 265,
+      "name": "Prasanjit Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 39,
+      "category": "Palagaan"
+    },
+    {
+      "id": 266,
+      "name": "Rampada Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 51,
+      "category": "Palagaan"
+    },
+    {
+      "id": 267,
+      "name": "Subhajeet Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 9,
+      "category": "Palagaan"
+    },
+    {
+      "id": 268,
+      "name": "Prishnapada Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 65,
+      "category": "Musician"
+    },
+    {
+      "id": 269,
+      "name": "Namita Das",
+      "gram_panchayat": "Sahebkhali",
+      "age": 51,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 270,
+      "name": "Amal Mondal",
+      "gram_panchayat": "Sahebkhali",
+      "age": 60,
+      "category": "Baul"
+    },
+    {
+      "id": 271,
+      "name": "Nikhilesh Patra",
+      "gram_panchayat": "Sahebkhali",
+      "age": 63,
+      "category": "Baul"
+    },
+    {
+      "id": 272,
+      "name": "Shushila Mondal",
+      "gram_panchayat": "Sahebkhali",
+      "age": 52,
+      "category": "Musician"
+    },
+    {
+      "id": 273,
+      "name": "Bishnupada Mondal",
+      "gram_panchayat": "Sahebkhali",
+      "age": 31,
+      "category": "Musician"
+    },
+    {
+      "id": 274,
+      "name": "Dhananjay Mondal",
+      "gram_panchayat": "Sahebkhali",
+      "age": 55,
+      "category": "Musician"
+    },
+    {
+      "id": 275,
+      "name": "Susanta Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 38,
+      "category": "Palagaan"
+    },
+    {
+      "id": 276,
+      "name": "Debbrata Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 38,
+      "category": "Palagaan"
+    },
+    {
+      "id": 277,
+      "name": "Baddha Tarafder",
+      "gram_panchayat": "Kalitala",
+      "age": 20,
+      "category": "Palagaan"
+    },
+    {
+      "id": 278,
+      "name": "Rajib Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 45,
+      "category": "Palagaan"
+    },
+    {
+      "id": 279,
+      "name": "Nemai Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 44,
+      "category": "Palagaan"
+    },
+    {
+      "id": 280,
+      "name": "Durbasha Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 34,
+      "category": "Palagaan"
+    },
+    {
+      "id": 281,
+      "name": "Lakshmi Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 46,
+      "category": "Palagaan"
+    },
+    {
+      "id": 282,
+      "name": "Pintu Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 62,
+      "category": "Palagaan"
+    },
+    {
+      "id": 283,
+      "name": "Chaitanya Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 48,
+      "category": "Palagaan"
+    },
+    {
+      "id": 284,
+      "name": "Gopal Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 28,
+      "category": "Palagaan"
+    },
+    {
+      "id": 285,
+      "name": "Kanika Mondal (Das)",
+      "gram_panchayat": "Kalitala",
+      "age": 35,
+      "category": "Palagaan"
+    },
+    {
+      "id": 286,
+      "name": "Sudhanshu Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 49,
+      "category": "Palagaan"
+    },
+    {
+      "id": 287,
+      "name": "Sunita Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 48,
+      "category": "Musician"
+    },
+    {
+      "id": 288,
+      "name": "Harekrishna Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 48,
+      "category": "Musician"
+    },
+    {
+      "id": 289,
+      "name": "Krishnapada Mondal",
+      "gram_panchayat": "Sahebkhali",
+      "age": 59,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 290,
+      "name": "minati mondal",
+      "gram_panchayat": "Sahebkhali",
+      "age": 54,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 291,
+      "name": "Arati Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 52,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 292,
+      "name": "Laxmi Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 52,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 293,
+      "name": "Biswajit Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 40,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 294,
+      "name": "Ganesh Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 32,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 295,
+      "name": "Sandip Sarkar",
+      "gram_panchayat": "Kalitala",
+      "age": 49,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 296,
+      "name": "Jayanta Sarkar",
+      "gram_panchayat": "Kalitala",
+      "age": 52,
+      "category": "Khanjani"
+    },
+    {
+      "id": 297,
+      "name": "Biswa Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 16,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 298,
+      "name": "Rama Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 25,
+      "category": "Lok Sangeet"
+    },
+    {
+      "id": 299,
+      "name": "Manmarha Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 38,
+      "category": "Khanjani"
+    },
+    {
+      "id": 300,
+      "name": "Budhiswar Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 47,
+      "category": "Khanjani"
+    },
+    {
+      "id": 301,
+      "name": "Arjuna Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 50,
+      "category": "Khanjani"
+    },
+    {
+      "id": 302,
+      "name": "Laxman Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 43,
+      "category": "Khanjani"
+    },
+    {
+      "id": 303,
+      "name": "Tapan Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 15,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 304,
+      "name": "Paresh Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 31,
+      "category": "Palagaan"
+    },
+    {
+      "id": 305,
+      "name": "Rabindra Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 36,
+      "category": "Khanjani"
+    },
+    {
+      "id": 306,
+      "name": "Riya Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 22,
+      "category": "Baul"
+    },
+    {
+      "id": 307,
+      "name": "Gour Mohan Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 43,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 308,
+      "name": "Saurav Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 22,
+      "category": "Khanjani"
+    },
+    {
+      "id": 309,
+      "name": "Kartick Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 41,
+      "category": "Dhol"
+    },
+    {
+      "id": 310,
+      "name": "Prakash Paramanick",
+      "gram_panchayat": "Jogeshganj",
+      "age": 51,
+      "category": "Baul"
+    },
+    {
+      "id": 311,
+      "name": "Shiba Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 28,
+      "category": "Baul"
+    },
+    {
+      "id": 312,
+      "name": "Pinku Sardar",
+      "gram_panchayat": "Gobindakati",
+      "age": 43,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 313,
+      "name": "Ranjit Roy",
+      "gram_panchayat": "Gobindakati",
+      "age": 28,
+      "category": "Dhol"
+    },
+    {
+      "id": 314,
+      "name": "Tarun Chakdar",
+      "gram_panchayat": "Gobindakati",
+      "age": 48,
+      "category": "Baul"
+    },
+    {
+      "id": 315,
+      "name": "Amulya Sardar",
+      "gram_panchayat": "Gobindakati",
+      "age": 67,
+      "category": "Dhol"
+    },
+    {
+      "id": 316,
+      "name": "Madhab Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 37,
+      "category": "Dotara"
+    },
+    {
+      "id": 317,
+      "name": "Kusal Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 18,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 318,
+      "name": "Chhabik Gain",
+      "gram_panchayat": "Sandelerbil",
+      "age": 34,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 319,
+      "name": "Askar Gazi",
+      "gram_panchayat": "Sandelerbil",
+      "age": 66,
+      "category": "Pir Gaan"
+    },
+    {
+      "id": 320,
+      "name": "Ahammed Gazi",
+      "gram_panchayat": "Sandelerbil",
+      "age": 61,
+      "category": "Lok Sangeet"
+    },
+    {
+      "id": 321,
+      "name": "Narayan sarkar",
+      "gram_panchayat": "Jogeshganj",
+      "age": 55,
+      "category": "Lok Sangeet"
+    },
+    {
+      "id": 322,
+      "name": "Chayan Das",
+      "gram_panchayat": "Jogeshganj",
+      "age": 71,
+      "category": "Palagaan"
+    },
+    {
+      "id": 323,
+      "name": "Gopal Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 53,
+      "category": "Baul"
+    },
+    {
+      "id": 324,
+      "name": "Bikash Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 52,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 325,
+      "name": "Pradip Kr.mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 58,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 326,
+      "name": "Atish Gaya",
+      "gram_panchayat": "Sandelerbil",
+      "age": 73,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 327,
+      "name": "Ayat Ali Gazi",
+      "gram_panchayat": "Sandelerbil",
+      "age": 63,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 328,
+      "name": "Rajkumar Das",
+      "gram_panchayat": "Sandelerbil",
+      "age": 70,
+      "category": "Bhawaiya"
+    },
+    {
+      "id": 329,
+      "name": "Arun Kr. Mondal",
+      "gram_panchayat": "Sandelerbil",
+      "age": null,
+      "category": "Lok Sangeet"
+    },
+    {
+      "id": 330,
+      "name": "Haridas Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 50,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 331,
+      "name": "Yamuna Mondal",
+      "gram_panchayat": "Sahebkhali",
+      "age": 40,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 332,
+      "name": "Bimal Bar",
+      "gram_panchayat": "Kalitala",
+      "age": 48,
+      "category": "Yantri"
+    },
+    {
+      "id": 333,
+      "name": "Bimal Bayen",
+      "gram_panchayat": "Kalitala",
+      "age": 57,
+      "category": "Tusu"
+    },
+    {
+      "id": 334,
+      "name": "Anjana Sardar",
+      "gram_panchayat": "Kalitala",
+      "age": 29,
+      "category": "Baul"
+    },
+    {
+      "id": 335,
+      "name": "Kanai Dash",
+      "gram_panchayat": "Kalitala",
+      "age": 29,
+      "category": "Dhol"
+    },
+    {
+      "id": 336,
+      "name": "Dobkumar Dash",
+      "gram_panchayat": "Kalitala",
+      "age": 38,
+      "category": "Dhol"
+    },
+    {
+      "id": 337,
+      "name": "Tara Dash",
+      "gram_panchayat": "Kalitala",
+      "age": 32,
+      "category": "Dhol"
+    },
+    {
+      "id": 338,
+      "name": "Rajkumar Das",
+      "gram_panchayat": "Kalitala",
+      "age": 30,
+      "category": "Dhol"
+    },
+    {
+      "id": 339,
+      "name": "Gopal Das",
+      "gram_panchayat": "Kalitala",
+      "age": 60,
+      "category": "Dhol"
+    },
+    {
+      "id": 340,
+      "name": "Jagarnath Das",
+      "gram_panchayat": "Kalitala",
+      "age": 27,
+      "category": "Dhol"
+    },
+    {
+      "id": 341,
+      "name": "krishnapada das",
+      "gram_panchayat": "Kalitala",
+      "age": 42,
+      "category": "Dhol"
+    },
+    {
+      "id": 342,
+      "name": "Sudeb Das",
+      "gram_panchayat": "Kalitala",
+      "age": 48,
+      "category": "Dhol"
+    },
+    {
+      "id": 343,
+      "name": "Molan Das",
+      "gram_panchayat": "Kalitala",
+      "age": 29,
+      "category": "Dhol"
+    },
+    {
+      "id": 344,
+      "name": "Prasanjit Das",
+      "gram_panchayat": "Kalitala",
+      "age": 10,
+      "category": "Dhol"
+    },
+    {
+      "id": 345,
+      "name": "Tarak Mistri",
+      "gram_panchayat": "Kalitala",
+      "age": 44,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 346,
+      "name": "Gastto Das",
+      "gram_panchayat": "Kalitala",
+      "age": 51,
+      "category": "Dhol"
+    },
+    {
+      "id": 347,
+      "name": "Pandit Das",
+      "gram_panchayat": "Kalitala",
+      "age": 27,
+      "category": "Dhol"
+    },
+    {
+      "id": 348,
+      "name": "Badam Das",
+      "gram_panchayat": "Kalitala",
+      "age": 62,
+      "category": "Dhol"
+    },
+    {
+      "id": 349,
+      "name": "Ashok Das",
+      "gram_panchayat": "Kalitala",
+      "age": 52,
+      "category": "Dhol"
+    },
+    {
+      "id": 350,
+      "name": "Sandip Das",
+      "gram_panchayat": "Kalitala",
+      "age": 30,
+      "category": "Dhol"
+    },
+    {
+      "id": 351,
+      "name": "Bimal Bain",
+      "gram_panchayat": "Kalitala",
+      "age": 57,
+      "category": "Srikhal"
+    },
+    {
+      "id": 352,
+      "name": "Tejkumar Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 30,
+      "category": "Kartal"
+    },
+    {
+      "id": 353,
+      "name": "Sabitri Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 57,
+      "category": "Srikhal"
+    },
+    {
+      "id": 354,
+      "name": "Netai Mndal",
+      "gram_panchayat": "Kalitala",
+      "age": 56,
+      "category": "Kartal"
+    },
+    {
+      "id": 355,
+      "name": "SriKrishnan Mistri",
+      "gram_panchayat": "Kalitala",
+      "age": 29,
+      "category": "Dhol"
+    },
+    {
+      "id": 356,
+      "name": "Deban Das",
+      "gram_panchayat": "Kalitala",
+      "age": 55,
+      "category": "Dhol"
+    },
+    {
+      "id": 357,
+      "name": "Anup Ku Das",
+      "gram_panchayat": "Kalitala",
+      "age": 30,
+      "category": "Dhol"
+    },
+    {
+      "id": 358,
+      "name": "Nepal Das",
+      "gram_panchayat": "Kalitala",
+      "age": 51,
+      "category": "Dhol"
+    },
+    {
+      "id": 359,
+      "name": "Gabinda Das",
+      "gram_panchayat": "Gobindakati",
+      "age": 22,
+      "category": "Dhol"
+    },
+    {
+      "id": 360,
+      "name": "Basak Ray",
+      "gram_panchayat": "Gobindakati",
+      "age": 66,
+      "category": "Rabigaan"
+    },
+    {
+      "id": 361,
+      "name": "Ranjit Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 67,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 362,
+      "name": "Babulal Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 64,
+      "category": "Kartal"
+    },
+    {
+      "id": 363,
+      "name": "Sadananda Ray",
+      "gram_panchayat": "Gobindakati",
+      "age": 33,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 364,
+      "name": "Ramkrishna Ray",
+      "gram_panchayat": "Gobindakati",
+      "age": 49,
+      "category": "Srikhal"
+    },
+    {
+      "id": 365,
+      "name": "Sanmyani Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 78,
+      "category": "Kartal"
+    },
+    {
+      "id": 366,
+      "name": "Motichand Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 50,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 367,
+      "name": "Bansi Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 37,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 368,
+      "name": "Dipankar Gayan",
+      "gram_panchayat": "Gobindakati",
+      "age": 33,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 369,
+      "name": "Kabita Baidya",
+      "gram_panchayat": "Gobindakati",
+      "age": 44,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 370,
+      "name": "Raju Dea",
+      "gram_panchayat": "Kalitala",
+      "age": 36,
+      "category": "Dhol"
+    },
+    {
+      "id": 371,
+      "name": "Bithika Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 36,
+      "category": "Palagaan"
+    },
+    {
+      "id": 372,
+      "name": "Trishna Biswas",
+      "gram_panchayat": "Kalitala",
+      "age": 19,
+      "category": "Palagaan"
+    },
+    {
+      "id": 373,
+      "name": "Mangaldeep Paswan",
+      "gram_panchayat": "Kalitala",
+      "age": 12,
+      "category": "Srikhal"
+    },
+    {
+      "id": 374,
+      "name": "Jayanta Biswa",
+      "gram_panchayat": "Kalitala",
+      "age": 44,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 375,
+      "name": "Sanjit Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 30,
+      "category": "Dhol"
+    },
+    {
+      "id": 376,
+      "name": "Sibani Biswas",
+      "gram_panchayat": "Kalitala",
+      "age": 36,
+      "category": "Dhol"
+    },
+    {
+      "id": 377,
+      "name": "Abir Kayal",
+      "gram_panchayat": "Kalitala",
+      "age": 11,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 378,
+      "name": "Sila Biswas",
+      "gram_panchayat": "Kalitala",
+      "age": 55,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 379,
+      "name": "Manindra Nath Biswa",
+      "gram_panchayat": "Kalitala",
+      "age": 29,
+      "category": "Kartal"
+    },
+    {
+      "id": 380,
+      "name": "Monoranjan Kayal",
+      "gram_panchayat": "Kalitala",
+      "age": 42,
+      "category": "Dhol"
+    },
+    {
+      "id": 381,
+      "name": "Harekrishna Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 44,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 382,
+      "name": "Primal Das",
+      "gram_panchayat": "Kalitala",
+      "age": 62,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 383,
+      "name": "Bachhu Tarafdar",
+      "gram_panchayat": "Gobindakati",
+      "age": 34,
+      "category": "Srikhal"
+    },
+    {
+      "id": 384,
+      "name": "Susobham Dhali",
+      "gram_panchayat": "Kalitala",
+      "age": 24,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 385,
+      "name": "Santosh Tarafdar",
+      "gram_panchayat": "Kalitala",
+      "age": 49,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 386,
+      "name": "Santosh Joddar",
+      "gram_panchayat": "Kalitala",
+      "age": 63,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 387,
+      "name": "Hariprasad Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 78,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 388,
+      "name": "Pralgumi Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 19,
+      "category": "Lok Nritya"
+    },
+    {
+      "id": 389,
+      "name": "Niyati Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 22,
+      "category": "Lok Nritya"
+    },
+    {
+      "id": 390,
+      "name": "Kalyani Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 24,
+      "category": "Lok Nritya"
+    },
+    {
+      "id": 391,
+      "name": "Sanbari Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 54,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 392,
+      "name": "Dllip Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 62,
+      "category": "Dhol"
+    },
+    {
+      "id": 393,
+      "name": "Rekha Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 31,
+      "category": "Jhumur"
+    },
+    {
+      "id": 394,
+      "name": "Pramita Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 39,
+      "category": "Madal"
+    },
+    {
+      "id": 395,
+      "name": "Jyotish Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 19,
+      "category": "Dhamsa"
+    },
+    {
+      "id": 396,
+      "name": "Malabika Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 28,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 397,
+      "name": "Meghnath Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 54,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 398,
+      "name": "Tusarkanti Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 20,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 399,
+      "name": "Disha Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 9,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 400,
+      "name": "Nabanita Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 9,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 401,
+      "name": "Satish Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 21,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 402,
+      "name": "Kailash Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 20,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 403,
+      "name": "Rashi Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 11,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 404,
+      "name": "Rani Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 13,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 405,
+      "name": "Minakshi Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 11,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 406,
+      "name": "Suchitra Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 9,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 407,
+      "name": "Sangita Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 12,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 408,
+      "name": "Nandita Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 16,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 409,
+      "name": "Rama Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 18,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 410,
+      "name": "Sanjit Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 39,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 411,
+      "name": "Uttam Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 31,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 412,
+      "name": "Tutul Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 40,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 413,
+      "name": "Tarun Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 38,
+      "category": "Dhol"
+    },
+    {
+      "id": 414,
+      "name": "Amal Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 62,
+      "category": "Jhunjhuni"
+    },
+    {
+      "id": 415,
+      "name": "Barun Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 47,
+      "category": "Madal"
+    },
+    {
+      "id": 416,
+      "name": "Jayram Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 62,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 417,
+      "name": "Sreyasi Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 14,
+      "category": "Lok Nritya"
+    },
+    {
+      "id": 418,
+      "name": "Anik Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 14,
+      "category": "Premjuri"
+    },
+    {
+      "id": 419,
+      "name": "Harendra Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 56,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 420,
+      "name": "Haripada Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 62,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 421,
+      "name": "Srimati Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 46,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 422,
+      "name": "Anita Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 35,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 423,
+      "name": "Disha Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 12,
+      "category": "Lok Nritya"
+    },
+    {
+      "id": 424,
+      "name": "Ruma Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 12,
+      "category": "Lok Nritya"
+    },
+    {
+      "id": 425,
+      "name": "Sayani Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 11,
+      "category": "Lok Nritya"
+    },
+    {
+      "id": 426,
+      "name": "Sayamra Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 14,
+      "category": "Lok Nritya"
+    },
+    {
+      "id": 427,
+      "name": "Atasi Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 12,
+      "category": "Lok Nritya"
+    },
+    {
+      "id": 428,
+      "name": "Jharna Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 9,
+      "category": "Lok Nritya"
+    },
+    {
+      "id": 429,
+      "name": "Pratima Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 14,
+      "category": "Lok Nritya"
+    },
+    {
+      "id": 430,
+      "name": "Bipra Munda",
+      "gram_panchayat": "Sahebkhali",
+      "age": 39,
+      "category": "Kartal"
+    },
+    {
+      "id": 431,
+      "name": "Supada Gharami",
+      "gram_panchayat": "Sahebkhali",
+      "age": 46,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 432,
+      "name": "Sujit Gayen",
+      "gram_panchayat": "Sahebkhali",
+      "age": 37,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 433,
+      "name": "Pradip Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 42,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 434,
+      "name": "Rina Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 37,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 435,
+      "name": "Chandan Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 36,
+      "category": "Jhumur/Tusu"
+    },
+    {
+      "id": 436,
+      "name": "Abani Giri",
+      "gram_panchayat": "Bishpur",
+      "age": 56,
+      "category": "Baul"
+    },
+    {
+      "id": 437,
+      "name": "Prasantai Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 59,
+      "category": "Srikhal"
+    },
+    {
+      "id": 438,
+      "name": "Manasi Pradhan",
+      "gram_panchayat": "Bhabanipur",
+      "age": 17,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 439,
+      "name": "Dritikana Pradhan",
+      "gram_panchayat": "Bhabanipur",
+      "age": 18,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 440,
+      "name": "Sukanta Risidas",
+      "gram_panchayat": "Sahebkhali",
+      "age": 42,
+      "category": "Dhol"
+    },
+    {
+      "id": 441,
+      "name": "Suprabhat Munda",
+      "gram_panchayat": "Dulduli",
+      "age": 39,
+      "category": "Baul"
+    },
+    {
+      "id": 442,
+      "name": "Kartik Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 52,
+      "category": "Palagaan"
+    },
+    {
+      "id": 443,
+      "name": "Bamachari Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 48,
+      "category": "Baul"
+    },
+    {
+      "id": 444,
+      "name": "Netai Nayak",
+      "gram_panchayat": "Hingalganj",
+      "age": 44,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 445,
+      "name": "Subha Mondal",
+      "gram_panchayat": "Bishpur",
+      "age": 12,
+      "category": "Tabla"
+    },
+    {
+      "id": 446,
+      "name": "Disha Nayak",
+      "gram_panchayat": "Hingalganj",
+      "age": 12,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 447,
+      "name": "Koushik Mondal",
+      "gram_panchayat": "Sandelerbil",
+      "age": 24,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 448,
+      "name": "Dhruba Mondal",
+      "gram_panchayat": "Sandelerbil",
+      "age": 23,
+      "category": "Dotara"
+    },
+    {
+      "id": 449,
+      "name": "Pallabi Baidya",
+      "gram_panchayat": "Sandelerbil",
+      "age": 20,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 450,
+      "name": "Subrata Baidya",
+      "gram_panchayat": "Sandelerbil",
+      "age": 48,
+      "category": "Dhol"
+    },
+    {
+      "id": 451,
+      "name": "Chabikul Gara",
+      "gram_panchayat": "Sandelerbil",
+      "age": 54,
+      "category": "Baul"
+    },
+    {
+      "id": 452,
+      "name": "Mallika Mondal",
+      "gram_panchayat": "Bishpur",
+      "age": 31,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 453,
+      "name": "Taniya Jena",
+      "gram_panchayat": "Bishpur",
+      "age": 16,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 454,
+      "name": "Goutam Pradhan",
+      "gram_panchayat": "Bhabanipur",
+      "age": 12,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 455,
+      "name": "Harekrishna Pradhan",
+      "gram_panchayat": "Bhabanipur",
+      "age": 12,
+      "category": "Tabla"
+    },
+    {
+      "id": 456,
+      "name": "Parimal Baidya",
+      "gram_panchayat": "Jogeshganj",
+      "age": 46,
+      "category": "Palagaan"
+    },
+    {
+      "id": 457,
+      "name": "Amitesh Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 50,
+      "category": "Tabla"
+    },
+    {
+      "id": 458,
+      "name": "Sanjit Das",
+      "gram_panchayat": "Gobindakati",
+      "age": 41,
+      "category": "Palagaan"
+    },
+    {
+      "id": 459,
+      "name": "Arabinda Das",
+      "gram_panchayat": "Gobindakati",
+      "age": 59,
+      "category": "Palagaan"
+    },
+    {
+      "id": 460,
+      "name": "Rinku Sarkar",
+      "gram_panchayat": "Gobindakati",
+      "age": 45,
+      "category": "Palagaan"
+    },
+    {
+      "id": 461,
+      "name": "Jayanta Mondal",
+      "gram_panchayat": "Sahebkhali",
+      "age": 44,
+      "category": "Palagaan"
+    },
+    {
+      "id": 462,
+      "name": "Chaitanya Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 62,
+      "category": "Palagaan"
+    },
+    {
+      "id": 463,
+      "name": "Bidut Kr Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 33,
+      "category": "Palagaan"
+    },
+    {
+      "id": 464,
+      "name": "Buddhadeb Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 33,
+      "category": "Palagaan"
+    },
+    {
+      "id": 465,
+      "name": "Dhiman Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 36,
+      "category": "Palagaan"
+    },
+    {
+      "id": 466,
+      "name": "Shibpada Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 52,
+      "category": "Palagaan"
+    },
+    {
+      "id": 467,
+      "name": "Brojagopal Majumdar",
+      "gram_panchayat": "Jogeshganj",
+      "age": 24,
+      "category": "Palagaan"
+    },
+    {
+      "id": 468,
+      "name": "Pranab Barman",
+      "gram_panchayat": "Gobindakati",
+      "age": 36,
+      "category": "Palagaan"
+    },
+    {
+      "id": 469,
+      "name": "Sabita Rani Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 43,
+      "category": "Palagaan"
+    },
+    {
+      "id": 470,
+      "name": "Surekha Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 58,
+      "category": "Palagaan"
+    },
+    {
+      "id": 471,
+      "name": "Surekha Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 39,
+      "category": "Palagaan"
+    },
+    {
+      "id": 472,
+      "name": "Latu Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 50,
+      "category": "Palagaan"
+    },
+    {
+      "id": 473,
+      "name": "Kanika Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 32,
+      "category": "Palagaan"
+    },
+    {
+      "id": 474,
+      "name": "Kalipana Mondal",
+      "gram_panchayat": "Gobindakati",
+      "age": 44,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 475,
+      "name": "Arnab Baidya",
+      "gram_panchayat": "Kalitala",
+      "age": 17,
+      "category": "Musician"
+    },
+    {
+      "id": 476,
+      "name": "Lata Sarkar",
+      "gram_panchayat": "Kalitala",
+      "age": 25,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 477,
+      "name": "Anita Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 50,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 478,
+      "name": "Ld Kumar Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 34,
+      "category": "Musician"
+    },
+    {
+      "id": 479,
+      "name": "Ahitish Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 13,
+      "category": "Musician"
+    },
+    {
+      "id": 480,
+      "name": "Dhruba Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 17,
+      "category": "Musician"
+    },
+    {
+      "id": 481,
+      "name": "Tiyasha Karmakar",
+      "gram_panchayat": "Gobindakati",
+      "age": 13,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 482,
+      "name": "Buddhadeb Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 33,
+      "category": "Palagaan"
+    },
+    {
+      "id": 483,
+      "name": "Mitali Munda",
+      "gram_panchayat": "Kalitala",
+      "age": 15,
+      "category": "Jhumur"
+    },
+    {
+      "id": 484,
+      "name": "Payel Dey",
+      "gram_panchayat": "Kalitala",
+      "age": 30,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 485,
+      "name": "Suprava Mondal",
+      "gram_panchayat": "Kalitala",
+      "age": 14,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 486,
+      "name": "Malati Gharami",
+      "gram_panchayat": "Jogeshganj",
+      "age": 38,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 487,
+      "name": "Hariprasad Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 80,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 488,
+      "name": "Sushama Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 51,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 489,
+      "name": "Kartik Munda",
+      "gram_panchayat": "Gobindakati",
+      "age": 55,
+      "category": "Bhatiyali"
+    },
+    {
+      "id": 490,
+      "name": "Ashima Mondal",
+      "gram_panchayat": "Jogeshganj",
+      "age": 36,
+      "category": "Bhatiyali"
     }
   ]
 }

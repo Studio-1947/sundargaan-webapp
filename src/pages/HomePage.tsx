@@ -124,20 +124,15 @@ const HomePage: React.FC = () => {
                 <div className="absolute inset-0 flex flex-col justify-end p-8">
                   <div className="transform translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="inline-flex items-center justify-center h-6 md:h-7 px-3 bg-[#CB460C] text-white font-body text-[10px] md:text-xs uppercase tracking-[0.2em] rounded-full leading-none pt-[1px]">
-                        {item.category}
-                      </span>
+                      <div className="bg-[#FEFCFB]/10 backdrop-blur-md border border-white/20 h-7 px-4 rounded-full flex items-center justify-center">
+                        <span className="text-white text-[10px] uppercase tracking-widest font-medium leading-none pt-[1px]">
+                          {item.category}
+                        </span>
+                      </div>
                     </div>
                     <h3 className="text-white font-display font-normal text-3xl md:text-4xl">
                       {item.title}
                     </h3>
-                  </div>
-                </div>
-
-                {/* Coming Soon Indicator (Mobile/Static) */}
-                <div className="absolute top-6 right-6 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="bg-[#FEFCFB]/10 backdrop-blur-md border border-white/20 h-8 px-4 rounded-full flex items-center justify-center">
-                    <span className="text-white text-[10px] uppercase tracking-widest font-medium leading-none pt-[1px]">Coming Soon</span>
                   </div>
                 </div>
               </div>
