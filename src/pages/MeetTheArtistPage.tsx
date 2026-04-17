@@ -571,7 +571,7 @@ const MeetTheArtistPage: React.FC = () => {
   };
 
   const handleClearFilters = () => {
-    setSelectedBlock(null);
+    setSelectedBlock('Hingalganj');
     setSelectedVillage(null);
     setSelectedCategory(null);
     setSearchTerm('');
@@ -660,7 +660,7 @@ const MeetTheArtistPage: React.FC = () => {
         {/* Sidebar filters */}
         <aside className="lg:w-64 shrink-0 space-y-8 lg:sticky lg:top-28 lg:self-start">
           {/* Clear filters moved to top */}
-          {(selectedBlock || selectedCategory || searchTerm || selectedVillage) && (
+          {(selectedBlock !== 'Hingalganj' || selectedCategory || searchTerm || selectedVillage) && (
             <button
               onClick={handleClearFilters}
               className="w-full text-center text-xs text-[#CB460C] font-bold uppercase tracking-widest py-3 border border-[#CB460C]/30 rounded-full hover:bg-[#CB460C] hover:text-white transition-all shadow-sm"
@@ -685,20 +685,20 @@ const MeetTheArtistPage: React.FC = () => {
                   <div key={block} className="space-y-3">
                     {/* Block Header / Dropdown Trigger */}
                     <div
-                      className="w-full flex items-center justify-between px-5 py-3 rounded-2xl border bg-[#F7EAE5] border-[#CB460C]/20 text-[#CB460C] shadow-sm relative group/block"
+                      onClick={() => setSelectedBlock(isActive ? null : block)}
+                      className="w-full flex items-center justify-between px-5 py-3 rounded-2xl border bg-[#F7EAE5] border-[#CB460C]/20 text-[#CB460C] shadow-sm relative group/block cursor-pointer hover:bg-[#F7EAE5]/80 transition-all"
                     >
                       <span className="font-bold text-sm tracking-wide">{block}</span>
                       
                       {/* The Dropdown Arrow with Coming Soon interaction */}
                       <div className="relative flex items-center group/arrow">
-                        <button 
-                          className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#CB460C]/10 transition-colors cursor-pointer group-hover/block:rotate-180 duration-500"
-                          onClick={() => {}} // Static for now as requested
+                        <div 
+                          className={`w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#CB460C]/10 transition-all duration-300 ${isActive ? 'rotate-180' : ''}`}
                         >
                           <IconChevronDown className="text-[#CB460C]" />
-                        </button>
+                        </div>
                         
-                        {/* Coming Soon "Modal" Overlay on Hover/Click arrow */}
+                        {/* Coming Soon "Modal" Overlay on Hover arrow */}
                         <div className="absolute right-full top-1/2 -translate-y-1/2 mr-3 opacity-0 group-hover/arrow:opacity-100 transition-all duration-300 pointer-events-none z-50">
                           <div className="bg-[#1a1005] text-white px-4 py-2.5 rounded-xl shadow-2xl border border-white/10 whitespace-nowrap flex items-center gap-2">
                              <div className="w-1.5 h-1.5 rounded-full bg-[#CB460C] animate-pulse" />
