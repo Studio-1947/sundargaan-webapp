@@ -109,4 +109,10 @@ export class UploadController {
   ) {
     return this.uploadService.delete(url, provider);
   }
+
+  @Get('signature')
+  @ApiOperation({ summary: 'Get Cloudinary upload signature' })
+  getSignature(@Query() params: Record<string, any>) {
+    return this.uploadService.getCloudinarySignature(params);
+  }
 }

@@ -109,4 +109,18 @@ export class CloudinaryService implements OnModuleInit {
       resource_type: resourceType as any,
     });
   }
+
+  generateSignature(params: Record<string, any>): { signature: string; timestamp: number; apiKey: string; cloudName: string } {
+    const timestamp = Math.round(new Date().getTime() / 1000);
+    const signature = cloudinary.utils.api_sign_request(
+      { ...params, timestamp },
+      process.env.CLOUDINARY_API_SECRET!,
+    );
+    return {
+      signature,
+      timestamp,
+      apiKey: process.env.CLOUDINARY_API_KEY!,
+      cloudName: process.env.CLOUDINARY_CLOUD_NAME!,
+    };
+  }
 }

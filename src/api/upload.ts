@@ -18,6 +18,50 @@ export async function uploadFile(
   provider: Provider,
   folder?: string,
 ): Promise<{ url: string; pathname: string; size: number; provider: Provider }> {
+  if (provider === 'cloudinary') {
+    // 1. Get signature from backend
+    const folderPath = folder ?? `sundargaan/${type}s`;
+    const params = new URLSearchParams({
+      folder: folderPath,
+      // For audio/video, they are 'video' type in Cloudinary
+      // but for generating signature we use the same params as in upload
+    });
+    
+    const sigRes = await fetch(`${BASE_URL}/upload/signature?${params}`);
+    if (!sigRes.ok) throw new Error('Failed to get upload signature');
+    const { signature, timestamp, apiKey, cloudName } = await sigRes.json();
+
+    // 2. Upload directly to Cloudinary
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('api_key', apiKey);
+    formData.append('timestamp', timestamp);
+    formData.append('signature', signature);
+    formData.append('folder', folderPath);
+
+    const resourceType = type === 'audio' || type === 'video' ? 'video' : type === 'image' ? 'image' : 'auto';
+    const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`;
+
+    const res = await fetch(cloudinaryUrl, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error?.message ?? `Cloudinary upload failed (${res.status})`);
+    }
+
+    const data = await res.json();
+    return {
+      url: data.secure_url,
+      pathname: data.public_id,
+      size: data.bytes,
+      provider: 'cloudinary',
+    };
+  }
+
+  // Vercel Blob (Fallback or specific choice)
   const form = new FormData();
   form.append('file', file);
   form.append('provider', provider);

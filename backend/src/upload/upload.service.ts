@@ -104,4 +104,8 @@ export class UploadService {
     }
     await del(url);
   }
+
+  getCloudinarySignature(params: Record<string, any>) {
+    return this.cloudinaryService.generateSignature(params);
+  }
 }
