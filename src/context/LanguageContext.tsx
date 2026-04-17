@@ -71,13 +71,13 @@ const translations: Translations = {
 
   // Impact
   'impact.title': { EN: 'Documenting Change, Preserving Legacy.', BN: 'পরিবর্তন নথিবদ্ধ করা, ঐতিহ্য সংরক্ষণ।' },
-  'impact.stat1.val': { EN: '100+', BN: '১০০+' },
+  'impact.stat1.val': { EN: '50k+', BN: '৫০,০০০+' },
   'impact.stat1.label': { EN: 'Songs', BN: 'গান' },
-  'impact.stat2.val': { EN: '30+', BN: '৩০+' },
+  'impact.stat2.val': { EN: '5k+', BN: '৫,০০০+' },
   'impact.stat2.label': { EN: 'Artists', BN: 'শিল্পী' },
-  'impact.stat3.val': { EN: '9+', BN: '৯+' },
-  'impact.stat3.label': { EN: 'Villages', BN: 'গ্রাম' },
-  'impact.stat4.val': { EN: '5+', BN: '৫+' },
+  'impact.stat3.val': { EN: '50+', BN: '৫০+' },
+  'impact.stat3.label': { EN: 'Blocks', BN: 'ব্লকস' },
+  'impact.stat4.val': { EN: 'All', BN: 'সকল' },
   'impact.stat4.label': { EN: 'Genres', BN: 'ঘরানা' },
 
   // Media Grid
