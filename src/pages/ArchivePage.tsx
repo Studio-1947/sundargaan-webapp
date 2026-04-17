@@ -332,7 +332,7 @@ const ArchivePage: React.FC = () => {
                   {/* Fullscreen Mode Toggle */}
                   <button
                     onClick={() => setIsDashboardFullscreen(!isDashboardFullscreen)}
-                    className="flex items-center gap-3 cursor-pointer group"
+                    className="hidden md:flex items-center gap-3 cursor-pointer group"
                     aria-pressed={isDashboardFullscreen}
                   >
                     <span className={`text-[10px] font-bold uppercase tracking-widest transition-colors ${isDashboardFullscreen ? 'text-[#CB460C]' : 'text-ink/60 group-hover:text-ink'}`}>
