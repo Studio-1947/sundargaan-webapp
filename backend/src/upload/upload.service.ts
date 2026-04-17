@@ -42,7 +42,7 @@ export class UploadService {
   async upload(
     file: Express.Multer.File,
     type: UploadType,
-    provider: string = 'vercel',
+    provider: string = 'cloudinary',
     folder?: string,
   ): Promise<BlobResult> {
     if (!ALLOWED_MIME[type].includes(file.mimetype)) {
@@ -73,7 +73,7 @@ export class UploadService {
   }
 
   async list(
-    provider: string = 'vercel',
+    provider: string = 'cloudinary',
     type?: string,
     prefix?: string,
   ): Promise<{ blobs: BlobListItem[] }> {
@@ -98,7 +98,7 @@ export class UploadService {
     };
   }
 
-  async delete(url: string, provider: string = 'vercel'): Promise<void> {
+  async delete(url: string, provider: string = 'cloudinary'): Promise<void> {
     if (provider === 'cloudinary') {
       return this.cloudinaryService.delete(url);
     }

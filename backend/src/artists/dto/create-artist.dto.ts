@@ -14,12 +14,15 @@ import {
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export enum ArtistCategory {
-  BAUL         = 'baul',
-  FOLK_SINGER  = 'folk_singer',
-  INSTRUMENTALIST = 'instrumentalist',
-  DANCER       = 'dancer',
-  STORYTELLER  = 'storyteller',
-  CRAFT_ARTISAN = 'craft_artisan',
+  BHATIYALI     = 'bhatiyali',
+  BHAWAIYA      = 'bhawaiya',
+  BAUL          = 'baul',
+  LOKGEET       = 'lokgeet',
+  SARIGAAN       = 'sarigaan',
+  PALAGAAN       = 'palagaan',
+  LALON_GEET     = 'lalon-geet',
+  PRAKRITI_GEET  = 'prakriti-geet',
+  MANASHA       = 'manasha',
 }
 
 export class CreateArtistDto {

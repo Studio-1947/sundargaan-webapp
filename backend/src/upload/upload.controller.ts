@@ -27,7 +27,7 @@ export class UploadController {
     @Body('provider') bProvider?: string,
     @Body('folder') folder?: string,
   ) {
-    const provider = bProvider ?? qProvider ?? 'vercel';
+    const provider = bProvider ?? qProvider ?? 'cloudinary';
     return this.uploadService.upload(file, 'image', provider, folder);
   }
 
@@ -44,7 +44,7 @@ export class UploadController {
     @Body('provider') bProvider?: string,
     @Body('folder') folder?: string,
   ) {
-    const provider = bProvider ?? qProvider ?? 'vercel';
+    const provider = bProvider ?? qProvider ?? 'cloudinary';
     return this.uploadService.upload(file, 'audio', provider, folder);
   }
 
@@ -61,7 +61,7 @@ export class UploadController {
     @Body('provider') bProvider?: string,
     @Body('folder') folder?: string,
   ) {
-    const provider = bProvider ?? qProvider ?? 'vercel';
+    const provider = bProvider ?? qProvider ?? 'cloudinary';
     return this.uploadService.upload(file, 'video', provider, folder);
   }
 
@@ -79,7 +79,7 @@ export class UploadController {
     @Body('folder') folder?: string,
     @Body() fullBody?: any,
   ) {
-    const provider = bProvider ?? qProvider ?? 'vercel';
+    const provider = bProvider ?? qProvider ?? 'cloudinary';
     return this.uploadService.upload(file, 'document', provider, folder);
   }
 
@@ -91,7 +91,7 @@ export class UploadController {
   @ApiQuery({ name: 'type', enum: ['image', 'audio', 'video', 'document'], required: false })
   @ApiQuery({ name: 'prefix', required: false })
   listBlobs(
-    @Query('provider') provider = 'vercel',
+    @Query('provider') provider = 'cloudinary',
     @Query('type') type?: string,
     @Query('prefix') prefix?: string,
   ) {
@@ -105,7 +105,7 @@ export class UploadController {
   @ApiBody({ schema: { type: 'object', properties: { url: { type: 'string' }, provider: { type: 'string', enum: ['vercel', 'cloudinary'] } } } })
   delete(
     @Body('url') url: string,
-    @Body('provider') provider = 'vercel',
+    @Body('provider') provider = 'cloudinary',
   ) {
     return this.uploadService.delete(url, provider);
   }
