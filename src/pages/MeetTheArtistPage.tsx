@@ -623,7 +623,7 @@ const MeetTheArtistPage: React.FC = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="max-w-2xl mx-auto relative h-14 shadow-lg"
+            className="max-w-2xl mx-auto relative h-14 shadow-lg rounded-full"
           >
             <span className="absolute left-5 top-1/2 -translate-y-1/2 text-[#a89080]">
               <IconSearch />
