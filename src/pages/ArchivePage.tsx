@@ -42,7 +42,6 @@ const ArchivePage: React.FC = () => {
   const [archiveItems, setArchiveItems] = useState<ArchiveItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isDashboardFullscreen, setIsDashboardFullscreen] = useState(false);
-  const [hasAutoTriggered, setHasAutoTriggered] = useState(false);
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -115,29 +114,6 @@ const ArchivePage: React.FC = () => {
     }
     return pages;
   };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // Trigger fullscreen when scrolling down past 350px
-      if (!isDashboardFullscreen && !hasAutoTriggered && window.scrollY > 350) {
-        setHasAutoTriggered(true);
-        setIsDashboardFullscreen(true);
-      } 
-      // Re-arm trigger when successfully scrolled back to the absolute top
-      else if (hasAutoTriggered && window.scrollY < 200) {
-        setHasAutoTriggered(false);
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isDashboardFullscreen, hasAutoTriggered]);
-
-  const handleExitFullscreen = () => {
-    setIsDashboardFullscreen(false);
-    // Smoothly scroll the master window back to top since we are using native scrolling
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
 
   return (
     <div className="min-h-screen bg-[#F7EAE5] text-[#1A1005] font-body overflow-x-hidden relative">
@@ -355,20 +331,16 @@ const ArchivePage: React.FC = () => {
                   
                   {/* Fullscreen Mode Toggle */}
                   <button
-                    onClick={isDashboardFullscreen ? handleExitFullscreen : () => setIsDashboardFullscreen(true)}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#CB460C]/20 text-[#CB460C] hover:bg-[#CB460C] hover:text-white transition-all text-[10px] font-bold uppercase tracking-widest bg-white shadow-sm"
+                    onClick={() => setIsDashboardFullscreen(!isDashboardFullscreen)}
+                    className="flex items-center gap-3 cursor-pointer group"
+                    aria-pressed={isDashboardFullscreen}
                   >
-                    {isDashboardFullscreen ? (
-                      <>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>
-                        <span>Exit Full Screen</span>
-                      </>
-                    ) : (
-                      <>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
-                        <span>Full Screen</span>
-                      </>
-                    )}
+                    <span className={`text-[10px] font-bold uppercase tracking-widest transition-colors ${isDashboardFullscreen ? 'text-[#CB460C]' : 'text-ink/60 group-hover:text-ink'}`}>
+                      Full Screen
+                    </span>
+                    <div className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 ease-in-out ${isDashboardFullscreen ? 'bg-[#CB460C]' : 'bg-[#e5d5cd]/80 border border-[#e5d5cd]'}`}>
+                      <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform duration-300 ease-in-out ${isDashboardFullscreen ? 'translate-x-6' : 'translate-x-1'}`} />
+                    </div>
                   </button>
                 </div>
               </div>
