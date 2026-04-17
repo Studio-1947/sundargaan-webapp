@@ -192,8 +192,8 @@ const ArchivePage: React.FC = () => {
             {/* Sidebar Wrapper (Full Height Styling) */}
             <div className="w-full md:w-80 border-b md:border-b-0 md:border-r border-border/10 bg-white/60 backdrop-blur-xl z-20 shrink-0 transition-all">
               {/* Sticky Content Area */}
-              <aside className={`w-full h-full md:sticky md:self-start transition-all ${isDashboardFullscreen ? 'md:top-0 md:h-screen' : 'md:top-32 md:h-[calc(100vh-8rem)]'}`}>
-                <div className="p-8 sm:p-10 md:p-14 h-full flex flex-col overflow-y-auto no-scrollbar space-y-10">
+              <aside className={`w-full md:sticky md:self-start transition-all ${isDashboardFullscreen ? 'md:top-0' : 'md:top-32'}`}>
+                <div className="p-8 sm:p-10 md:p-14 flex flex-col space-y-10">
                   {/* Clear Filters */}
                   {(activeLocation !== null || activeSubcategory !== null) && (
                     <button
