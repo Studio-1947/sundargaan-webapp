@@ -361,6 +361,7 @@ interface ArtistCardProps {
 }
 
 const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onKnowMore, index }) => {
+  const songs = artist.sampleWorks?.filter(w => w.type === 'song') || [];
 
   return (
     <motion.div
@@ -371,7 +372,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onKnowMore, i
       className="group bg-white rounded-[2rem] border border-[#e5d5cd] overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-400 flex flex-col cursor-pointer"
     >
       {/* Image */}
-      <div className="aspect-square w-full relative overflow-hidden bg-[#f0e8e4]">
+      <div className="aspect-[4/3] w-full relative overflow-hidden bg-[#f0e8e4]">
         <img
           src={artist.image}
           alt={language === 'EN' ? artist.name : artist.nameBN}
@@ -379,41 +380,75 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, language, onKnowMore, i
         />
         {/* Gradient overlay at bottom */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-
       </div>
 
       {/* Content */}
-      <div className="p-5 flex flex-col flex-1 gap-3">
-        {/* Name + category */}
+      <div className="p-5 flex flex-col flex-1 gap-4">
+        {/* Name + Title Row */}
         <div>
           <h3 className="text-2xl font-display text-[#1a1005] leading-tight mb-1">
             {language === 'EN' ? artist.name : artist.nameBN}
           </h3>
-
+          <p className="text-[10px] uppercase tracking-widest font-bold text-[#CB460C]">
+            {language === 'EN' 
+              ? ARTIST_CATEGORIES.find(c => c.id === artist.category)?.en || artist.category
+              : ARTIST_CATEGORIES.find(c => c.id === artist.category)?.bn || artist.category}
+          </p>
         </div>
 
-        <div className="mt-auto">
-          {/* Location details */}
-          <div className="flex items-center gap-2 px-1 text-[11px] text-[#6b5b4f] font-body">
-            <span className="text-[#CB460C] shrink-0"><IconPin /></span>
-            <span className="truncate">
-              {language === 'EN'
-                ? Array.from(new Set([artist.village, artist.post])).filter(Boolean).join(', ')
-                : Array.from(new Set([artist.villageBN, artist.postBN])).filter(Boolean).join(', ')
-              }
-            </span>
+        {/* Location Details */}
+        <div className="space-y-1.5 pt-1">
+          <div className="flex items-start gap-2 text-[11px] text-[#6b5b4f] font-body">
+            <span className="text-[#CB460C] shrink-0 mt-0.5"><IconPin /></span>
+            <div className="flex flex-col">
+              <span className="font-bold text-[#CB460C] uppercase tracking-wider text-[9px]">
+                {artist.block} Block
+              </span>
+              <p className="line-clamp-1 leading-normal">
+                {language === 'EN' ? artist.address : artist.addressBN}
+              </p>
+            </div>
           </div>
         </div>
 
-
+        {/* Featured Songs List */}
+        {songs.length > 0 && (
+          <div className="pt-3 border-t border-[#f0e8e4]">
+            <div className="flex items-center gap-2 text-[9px] uppercase tracking-[0.2em] font-bold text-[#a89080] mb-2.5">
+              <IconMusic />
+              <span>{language === 'EN' ? 'Featured Songs' : 'গান'}</span>
+            </div>
+            <div className="space-y-2">
+              {songs.slice(0, 2).map((song, i) => (
+                <div key={i} className="flex items-center justify-between group/song">
+                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#CB460C]/20 group-hover/song:bg-[#CB460C] transition-colors shrink-0" />
+                    <span className="text-xs text-[#4a3b33] font-medium truncate group-hover/song:text-[#CB460C] transition-colors">
+                      {language === 'EN' ? song.title : song.titleBN}
+                    </span>
+                  </div>
+                  {song.duration && (
+                    <span className="text-[10px] text-[#a89080] font-mono shrink-0 ml-2">{song.duration}</span>
+                  )}
+                </div>
+              ))}
+              {songs.length > 2 && (
+                <div className="text-[10px] text-[#a89080] italic pl-3.5">
+                  + {songs.length - 2} {language === 'EN' ? 'more recorded' : 'আরও রেকর্ড করা আছে'}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Action buttons */}
         <div className="flex pt-2 mt-auto">
           <button
             onClick={(e) => { e.stopPropagation(); onKnowMore(artist); }}
-            className="w-full border border-[#CB460C] text-[#CB460C] py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#F7EAE5] transition-all active:scale-95"
+            className="w-full border border-[#CB460C] text-[#CB460C] py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#F7EAE5] transition-all active:scale-95 flex items-center justify-center gap-2"
           >
             {language === 'EN' ? 'Know More' : 'আরও জানুন'}
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </button>
         </div>
       </div>
