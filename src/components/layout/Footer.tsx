@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Logo from '../ui/Logo'
 import Button from '../ui/Button'
 import { useLanguage } from '../../context/LanguageContext'
@@ -36,8 +37,8 @@ const Footer: React.FC = () => {
       title: t('footer.nav'),
       links: [
         { label: t('nav.about'), href: '/about' },
-        { label: t('nav.archive'), href: '#archive' },
-        { label: t('nav.artists'), href: '#artists' },
+        { label: t('nav.archive'), href: '/archive' },
+        { label: t('nav.artists'), href: '/artists' },
         { label: t('nav.impact'), href: '/impact' },
       ],
     },
@@ -67,13 +68,15 @@ const Footer: React.FC = () => {
           
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-6">
-            <Logo variant="color" height={72} />
+            <Link to="/" className="inline-block transition-opacity hover:opacity-80">
+              <Logo variant="color" height={72} />
+            </Link>
             <p className="font-body text-[#6b5b4f] max-w-sm leading-relaxed">
               {t('footer.brand')}
             </p>
             <div className="flex gap-4">
               {[
-                { name: 'Instagram', icon: <IconInstagram />, href: '#' },
+                { name: 'Instagram', icon: <IconInstagram />, href: 'https://www.instagram.com/sundargaan2025/' },
                 { name: 'Facebook', icon: <IconFacebook />, href: '#' },
                 { name: 'YouTube', icon: <IconYouTube />, href: '#' },
                 { name: 'X', icon: <IconX />, href: '#' },
@@ -81,6 +84,8 @@ const Footer: React.FC = () => {
                 <a 
                   key={social.name} 
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-12 h-12 rounded-full border border-[#e5d5cd] flex items-center justify-center text-[#6b5b4f] hover:bg-[#CB460C] hover:text-white hover:border-[#CB460C] transition-all duration-300 bg-white/50"
                   aria-label={social.name}
                 >
@@ -99,12 +104,21 @@ const Footer: React.FC = () => {
               <ul className="space-y-4">
                 {section.links.map((link) => (
                   <li key={link.label}>
-                    <a 
-                      href={link.href} 
-                      className="font-body text-[#6b5b4f] hover:text-[#CB460C] transition-colors duration-200 text-sm"
-                    >
-                      {link.label}
-                    </a>
+                    {link.href.startsWith('/') ? (
+                      <Link 
+                        to={link.href} 
+                        className="font-body text-[#6b5b4f] hover:text-[#CB460C] transition-colors duration-200 text-sm"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <a 
+                        href={link.href} 
+                        className="font-body text-[#6b5b4f] hover:text-[#CB460C] transition-colors duration-200 text-sm"
+                      >
+                        {link.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
