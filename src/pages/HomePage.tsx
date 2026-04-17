@@ -199,10 +199,10 @@ const HomePage: React.FC = () => {
 
           <div className="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-8 md:gap-10">
             {[
-              { val: t('impact.stat1.val'), label: t('impact.stat1.label') },
-              { val: t('impact.stat2.val'), label: t('impact.stat2.label') },
-              { val: t('impact.stat3.val'), label: t('impact.stat3.label') },
-              { val: t('impact.stat4.val'), label: t('impact.stat4.label') },
+              { val: '100+', label: language === 'EN' ? 'Songs' : 'গান' },
+              { val: '30+', label: language === 'EN' ? 'Artists' : 'শিল্পী' },
+              { val: '9+', label: language === 'EN' ? 'Villages' : 'গ্রাম' },
+              { val: '5+', label: language === 'EN' ? 'Genres' : 'ঘরানা' },
             ].map((stat, i) => (
               <div key={i} className="space-y-2 md:space-y-4 text-center lg:text-left">
                 <span className="block font-display font-normal text-4xl sm:text-5xl md:text-6xl text-[#CB460C]">
