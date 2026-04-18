@@ -649,9 +649,20 @@ const MeetTheArtistPage: React.FC = () => {
             transition={{ delay: 0.3 }}
             className="flex flex-wrap items-center justify-center gap-4 md:gap-8 mt-8 text-sm text-[#a89080]"
           >
-            <span><strong className="text-[#1a1005]">{artists.length}</strong> {language === 'EN' ? 'Artists' : 'শিল্পী'}</span>
-            <span className="w-px h-4 bg-[#e5d5cd]" />
-            <span><strong className="text-[#1a1005]">{ARTIST_CATEGORIES.length}</strong> {language === 'EN' ? 'Art Forms' : 'শিল্পরূপ'}</span>
+            {isLoading ? (
+              <div className="flex items-center gap-2">
+                <div className="w-12 h-4 bg-[#F7EAE5] rounded animate-pulse" />
+                <span className="text-[10px] uppercase tracking-widest opacity-60">
+                  {language === 'EN' ? 'Loading Artists...' : 'শিল্পী লোড হচ্ছে...'}
+                </span>
+              </div>
+            ) : (
+              <>
+                <span><strong className="text-[#1a1005]">{artists.length}</strong> {language === 'EN' ? 'Artists' : 'শিল্পী'}</span>
+                <span className="w-px h-4 bg-[#e5d5cd]" />
+                <span><strong className="text-[#1a1005]">{ARTIST_CATEGORIES.length}</strong> {language === 'EN' ? 'Art Forms' : 'শিল্পরূপ'}</span>
+              </>
+            )}
           </motion.div>
         </div>
       </section>
