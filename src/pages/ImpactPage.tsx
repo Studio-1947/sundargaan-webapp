@@ -5,6 +5,31 @@ import PremiumSundargaanText from '../components/ui/PremiumSundargaanText'
 import Button from '../components/ui/Button'
 import groupPhoto from '../assets/impact_page-.jpeg'
 
+// ——— Icons ———
+const IconHeart = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+  </svg>
+)
+
+const IconYoutube = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+  </svg>
+)
+
+const IconSpotify = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 0C5.378 0 0 5.378 0 12c0 6.627 5.378 12 12 12 6.627 0 12-5.373 12-12 0-6.622-5.373-12-12-12zm5.502 17.31c-.215.352-.674.463-1.025.248-2.85-1.742-6.438-2.136-10.666-1.17-.4.092-.796-.157-.887-.557-.092-.4.157-.796.557-.887 4.629-1.059 8.59-.61 11.77 1.336.353.215.464.673.25 1.025zm1.47-3.258c-.27.44-.848.58-1.288.31-3.262-2.003-8.23-2.585-12.087-1.415-.497.15-1.022-.13-1.173-.627-.152-.497.13-1.022.627-1.173 4.407-1.337 9.887-.69 13.623 1.605.439.27.579.848.309 1.288l-.01.012zm.126-3.39c-3.913-2.325-10.366-2.538-14.137-1.393-.601.183-1.238-.166-1.42-.767-.183-.601.166-1.238.767-1.42 4.316-1.31 11.438-1.066 15.955 1.618.54.32.714 1.018.393 1.558-.321.54-1.019.714-1.558.404z" />
+  </svg>
+)
+
+const IconFestival = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M2.5 19h19" /><path d="M5 19V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v14" /><path d="M9 19v-4a3 3 0 0 1 6 0v4" />
+  </svg>
+)
+
 const ImpactPage: React.FC = () => {
   const { t } = useLanguage()
   const containerRef = useRef<HTMLDivElement>(null)
@@ -131,10 +156,10 @@ const ImpactPage: React.FC = () => {
             <div className="space-y-10 lg:space-y-16 lg:pt-12 relative z-20">
               <h3 className="font-display text-xl md:text-2xl text-[#1a1005]/40 uppercase tracking-widest text-center lg:text-left mb-8">Revenue Sources</h3>
               {[
-                { id: 'contribution', label: t('impact.flow.source.contribution'), color: 'bg-[#CB460C]' },
-                { id: 'youtube', label: t('impact.flow.source.youtube'), color: 'bg-[#FF0000]' },
-                { id: 'spotify', label: t('impact.flow.source.spotify'), color: 'bg-[#1DB954]' },
-                { id: 'festival', label: t('impact.flow.source.festival'), color: 'bg-brand-3' },
+                { id: 'contribution', label: t('impact.flow.source.contribution'), color: 'bg-[#CB460C]', Icon: IconHeart },
+                { id: 'youtube', label: t('impact.flow.source.youtube'), color: 'bg-[#FF0000]', Icon: IconYoutube },
+                { id: 'spotify', label: t('impact.flow.source.spotify'), color: 'bg-[#1DB954]', Icon: IconSpotify },
+                { id: 'festival', label: t('impact.flow.source.festival'), color: 'bg-[#1a1005]', Icon: IconFestival },
               ].map((src, i) => (
                 <motion.div
                   key={src.id}
@@ -145,8 +170,8 @@ const ImpactPage: React.FC = () => {
                   transition={{ delay: i * 0.1 }}
                   className="flex items-center gap-4 md:gap-6 group"
                 >
-                  <div className={`flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-full ${src.color} flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-500`}>
-                    <div className="w-12 h-12 rounded-full border-2 border-white/20 animate-pulse" />
+                  <div className={`flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-full ${src.color} flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-500 text-white`}>
+                    <src.Icon />
                   </div>
                   <span className="font-display text-xl text-[#1a1005] drop-shadow-sm">{src.label}</span>
                 </motion.div>
