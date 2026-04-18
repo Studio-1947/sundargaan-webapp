@@ -24,7 +24,7 @@ const HomePage: React.FC = () => {
         {/* Background Decorative Gradient */}
         <div className="absolute top-0 right-0 w-[60%] h-full bg-gradient-to-l from-[#F7EAE5] to-transparent z-0 opacity-40" />
 
-        <div className="w-full max-w-screen-xl mx-auto px-6 md:px-10 relative z-10">
+        <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-10 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-10 items-center">
             {/* Content Left */}
             <div className="max-w-4xl">
@@ -83,7 +83,7 @@ const HomePage: React.FC = () => {
 
       {/* Section 2: The Living Archive */}
       <section id="archive" className="px-6 md:px-10 py-16 md:py-24">
-        <div className="max-w-screen-xl mx-auto">
+        <div className="max-w-screen-2xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16">
             <div className="space-y-4 md:space-y-6 max-w-2xl">
               <h2 className="font-display font-normal text-4xl sm:text-5xl md:text-6xl text-[#1a1005] tracking-tight">
@@ -189,7 +189,7 @@ const HomePage: React.FC = () => {
 
       {/* ——— Section 4: Our Impact (Editorial Layout) ——— */}
       <section id="impact" className="px-6 md:px-10 py-20 md:py-32">
-        <div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row items-center gap-16 md:gap-20">
+        <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row items-center gap-16 md:gap-20">
           <div className="lg:w-1/3 text-center lg:text-left">
             <h2 className="font-display font-normal text-4xl text-[#1a1005] mb-6 md:mb-8 tracking-tight">
               {t('impact.title')}
