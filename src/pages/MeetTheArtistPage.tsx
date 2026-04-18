@@ -538,8 +538,6 @@ const MeetTheArtistPage: React.FC = () => {
       const matchesSearch = !searchTerm ||
         artist.name.toLowerCase().includes(q) ||
         artist.nameBN.includes(searchTerm) ||
-        artist.famousSong.toLowerCase().includes(q) ||
-        artist.famousSongBN.includes(searchTerm) ||
         artist.address.toLowerCase().includes(q);
       const matchesBlock = selectedBlock ? artist.block === selectedBlock : true;
       const matchesAddress = selectedAddress ? artist.address === selectedAddress : true;
@@ -976,18 +974,7 @@ const MeetTheArtistPage: React.FC = () => {
                       {language === 'EN' ? selectedArtist.description : selectedArtist.descriptionBN}
                     </p>
 
-                    {/* Famous song */}
-                    <div className="bg-[#F7EAE5]/60 rounded-xl p-5 flex items-center gap-4 border border-[#e5d5cd]">
-                      <div className="w-10 h-10 rounded-full bg-[#CB460C] flex items-center justify-center text-white shrink-0">
-                        <IconMusic />
-                      </div>
-                      <div>
-                        <p className="text-[10px] uppercase tracking-widest text-[#a89080] font-bold">{t('artist.card.famousSong')}</p>
-                        <p className="font-display text-lg text-[#1a1005]">
-                          {language === 'EN' ? selectedArtist.famousSong : selectedArtist.famousSongBN}
-                        </p>
-                      </div>
-                    </div>
+
 
                     {/* Portfolio Section merged into About */}
                     {selectedArtist.sampleWorks.length > 0 && (
