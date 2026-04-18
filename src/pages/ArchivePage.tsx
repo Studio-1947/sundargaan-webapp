@@ -4,6 +4,8 @@ import { ARCHIVE_CATEGORIES, MOCK_ARCHIVE_ITEMS, ArchiveItem } from '../data/arc
 import { ARTIST_CATEGORIES } from '../data/artistData';
 import logoCol from '../assets/sundargaan_logo_col.svg';
 import { getArchiveItems, getArchiveFilters } from '../api/archive';
+import Skeleton from '../components/ui/Skeleton';
+
 
 import malePlaceholder from '../assets/thumbnails/Thumbnail_1_male.jpeg';
 import femalePlaceholder from '../assets/thumbnails/Thumbnail_2_female.jpeg';
@@ -348,7 +350,13 @@ const ArchivePage: React.FC = () => {
               {isLoading ? (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8">
                   {[...Array(8)].map((_, i) => (
-                    <div key={i} className="aspect-square bg-white rounded-[1.5rem] sm:rounded-[2rem] animate-pulse border border-border/40" />
+                    <div key={i} className="space-y-4">
+                      <Skeleton className="aspect-[3/4] rounded-[2rem]" />
+                      <div className="space-y-2 px-2">
+                        <Skeleton className="h-4 w-2/3" />
+                        <Skeleton className="h-3 w-1/2" />
+                      </div>
+                    </div>
                   ))}
                 </div>
               ) : (

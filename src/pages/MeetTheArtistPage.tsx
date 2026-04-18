@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { MOCK_ARTISTS, ARTIST_BLOCKS, ARTIST_CATEGORIES, Artist, SampleWork } from '../data/artistData';
 import { getArtists } from '../api/artists';
+import Skeleton from '../components/ui/Skeleton';
+
 
 // ─── Icon helpers ────────────────────────────────────────────────────────────
 
@@ -651,7 +653,7 @@ const MeetTheArtistPage: React.FC = () => {
           >
             {isLoading ? (
               <div className="flex items-center gap-2">
-                <div className="w-12 h-4 bg-[#F7EAE5] rounded animate-pulse" />
+                <Skeleton className="w-12 h-4" />
                 <span className="text-[10px] uppercase tracking-widest opacity-60">
                   {language === 'EN' ? 'Loading Artists...' : 'শিল্পী লোড হচ্ছে...'}
                 </span>
@@ -802,13 +804,16 @@ const MeetTheArtistPage: React.FC = () => {
           {isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-7">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="rounded-[2rem] border border-[#e5d5cd] overflow-hidden bg-white animate-pulse">
-                  <div className="aspect-square w-full bg-[#f0e8e4]" />
-                  <div className="p-7 space-y-3">
-                    <div className="h-6 bg-[#f0e8e4] rounded w-2/3" />
-                    <div className="h-4 bg-[#f0e8e4] rounded w-1/3" />
-                    <div className="h-4 bg-[#f0e8e4] rounded w-full" />
-                    <div className="h-4 bg-[#f0e8e4] rounded w-3/4" />
+                <div key={i} className="rounded-[40px] border border-[#e5d5cd] overflow-hidden bg-white">
+                  <Skeleton className="aspect-square w-full rounded-none" />
+                  <div className="p-7 space-y-4">
+                    <Skeleton className="h-6 w-2/3" />
+                    <Skeleton className="h-4 w-1/3" />
+                    <Skeleton className="h-16 w-full" />
+                    <div className="flex gap-2 pt-2">
+                       <Skeleton className="h-6 w-16 !rounded-full" />
+                       <Skeleton className="h-6 w-16 !rounded-full" />
+                    </div>
                   </div>
                 </div>
               ))}
