@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
 import PremiumSundargaanText from '../components/ui/PremiumSundargaanText'
 import Button from '../components/ui/Button'
-import impactIllustration from '../assets/impact_illustration.png'
+import groupPhoto from '../assets/impact_page-.jpeg'
 
 const ImpactPage: React.FC = () => {
   const { t } = useLanguage()
@@ -285,9 +285,9 @@ const ImpactPage: React.FC = () => {
                 className="rounded-[40px] md:rounded-[64px] overflow-hidden aspect-square bg-[#F7EAE5] border border-[#e5d5cd] flex items-center justify-center p-0 shadow-2xl relative group transition-all duration-700"
               >
                 <img 
-                  src={impactIllustration} 
+                  src={groupPhoto} 
                   alt="Sundargaan Impact" 
-                  className="w-full h-full object-cover mix-blend-multiply opacity-90 group-hover:scale-110 transition-transform duration-1000"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#CB460C]/10 to-transparent pointer-events-none" />
                 <div className="absolute inset-0 border-[20px] md:border-[40px] border-white/10 pointer-events-none" />

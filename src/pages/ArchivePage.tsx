@@ -489,7 +489,6 @@ const ArchivePage: React.FC = () => {
 
                     <div className="flex-1 space-y-10">
                       <div className="space-y-4">
-                        <span className="text-[10px] text-brand-primary uppercase tracking-[0.4em] font-bold">Documented Heritage</span>
                         <h2 className="text-4xl sm:text-6xl font-display font-light text-ink leading-tight">
                           {selectedItem.title}
                         </h2>
@@ -498,7 +497,7 @@ const ArchivePage: React.FC = () => {
                       <div className="grid grid-cols-2 gap-y-10 py-10 border-y border-border/20">
                         <div className="space-y-2">
                           <span className="text-[10px] text-ink-subtle uppercase tracking-widest font-bold">Archive ID</span>
-                          <p className="text-base font-medium text-ink">#SG-{selectedItem.id.toUpperCase()}</p>
+                          <p className="text-base font-medium text-ink">SG{selectedItem.id.replace(/-/g, '').slice(0, 4).toUpperCase()}</p>
                         </div>
                         <div className="space-y-2">
                           <span className="text-[10px] text-ink-subtle uppercase tracking-widest font-bold">Category</span>
